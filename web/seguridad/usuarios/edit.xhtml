@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <ui:param name="bean" value="#{usuarioBean}" />
+        <title>#{bean.winTitle} Usuario</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:messages autoUpdate="true" closable="true" />
+            <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
+
+                <p:outputLabel value="Empleado"  />
+                <p:selectOneMenu value="#{bean.usuario.empleado}" converter="entityConverter" disabled="#{bean.accion!='1'}">
+                    <f:selectItems var="empleado" value="#{bean.empleados}" itemLabel="#{empleado.apellido}, #{empleado.nombre}" itemValue="#{empleado}" />
+                </p:selectOneMenu>
+                <p:outputLabel value="Rol"  />
+                <p:selectOneMenu value="#{bean.usuario.rol}" converter="entityConverter">
+                    <f:selectItems var="rol" value="#{bean.roles}" itemLabel="#{rol.nombre}" itemValue="#{rol}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Usuario" for="usuario" />
+                <p:inputText required="true" id="usuario" value="#{bean.usuario.usuario}" />
+
+                <p:outputLabel value="Contraseña"  for="clave" />
+                <p:password required="true" id="clave" value="#{bean.usuario.clave}"  />
+
+
+
+            </p:panelGrid>
+            <p:separator style="width: 100%" />
+
+            <p:commandButton value="Guardar" actionListener="#{bean.onSave()}" update=""/>
+            <p:commandButton value="Cancelar" actionListener="#{bean.onCancel()}" immediate="true"/>
+
+        </h:form>
+    </h:body>
+</html>
+

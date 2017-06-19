@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title><ui:insert name="title">Sistema de control de equivalencias</ui:insert></title>
+        <style>
+            @media (min-width: 800px) {
+                .layout_central{
+                    padding-left: 10%;
+                    padding-right: 10%;
+                }
+            }
+            .ui-widget-content{
+                /*border: none;*/
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:outputStylesheet library="css" name="layout.css" />
+        <p:layout fullPage="true">
+
+            <p:layoutUnit  class="layout_central" style="border: none" position="north" size="60"  resizable="true" closable="true" collapsible="true">
+                <ui:include src="header.xhtml" />
+            </p:layoutUnit>
+
+            <p:layoutUnit class="layout_central" position="south" size="50" resizable="true" closable="true" collapsible="true" style="border: 0px;text-align: center">
+                <h:outputText value="Derechos reservados - Escuela de Sistema Informáticos - Facultad de Ingeniería y Arquitectura - Universidad de El Salvador" style="text-align: right"/>
+            </p:layoutUnit>
+
+            <p:layoutUnit position="center" class="layout_central" style="border:0px">
+                <ui:insert name="content">
+                </ui:insert>
+            </p:layoutUnit>
+
+        </p:layout>
+        <p:dialog widgetVar="statusDialog" modal="false" draggable="false" header="Por favor espere"
+                  closable="false" resizable="false" showHeader="false" >
+            <p:graphicImage value="/imgs/ajaxloadingbar.gif" />
+        </p:dialog>
+    </h:body>
+</html>

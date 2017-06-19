@@ -2,113 +2,58 @@ package sv.edu.ues.fca.siammat.servicios;
 
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Session;
-import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.SessionFactory;
-import org.hibernate.internal.SessionFactoryImpl;
 
 /**
- * Servicio con los métodos basicos para el manejo de entidades
- *
  *
  * @author galicia
  */
-public class GenericService {
-
-    private static SessionFactory sessionFactory;
-
-    public GenericService() {
-        sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-    }
-
-    public void save(Serializable entidad) {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        session.saveOrUpdate(entidad);
-        session.getTransaction().commit();
-    }
+public interface GenericService {
+    
+    public void save(Serializable entidad);
 
     /**
      * Elimina la entidad
      *
      * @param entidad
      */
-    public void remove(Serializable entidad) {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        session.delete(entidad);
-        session.getTransaction().commit();
-    }
+    public void remove(Serializable entidad);
 
     /**
      * Elimina una lista de entidades
      *
      * @param entidades
      */
-    public void remove(List entidades) {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        for (Object object : entidades) {
-            session.delete(object);
-        }
-        session.getTransaction().commit();
-    }
+    public void remove(List entidades);
 
     /**
      * Refresca el objeto a su estado original
      *
      * @param entidad
      */
-    public void refresh(Serializable entidad) {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        session.refresh(entidad);
-        session.getTransaction().commit();
-    }
+    public void refresh(Serializable entidad);
 
     /**
      * Guarda una lista de entidades
      *
      * @param entidades Lista de entidades a guardar
      */
-    public void save(List entidades) {
-        Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        for (Object object : entidades) {
-            session.saveOrUpdate(object);
-        }
-        session.getTransaction().commit();
-    }
+    public void save(List entidades);
 
     /**
      *
      * @param hql Consulta en formato hql
      * @return lista de registros
      */
-    public List find(String hql) {
-        List lista = new ArrayList();
-        Session session = getSessionFactory().getCurrentSession();
-        session.beginTransaction();
-        lista = session.createQuery(hql).list();
-        session.getTransaction().commit();
-        return lista;
-    }
+    public List find(String hql);
 
     /**
      *
      * @return La conexion activa manejada por hibernate
      * @throws SQLException
      */
-    public Connection getConexion() throws SQLException {
-        SessionFactoryImpl factoryImpl = (SessionFactoryImpl) getSessionFactory();
-        return factoryImpl.getConnectionProvider().getConnection();
-    }
+    public Connection getConexion();
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
+    public Object getSingle(String query) ;
 
 }

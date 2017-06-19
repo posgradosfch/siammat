@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="SIAMMATPU" transaction-type="RESOURCE_LOCAL">
+    <!--provider>org.eclipse.persistence.jpa.PersistenceProvider</provider-->
+     <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <class>sv.edu.ues.fca.siammat.seguridad.modelo.Recurso</class>
+    <class>sv.edu.ues.fca.siammat.seguridad.modelo.Privilegio</class>
+    <class>sv.edu.ues.fca.siammat.seguridad.modelo.Usuario</class>
+    <class>sv.edu.ues.fca.siammat.seguridad.modelo.Rol</class>
+    <class>sv.edu.ues.fca.siammat.seguridad.modelo.Empleado</class>
+    <class>sv.edu.ues.fca.siammat.seguridad.modelo.Cargo</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/siammat"/>
+      <property name="javax.persistence.jdbc.user" value="postgres"/>
+      <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="postgres"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="hibernate.connection.autocommit" value="true" />
+            <property name="hibernate.show_sql" value="true"/>
+            <!-- Pool properties -->
+            <property name="minPoolSize" value="5" />
+            <property name="maxPoolSize" value="20" />
+            <property name="acquireIncrement" value="1" />
+            <property name="maxStatements" value="50" />
+            <property name="idleConnectionTestPeriod" value="3000" />
+            <property name="loginTimeout" value="300" />
+    </properties>
+  </persistence-unit>
+</persistence>
