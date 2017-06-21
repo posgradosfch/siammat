@@ -8,7 +8,7 @@
         <p:menubar model="#{loginBean.menu}">
             <f:facet name="options">
                 <p:outputPanel rendered="#{loginBean.userLogged}">
-                    <h:outputText style="margin-right:15px" value="Hola, #{loginBean.usuario.usuario}."/>
+                    <h:outputText style="margin-right:15px" value="Hola, #{loginBean.usuario.empleado.nombre}."/>
                     <p:commandButton value="Salir" icon="ui-icon-gear" actionListener="#{loginBean.onLogOut()}" ajax="false"/>
                 </p:outputPanel>
             </f:facet>
