@@ -2,86 +2,39 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="/WEB-INF/templates/layout.xhtml"
+
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:define name="content">
 
-        <script type="text/javascript">
-            function initDND() {
-                $('.ui-treenode-leaf').draggable({
-                    helper: 'clone',
-                    scope: 'treetotable',
-                    zIndex: ++PrimeFaces.zindex
-                });
-
-                $('.ui-datatable .droppoint').droppable({
-                    activeClass: 'ui-state-active',
-                    hoverClass: 'ui-state-highlight',
-                    tolerance: 'pointer',
-                    scope: 'treetotable',
-                    drop: function (event, ui) {
-                        var property = ui.draggable.find('.ui-treenode-label').text(),
-                                droppedColumnId = $(this).parents('th:first').attr('id'),
-                                dropPos = $(this).hasClass('dropleft') ? 0 : 1;
-
-                        treeToTable([
-                            {name: 'property', value: property}
-                            , {name: 'droppedColumnId', value: droppedColumnId}
-                            , {name: 'dropPos', value: dropPos}
-                        ]);
-                    }
-                });
-
-                $('.ui-datatable th').draggable({
-                    scope: 'tabletotree',
-                    helper: function () {
-                        var th = $(this);
-
-                        return th.clone().appendTo(document.body).css('width', th.width());
-                    }
-                });
-
-                $('.ui-tree').droppable({
-                    helper: 'clone',
-                    scope: 'tabletotree',
-                    activeClass: 'ui-state-active',
-                    hoverClass: 'ui-state-highlight',
-                    tolerance: 'touch',
-                    drop: function (event, ui) {
-                        tableToTree([
-                            {name: 'colIndex', value: ui.draggable.index()}
-                        ]);
-                    }
-                });
-            }
-
-            $(function () {
-                initDND();
-            });
-        </script>
-
-        <ui:param name="bean" value="#{privilegioListBean}" />
         <h:form id="frm">
-            <p:remoteCommand name="treeToTable" actionListener="#{privilegioListBean.treeToTable}" update="tree lst" oncomplete="initDND()"/>
-            <p:remoteCommand name="tableToTree" actionListener="#{privilegioListBean.tableToTree}" update="tree lst" oncomplete="initDND()"/>
-
-
+            <ui:param name="bean" value="#{privilegioListBean}" />
             <p:panel header="Gestión de Privilegios">
 
-                <p:tree id="tree" value="#{privilegioListBean.recursos}" var="column" style="margin-bottom:20px">
-                    <p:treeNode>
-                        <h:outputText value="#{column}" />
-                    </p:treeNode>
-
-                    <p:treeNode type="column" icon="ui-icon-grip-dotted-vertical">
-                        <h:outputText value="#{column.descripcion}" />
-                    </p:treeNode>
-                </p:tree>
-
+                <!--p:panelGrid columns="2" columnClasses="label,value" class="ui-panelgrid-blank">
+                    <p:outputLabel value="Selecione menú" />
+                    <p:selectOneMenu value="{bean.recursoPadreSelected}" converter="entityConverter"  >
+                        <f:selectItems var="rec" value="{bean.items}"  itemLabel="{rec.descripcion}" itemValue="{rec}" />
+                        <p:ajax update="recHijos"  />
+                    </p:selectOneMenu>
+                </p:panelGrid-->
+                <p:dataTable id="lst2" var="rol0" value="#{bean.items}" 
+                             rowKey="#{rol0.idRecurso}" selectionMode="single" selection="#{bean.recursoPadreSelected}">
+                    <p:ajax event="rowSelect" update="frm:recHijos" />
+                    <p:column headerText="Menu">
+                        <p:outputLabel value="#{rol0.descripcion}" />
+                    </p:column>
+                </p:dataTable>
+<br />
+                <p:dataTable id="recHijos" var="recursoHijo" value="#{bean.recursoPadreSelected.recursoList}" rowKey="#{recursoHijo.idRecurso}" selectionMode="single" selection="#{bean.recursoSelected}" >
+                    <p:column headerText="Opciones disponibles">
+                        <p:outputLabel value="#{recursoHijo.descripcion}" />
+                    </p:column>
+                </p:dataTable>
                 <!-- listado -->
                 <br />
-                <p:dataTable id="lst" var="rol" value="#{bean.roles}" selectionMode="single" selection="#{bean.rolSelected}" rowKey="#{rol.idRol}">
+                <p:dataTable id="lst" var="rol" value="#{bean.roles}" selectionMode="single"  selection="#{bean.rolSelected}" rowKey="#{rol.idRol}">
                     <p:ajax event="rowSelect" update="frm:lstPrivilegios" />
                     <p:column headerText="Nombre">
                         <p:outputLabel value="#{rol.nombre}" />
@@ -90,19 +43,24 @@
                         <p:outputLabel value="#{rol.descripcion}" />
                     </p:column>
                     <p:column headerText="+" style="width: 30px">
-                        <h:outputText style="float:left;display:block;height:20px;width:10px;border:0 none;" styleClass="droppoint dropleft" /> 
-                        +
-                        <h:outputText  style="float:right;display:block;height:20px;width:10px;border:0 none;" styleClass="droppoint dropright" />
+                        <p:commandButton update="lst frm:lstPrivilegios" icon="ui-icon-plus" actionListener="#{bean.onAddPrivilegio(rol)}" title="Agregar privilegio" />
                     </p:column>
                 </p:dataTable>
-                <p:dataTable id="lstPrivilegios" var="privilegio" value="#{bean.rolSelected.privilegioList}" editable="true" >
+
+                <br />
+                <p:dataTable id="lstPrivilegios" var="privilegio" value="#{bean.rolSelected.privilegioList}" editable="true" 
+                             rows="5"
+                             paginator="true" paginatorPosition="bottom"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
                     <f:facet name="header">
                         Privilegios del rol: #{bean.rolSelected.nombre}
                     </f:facet>
+                    <p:ajax event="rowEdit" listener="#{bean.onRowEdit}" update="lstPrivilegios" />
                     <p:column headerText="Nombre">
                         <p:outputLabel value="#{privilegio.recurso.descripcion}" />
                     </p:column>
-                    <p:column headerText="Insertar">
+                    <p:column headerText="Puede agregar">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{privilegio.insertar?'Si':'No'}" />
@@ -112,7 +70,7 @@
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
-                    <p:column headerText="Editar">
+                    <p:column headerText="Puede editar" >
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{privilegio.editar?'Si':'No'}" />
@@ -122,7 +80,7 @@
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
-                    <p:column headerText="Eliminar">
+                    <p:column headerText="Puede eliminar">
                         <p:cellEditor>
                             <f:facet name="output">
                                 <h:outputText value="#{privilegio.eliminar?'Si':'No'}" />
@@ -132,8 +90,14 @@
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
-                    <p:column style="width:32px">
+                    <p:column style="width: 32px" headerText="Edt">
                         <p:rowEditor />
+                    </p:column>
+                    <p:column headerText="Elm" style="width: 32px"> 
+                        <p:commandButton update="lstPrivilegios" icon="ui-icon-trash" actionListener="#{bean.onRemove(privilegio)}" title="Eliminar">
+                            <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
+                            <p:ajax update="lstPrivilegios" event="dialogReturn" />
+                        </p:commandButton>
                     </p:column>
                 </p:dataTable>
             </p:panel>

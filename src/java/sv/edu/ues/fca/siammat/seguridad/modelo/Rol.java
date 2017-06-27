@@ -105,9 +105,9 @@ public class Rol implements Serializable {
             return false;
         }
         Rol other = (Rol) object;
-        if ((this.idRol == null && other.idRol != null) || (this.idRol != null && !this.idRol.equals(other.idRol))) {
-            return false;
-        }
+//        if ((this.idRol == null && other.idRol != null) || (this.idRol != null && !this.idRol.equals(other.idRol))) {
+//            return false;
+//        }
         return true;
     }
 

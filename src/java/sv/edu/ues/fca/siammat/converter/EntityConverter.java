@@ -2,6 +2,8 @@ package sv.edu.ues.fca.siammat.converter;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItems;
 import javax.faces.context.FacesContext;
@@ -9,7 +11,6 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import net.sf.ehcache.hibernate.management.impl.BeanUtils;
 import org.hibernate.proxy.HibernateProxy;
-
 @FacesConverter("entityConverter")
 public class EntityConverter implements Converter {
 

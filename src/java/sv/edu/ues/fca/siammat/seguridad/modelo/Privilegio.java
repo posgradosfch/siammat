@@ -38,13 +38,13 @@ public class Privilegio implements Serializable {
     private Integer idPrivilegio;
     @Column(name = "insertar", columnDefinition = "smallint")
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean insertar;
+    private Boolean insertar=false;
     @Column(name = "eliminar", columnDefinition = "smallint")
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean eliminar;
+    private Boolean eliminar=false;
     @Column(name = "editar", columnDefinition = "smallint")
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean editar;
+    private Boolean editar=false;
     @JoinColumn(name = "id_recurso", referencedColumnName = "id_recurso")
     @ManyToOne(fetch = FetchType.LAZY)
     private Recurso recurso;

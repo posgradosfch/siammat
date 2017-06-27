@@ -54,9 +54,9 @@ public class LoginBean extends ListBaseBean {
     }
 
     private void crearMenu() {
-       
+       getBasicService().refresh(usuario.getRol());
         List<Privilegio> padres = usuario.getRol().getPrivilegioList();
-
+        
         menu = new DefaultMenuModel();
 
         for (Privilegio privilegio : padres) {

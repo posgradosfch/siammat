@@ -19,7 +19,7 @@
                 </p:panelGrid>
                 <br />
                 <!-- listado -->
-                <p:dataTable id="lst" var="usuario" value="#{bean.items}">
+                <p:dataTable id="lst" var="usuario" value="#{bean.items}" rowKey="#{usuario.idUsuario}">
                     <p:column headerText="Nombre">
                         <p:outputLabel value="#{usuario.empleado.nombre}" />
                     </p:column>

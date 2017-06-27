@@ -11,6 +11,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import sv.edu.ues.fca.siammat.beans.ListBaseBean;
 import sv.edu.ues.fca.siammat.beans.ListBaseBean;
+import sv.edu.ues.fca.siammat.modelo.Maquinaria;
 import sv.edu.ues.fca.siammat.seguridad.modelo.Rol;
 
 /**

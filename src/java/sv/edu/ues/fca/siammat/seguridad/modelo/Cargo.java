@@ -18,6 +18,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.Hibernate;
 
 /**
  *
@@ -95,9 +96,9 @@ public class Cargo implements Serializable {
             return false;
         }
         Cargo other = (Cargo) object;
-        if ((this.idCargo == null && other.idCargo != null) || (this.idCargo != null && !this.idCargo.equals(other.idCargo))) {
-            return false;
-        }
+//        if ((this.idCargo == null && other.idCargo != null) || (this.idCargo != null && !this.idCargo.equals(other.idCargo))) {
+//            return false;
+//        }
         return true;
     }
 

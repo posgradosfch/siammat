@@ -55,10 +55,7 @@ public abstract class ListBaseBean implements Serializable {
     }
 
     public void onSearch() {
-        String query = setupQuery();
-        if (query == null) {
-            return;
-        }
+        
         items = this.getBasicService().find(setupQuery());
         if (items == null || items.isEmpty()) {
             Util.addMessage(FacesMessage.SEVERITY_INFO, "No se encontraron registros", "");
