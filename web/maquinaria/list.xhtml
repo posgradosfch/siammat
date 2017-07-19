@@ -21,7 +21,8 @@
                 <br />
                 <p:panelGrid><!--Botones -->
                     <p:commandButton value="Buscar" icon="ui-icon-search" actionListener="#{bean.onSearch()}" update="lst" validateClient="false"/>
-                    <p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}" />
+                    <p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{bean.onNew()}"/>
+                    <!--<p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}" />-->
                     <p:commandButton value="Limpiar"  icon="ui-icon-refresh"/>
                 </p:panelGrid>
                 <br />

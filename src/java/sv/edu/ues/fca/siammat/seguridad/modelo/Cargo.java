@@ -40,6 +40,8 @@ public class Cargo implements Serializable {
     private String nombre;
     @Column(name = "descripcion")
     private String descripcion;
+    @Column(name = "rango")
+    private String rango;
     @OneToMany(mappedBy = "cargo", fetch = FetchType.LAZY)
     private List<Empleado> empleadoList;
 
@@ -73,7 +75,7 @@ public class Cargo implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
+    
     public List<Empleado> getEmpleadoList() {
         return empleadoList;
     }
