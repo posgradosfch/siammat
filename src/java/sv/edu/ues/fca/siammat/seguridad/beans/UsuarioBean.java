@@ -35,7 +35,7 @@ public class UsuarioBean extends FormBaseBean {
     public boolean validate() {
 
         if (getAccion().equals("1")) {
-            Usuario u = (Usuario) getBasicService().getSingle("from Usuario u where u.empleado.idEmpleado=" + usuario.getEmpleado().getIdEmpleado());
+            Usuario u = (Usuario)  getServiceLocator().getGenericServicio().getUniqueValue("from Usuario u where u.empleado.idEmpleado=" + usuario.getEmpleado().getIdEmpleado());
             if (u != null) {
                 Util.addErrorMessage("El empleado seleccioando ya posee un usuario");
                 return false;
@@ -55,14 +55,14 @@ public class UsuarioBean extends FormBaseBean {
 
     public List<Empleado> getEmpleados() {
         if (empleados == null) {
-            empleados = getBasicService().find("from Empleado e order by e.apellido");
+            empleados =  getServiceLocator().getGenericServicio().find("from Empleado e join fetch e.cargo order by e.apellido");
         }
         return empleados;
     }
 
     public List<Rol> getRoles() {
         if (roles == null) {
-            roles = getBasicService().find("from Rol r");
+            roles =  getServiceLocator().getGenericServicio().find("from Rol r");
         }
         return roles;
     }

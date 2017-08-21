@@ -21,6 +21,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
+import sv.edu.ues.fca.siammat.seguridad.modelo.Recurso;
 /**
  *
  * @author franck
@@ -98,10 +100,15 @@ public class Actividad implements Serializable {
         if (!(object instanceof Actividad)) {
             return false;
         }
-        Actividad other = (Actividad) object;
-//        if ((this.idCargo == null && other.idCargo != null) || (this.idCargo != null && !this.idCargo.equals(other.idCargo))) {
-//            return false;
-//        }
+        Actividad other =  null;
+        if (object instanceof HibernateProxy) {
+            other = (Actividad) ((HibernateProxy) object).getHibernateLazyInitializer().getImplementation();
+        } else {
+            other = (Actividad) object;
+        }
+        if ((this.idActividad == null && other.idActividad != null) || (this.idActividad != null && !this.idActividad.equals(other.idActividad))) {
+            return false;
+        }
         return true;
     }
     

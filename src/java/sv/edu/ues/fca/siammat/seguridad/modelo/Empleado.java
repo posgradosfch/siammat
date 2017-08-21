@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import org.hibernate.proxy.HibernateProxy;
 
 /**
  *
@@ -95,10 +96,13 @@ public class Empleado implements Serializable {
         if (!(object instanceof Empleado)) {
             return false;
         }
-        Empleado other = (Empleado) object;
-        if ((this.idEmpleado == null && other.idEmpleado != null) || (this.idEmpleado != null && !this.idEmpleado.equals(other.idEmpleado))) {
-            return false;
+        Empleado other = null;
+        if (object instanceof HibernateProxy) {
+            other = (Empleado) ((HibernateProxy) object).getHibernateLazyInitializer().getImplementation();
+        } else {
+            other = (Empleado) object;
         }
+
         return true;
     }
 
@@ -106,5 +110,5 @@ public class Empleado implements Serializable {
     public String toString() {
         return "sv.edu.ues.fca.siammat.seguridad.modelo.Empleado[ idEmpleado=" + idEmpleado + " ]";
     }
-    
+
 }

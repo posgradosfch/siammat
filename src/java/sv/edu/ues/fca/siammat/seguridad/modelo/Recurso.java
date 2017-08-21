@@ -21,6 +21,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.annotations.Type;
+import org.hibernate.proxy.HibernateProxy;
 
 /**
  *
@@ -56,6 +57,10 @@ public class Recurso implements Serializable {
     private List<Privilegio> privilegioList;
 
     public Recurso() {
+    }
+    
+    public Recurso(String descripcion) {
+        this.descripcion=descripcion;
     }
 
     public Recurso(Integer idRecurso) {
@@ -93,7 +98,6 @@ public class Recurso implements Serializable {
     public void setDetalle(Boolean detalle) {
         this.detalle = detalle;
     }
-
 
     public Short getOrden() {
         return orden;
@@ -140,7 +144,13 @@ public class Recurso implements Serializable {
         if (!(object instanceof Recurso)) {
             return false;
         }
-        Recurso other = (Recurso) object;
+        Recurso other = null;
+        if (object instanceof HibernateProxy) {
+            other = (Recurso) ((HibernateProxy) object).getHibernateLazyInitializer().getImplementation();
+        } else {
+            other = (Recurso) object;
+        }
+
         if ((this.idRecurso == null && other.idRecurso != null) || (this.idRecurso != null && !this.idRecurso.equals(other.idRecurso))) {
             return false;
         }

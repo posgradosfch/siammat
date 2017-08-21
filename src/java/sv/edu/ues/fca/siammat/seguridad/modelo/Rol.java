@@ -18,6 +18,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import org.hibernate.proxy.HibernateProxy;
 
 /**
  *
@@ -104,10 +105,15 @@ public class Rol implements Serializable {
         if (!(object instanceof Rol)) {
             return false;
         }
-        Rol other = (Rol) object;
-//        if ((this.idRol == null && other.idRol != null) || (this.idRol != null && !this.idRol.equals(other.idRol))) {
-//            return false;
-//        }
+        Rol other =  null;
+        if (object instanceof HibernateProxy) {
+            other = (Rol) ((HibernateProxy) object).getHibernateLazyInitializer().getImplementation();
+        } else {
+            other = (Rol) object;
+        }
+        if ((this.idRol == null && other.idRol != null) || (this.idRol != null && !this.idRol.equals(other.idRol))) {
+            return false;
+        }
         return true;
     }
 

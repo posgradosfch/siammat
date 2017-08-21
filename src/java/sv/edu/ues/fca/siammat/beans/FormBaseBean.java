@@ -7,11 +7,11 @@ package sv.edu.ues.fca.siammat.beans;
 
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedProperty;
 import org.primefaces.context.RequestContext;
+import org.seguridad.modelo.util.ServiceLocator;
 import sv.edu.ues.fca.siammat.seguridad.modelo.Privilegio;
 import sv.edu.ues.fca.siammat.seguridad.modelo.Usuario;
-import sv.edu.ues.fca.siammat.servicios.GenericService;
-import sv.edu.ues.fca.siammat.servicios.ServiceLocator;
 import sv.edu.ues.fca.siammat.util.Util;
 
 /**
@@ -23,12 +23,12 @@ public abstract class FormBaseBean implements Serializable {
     private String winTitle;
     private Privilegio privilegio;
     private Serializable mainObject;
-    private GenericService basicService;
+    @ManagedProperty("#{serviceLocator}")
+    private ServiceLocator serviceLocator;
     private String accion;
 
     public FormBaseBean() {
         accion = (String) Util.getParamFromSessionMap("accion");
-        basicService = ServiceLocator.getBasicService();
         if (accion.equals("2")) {
             mainObject = (Serializable) Util.getParamFromSessionMap("objeto");
             winTitle = "Editar";
@@ -44,8 +44,8 @@ public abstract class FormBaseBean implements Serializable {
         Usuario u = (Usuario) Util.getParamFromSessionMap("usuario");
 
         if (uri != null && u != null) {
-            String hql = "from Privilegio p where p.recurso.uri='" + uri + "' and p.rol.idRol=" + u.getRol().getIdRol();
-            privilegio = (Privilegio) getBasicService().getSingle(hql);
+            String hql = "from Privilegio p join fetch p.recurso join fetch p.recurso where p.recurso.uri='" + uri + "' and p.rol.idRol=" + u.getRol().getIdRol();
+            privilegio = (Privilegio) serviceLocator.getGenericServicio().getUniqueValue(hql);
         }
 
     }
@@ -54,7 +54,7 @@ public abstract class FormBaseBean implements Serializable {
         if (!validate()) {
             return;
         }
-        basicService.save(mainObject);
+        serviceLocator.getGenericServicio().saveOrUpdate(mainObject);
 
         RequestContext.getCurrentInstance().closeDialog(mainObject);
     }
@@ -94,20 +94,26 @@ public abstract class FormBaseBean implements Serializable {
         this.winTitle = winTitle;
     }
 
-    public GenericService getBasicService() {
-        return basicService;
-    }
 
     public Privilegio getPrivilegio() {
         return privilegio;
     }
-    
-    public Boolean getCanSave(){
-        if(accion.equals("1") && privilegio.getInsertar()){
+
+    public Boolean getCanSave() {
+        if (accion.equals("1") && privilegio.getInsertar()) {
             return true;
-        }else if(accion.equals("2") && privilegio.getEditar()){
+        } else if (accion.equals("2") && privilegio.getEditar()) {
             return true;
         }
         return false;
     }
+
+    public ServiceLocator getServiceLocator() {
+        return serviceLocator;
+    }
+
+    public void setServiceLocator(ServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+    }
+    
 }

@@ -19,6 +19,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
 
 /**
  *
@@ -40,10 +41,6 @@ public class Cargo implements Serializable {
     private String nombre;
     @Column(name = "descripcion")
     private String descripcion;
-    @Column(name = "rango")
-    private String rango;
-    @OneToMany(mappedBy = "cargo", fetch = FetchType.LAZY)
-    private List<Empleado> empleadoList;
 
     public Cargo() {
     }
@@ -75,14 +72,6 @@ public class Cargo implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
-    public List<Empleado> getEmpleadoList() {
-        return empleadoList;
-    }
-
-    public void setEmpleadoList(List<Empleado> empleadoList) {
-        this.empleadoList = empleadoList;
-    }
 
     @Override
     public int hashCode() {
@@ -97,10 +86,17 @@ public class Cargo implements Serializable {
         if (!(object instanceof Cargo)) {
             return false;
         }
-        Cargo other = (Cargo) object;
-//        if ((this.idCargo == null && other.idCargo != null) || (this.idCargo != null && !this.idCargo.equals(other.idCargo))) {
-//            return false;
-//        }
+        Cargo other = null;
+        if (object instanceof HibernateProxy) {
+            other = (Cargo) ((HibernateProxy) object).getHibernateLazyInitializer().getImplementation();
+        } else {
+            other = (Cargo) object;
+        }
+        
+        if ((this.idCargo == null && other.idCargo != null) || (this.idCargo != null && !this.idCargo.equals(other.idCargo))) {
+            return false;
+        }
+        
         return true;
     }
 
@@ -108,5 +104,5 @@ public class Cargo implements Serializable {
     public String toString() {
         return "sv.edu.ues.fca.siammat.seguridad.modelo.Cargo[ idCargo=" + idCargo + " ]";
     }
-    
+
 }

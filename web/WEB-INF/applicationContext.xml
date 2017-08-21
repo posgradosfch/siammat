@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd"
+       xmlns:context="http://www.springframework.org/schema/context">
+
+    
+    
+    
+    
+    
+
+    <jee:jndi-lookup id="dataSource"
+                     jndi-name="jdbc/dsSiammat"
+                     resource-ref="true" />
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="annotatedClasses" >            
+            <list>
+                <value>sv.edu.ues.fca.siammat.seguridad.modelo.Recurso</value>
+                <value>sv.edu.ues.fca.siammat.seguridad.modelo.Privilegio</value>
+                <value>sv.edu.ues.fca.siammat.seguridad.modelo.Usuario</value>
+                <value>sv.edu.ues.fca.siammat.seguridad.modelo.Rol</value>
+                <value>sv.edu.ues.fca.siammat.seguridad.modelo.Empleado</value>
+                <value>sv.edu.ues.fca.siammat.seguridad.modelo.Cargo</value>
+                <value>sv.edu.ues.fca.siammat.modelo.Maquinaria</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
+                <prop key="hibernate.current_session_context_class">thread</prop>
+                <prop key="hibernate.connection.release_mode">after_transaction</prop>
+                <prop key="hibernate.transaction.flush_before_completion">true</prop>
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+                <prop key="hibernate.max_fetch_depth">0</prop>
+            </props>
+        </property>
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+    </bean>
+
+
+    <!-- Spring Data Access Exception Translator Definition -->
+    <bean id="jdbcExceptionTranslator" class="org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator">
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+    </bean>
+
+    <!-- Hibernate Template Defintion -->
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+        <property name="sessionFactory">
+            <ref bean="sessionFactory"/>
+        </property>
+        <property name="jdbcExceptionTranslator">
+            <ref bean="jdbcExceptionTranslator"/>
+        </property>
+    </bean>
+
+    <!-- Hibernate Transaction Manager Definition -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory">
+            <ref local="sessionFactory"/>
+        </property>
+    </bean>
+
+
+    <!-- =========================       DAO Generico   =============================== -->
+
+    <bean id="genericDAO"
+          class="org.seguridad.modelo.dao.hibernate.GenericDAOHibernateImpl">
+        <property name="hibernateTemplate">
+            <ref bean="hibernateTemplate"/>
+        </property>
+    </bean>
+
+    <!-- ============================= SERVICIOS DE SUB SISTEMA DE SEGURIDAD Y ADMINISTRACION  ========================== -->
+
+    <!-- =====================       SeguridadServicio   ======================== -->
+
+    <bean id="genericServiceTarget" class="org.seguridad.modelo.servicios.impl.GenericServicioImpl">
+        <property name="genericDAO">
+            <ref local="genericDAO"/>
+        </property>
+    </bean>
+
+    <!-- Transactional proxy for the aplicacion Service -->
+    <bean id="genericServicio" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" >
+        <property name="transactionManager">
+            <ref local="transactionManager"/>
+        </property>
+        <property name="target">
+            <ref local="genericServiceTarget"/>
+        </property>
+
+        <property name="transactionAttributes">
+            <props>
+                <prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+                <prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+                <prop key="save*">PROPAGATION_REQUIRED</prop>
+                <prop key="update*">PROPAGATION_REQUIRED</prop>
+                <prop key="delete*">PROPAGATION_REQUIRED</prop>
+                <prop key="execute*">PROPAGATION_REQUIRED</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <!-- *********************************************** -->
+
+    <bean id="serviceLocator" class="org.seguridad.modelo.util.ServiceLocator" >
+        <property name="genericServicio" ref="genericServiceTarget" />
+    </bean>
+
+
+</beans>

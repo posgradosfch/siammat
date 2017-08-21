@@ -11,95 +11,23 @@
         <h:form id="frm">
             <ui:param name="bean" value="#{privilegioListBean}" />
             <p:panel header="Gestión de Privilegios">
-
-                <!--p:panelGrid columns="2" columnClasses="label,value" class="ui-panelgrid-blank">
-                    <p:outputLabel value="Selecione menú" />
-                    <p:selectOneMenu value="{bean.recursoPadreSelected}" converter="entityConverter"  >
-                        <f:selectItems var="rec" value="{bean.items}"  itemLabel="{rec.descripcion}" itemValue="{rec}" />
-                        <p:ajax update="recHijos"  />
-                    </p:selectOneMenu>
-                </p:panelGrid-->
-                <p:dataTable id="lst2" var="rol0" value="#{bean.items}" 
-                             rowKey="#{rol0.idRecurso}" selectionMode="single" selection="#{bean.recursoPadreSelected}">
-                    <p:ajax event="rowSelect" update="frm:recHijos" />
-                    <p:column headerText="Menu">
-                        <p:outputLabel value="#{rol0.descripcion}" />
-                    </p:column>
-                </p:dataTable>
-<br />
-                <p:dataTable id="recHijos" var="recursoHijo" value="#{bean.recursoPadreSelected.recursoList}" rowKey="#{recursoHijo.idRecurso}" selectionMode="single" selection="#{bean.recursoSelected}" >
-                    <p:column headerText="Opciones disponibles">
-                        <p:outputLabel value="#{recursoHijo.descripcion}" />
-                    </p:column>
-                </p:dataTable>
-                <!-- listado -->
-                <br />
                 <p:dataTable id="lst" var="rol" value="#{bean.roles}" selectionMode="single"  selection="#{bean.rolSelected}" rowKey="#{rol.idRol}">
-                    <p:ajax event="rowSelect" update="frm:lstPrivilegios" />
+                    <p:ajax event="rowSelect" update="frm:roles" listener="#{bean.onSelectRol()}" />
                     <p:column headerText="Nombre">
                         <p:outputLabel value="#{rol.nombre}" />
                     </p:column>
                     <p:column headerText="Descripcion">
                         <p:outputLabel value="#{rol.descripcion}" />
                     </p:column>
-                    <p:column headerText="+" style="width: 30px">
-                        <p:commandButton update="lst frm:lstPrivilegios" icon="ui-icon-plus" actionListener="#{bean.onAddPrivilegio(rol)}" title="Agregar privilegio" />
-                    </p:column>
                 </p:dataTable>
-
+                
                 <br />
-                <p:dataTable id="lstPrivilegios" var="privilegio" value="#{bean.rolSelected.privilegioList}" editable="true" 
-                             rows="5"
-                             paginator="true" paginatorPosition="bottom"
-                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                             rowsPerPageTemplate="5,10,15">
-                    <f:facet name="header">
-                        Privilegios del rol: #{bean.rolSelected.nombre}
-                    </f:facet>
-                    <p:ajax event="rowEdit" listener="#{bean.onRowEdit}" update="lstPrivilegios" />
-                    <p:column headerText="Nombre">
-                        <p:outputLabel value="#{privilegio.recurso.descripcion}" />
-                    </p:column>
-                    <p:column headerText="Puede agregar">
-                        <p:cellEditor>
-                            <f:facet name="output">
-                                <h:outputText value="#{privilegio.insertar?'Si':'No'}" />
-                            </f:facet>
-                            <f:facet name="input">
-                                <p:selectBooleanCheckbox value="#{privilegio.insertar}" />
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
-                    <p:column headerText="Puede editar" >
-                        <p:cellEditor>
-                            <f:facet name="output">
-                                <h:outputText value="#{privilegio.editar?'Si':'No'}" />
-                            </f:facet>
-                            <f:facet name="input">
-                                <p:selectBooleanCheckbox value="#{privilegio.editar}" />
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
-                    <p:column headerText="Puede eliminar">
-                        <p:cellEditor>
-                            <f:facet name="output">
-                                <h:outputText value="#{privilegio.eliminar?'Si':'No'}" />
-                            </f:facet>
-                            <f:facet name="input">
-                                <p:selectBooleanCheckbox value="#{privilegio.eliminar}" />
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
-                    <p:column style="width: 32px" headerText="Edt">
-                        <p:rowEditor />
-                    </p:column>
-                    <p:column headerText="Elm" style="width: 32px"> 
-                        <p:commandButton update="lstPrivilegios" icon="ui-icon-trash" actionListener="#{bean.onRemove(privilegio)}" title="Eliminar">
-                            <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
-                            <p:ajax update="lstPrivilegios" event="dialogReturn" />
-                        </p:commandButton>
-                    </p:column>
-                </p:dataTable>
+                
+                <p:tree value="#{bean.menu}" var="menu" id="roles" selectionMode="checkbox" style="width: 100%">
+                    <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
+                        <h:outputText value="#{menu.descripcion}"/>
+                    </p:treeNode>
+                </p:tree>
             </p:panel>
             <!--Cuadro de dialogo de confirmacion de eliminacion -->
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

@@ -39,7 +39,7 @@ public class EmpleadoBean extends FormBaseBean {
 
     public List<Cargo> getCargos() {
         if (cargos == null) {
-            cargos = getBasicService().find("from Cargo c");
+            cargos = getServiceLocator().getGenericServicio().find("from Cargo c");
         }
         return cargos;
     }

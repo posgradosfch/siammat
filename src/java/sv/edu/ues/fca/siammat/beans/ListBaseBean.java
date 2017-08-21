@@ -9,18 +9,21 @@ import sv.edu.ues.fca.siammat.filtros.FilterElementGroup;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import org.postgresql.util.PSQLException;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
+import org.seguridad.modelo.util.ServiceLocator;
+import org.springframework.orm.hibernate3.HibernateJdbcException;
 import sv.edu.ues.fca.siammat.seguridad.modelo.Privilegio;
-import sv.edu.ues.fca.siammat.seguridad.modelo.Recurso;
 import sv.edu.ues.fca.siammat.seguridad.modelo.Usuario;
-import sv.edu.ues.fca.siammat.servicios.GenericService;
-import sv.edu.ues.fca.siammat.servicios.ServiceLocator;
 import sv.edu.ues.fca.siammat.util.Util;
 
 /**
@@ -34,12 +37,11 @@ public abstract class ListBaseBean implements Serializable {
     private HashMap<String, Object> parametros = new HashMap<>();
     private String pathForm;
     private String query;
-    private GenericService basicService;
-    private FilterElementGroup filtros;
+    @ManagedProperty("#{serviceLocator}")
+    private ServiceLocator serviceLocator;
+    private FilterElementGroup filtros=new FilterElementGroup();
 
     public ListBaseBean() {
-        basicService = ServiceLocator.getBasicService();
-        filtros = new FilterElementGroup();
     }
 
     @PostConstruct
@@ -49,14 +51,14 @@ public abstract class ListBaseBean implements Serializable {
 
         if (uri != null && u != null) {
             String hql = "from Privilegio p where p.recurso.uri='" + uri + "' and p.rol.idRol=" + u.getRol().getIdRol();
-            privilegio = (Privilegio) getBasicService().getSingle(hql);
+            privilegio = (Privilegio) serviceLocator.getGenericServicio().getUniqueValue(hql);
         }
 
     }
 
     public void onSearch() {
-        
-        items = this.getBasicService().find(setupQuery());
+
+        items = serviceLocator.getGenericServicio().find(setupQuery());
         if (items == null || items.isEmpty()) {
             Util.addMessage(FacesMessage.SEVERITY_INFO, "No se encontraron registros", "");
         }
@@ -88,7 +90,13 @@ public abstract class ListBaseBean implements Serializable {
     }
 
     public void onRemove(Serializable object) {
-        getBasicService().remove(object);
+        try {
+            serviceLocator.getGenericServicio().delete(object);
+        } catch (PSQLException ex) {
+            Logger.getLogger(ListBaseBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HibernateJdbcException ex) {
+            Logger.getLogger(ListBaseBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public String getUrlReportes() {
@@ -158,9 +166,6 @@ public abstract class ListBaseBean implements Serializable {
         this.parametros = parametros;
     }
 
-    public GenericService getBasicService() {
-        return basicService;
-    }
 
     /**
      * Accion a realizar despues de eliminar un objeto
@@ -174,4 +179,14 @@ public abstract class ListBaseBean implements Serializable {
     public Privilegio getPrivilegio() {
         return privilegio;
     }
+
+    public ServiceLocator getServiceLocator() {
+        return serviceLocator;
+    }
+
+    public void setServiceLocator(ServiceLocator serviceLocator) {
+        this.serviceLocator = serviceLocator;
+    }
+    
+    
 }

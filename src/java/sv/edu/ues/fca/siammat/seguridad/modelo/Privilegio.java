@@ -19,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import org.hibernate.annotations.Type;
+import org.hibernate.proxy.HibernateProxy;
 
 /**
  *
@@ -38,13 +39,13 @@ public class Privilegio implements Serializable {
     private Integer idPrivilegio;
     @Column(name = "insertar", columnDefinition = "smallint")
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean insertar=false;
+    private Boolean insertar = false;
     @Column(name = "eliminar", columnDefinition = "smallint")
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean eliminar=false;
+    private Boolean eliminar = false;
     @Column(name = "editar", columnDefinition = "smallint")
     @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean editar=false;
+    private Boolean editar = false;
     @JoinColumn(name = "id_recurso", referencedColumnName = "id_recurso")
     @ManyToOne(fetch = FetchType.LAZY)
     private Recurso recurso;
@@ -96,7 +97,14 @@ public class Privilegio implements Serializable {
         if (!(object instanceof Privilegio)) {
             return false;
         }
-        Privilegio other = (Privilegio) object;
+        Privilegio other = null;
+
+        if (object instanceof HibernateProxy) {
+            other = (Privilegio) ((HibernateProxy) object).getHibernateLazyInitializer().getImplementation();
+        } else {
+            other = (Privilegio) object;
+        }
+
         if ((this.idPrivilegio == null && other.idPrivilegio != null) || (this.idPrivilegio != null && !this.idPrivilegio.equals(other.idPrivilegio))) {
             return false;
         }

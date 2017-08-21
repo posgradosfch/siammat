@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import org.hibernate.proxy.HibernateProxy;
 
 /**
  *
@@ -98,7 +99,12 @@ public class Usuario implements Serializable {
         if (!(object instanceof Usuario)) {
             return false;
         }
-        Usuario other = (Usuario) object;
+        Usuario other =  null;
+        if (object instanceof HibernateProxy) {
+            other = (Usuario) ((HibernateProxy) object).getHibernateLazyInitializer().getImplementation();
+        } else {
+            other = (Usuario) object;
+        }
         if ((this.idUsuario == null && other.idUsuario != null) || (this.idUsuario != null && !this.idUsuario.equals(other.idUsuario))) {
             return false;
         }

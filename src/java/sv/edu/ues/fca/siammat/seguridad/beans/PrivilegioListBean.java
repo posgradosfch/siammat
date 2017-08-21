@@ -8,10 +8,12 @@ package sv.edu.ues.fca.siammat.seguridad.beans;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import org.primefaces.event.DragDropEvent;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
@@ -33,16 +35,21 @@ public class PrivilegioListBean extends ListBaseBean {
     private Rol rolSelected;
     private Recurso recursoSelected;
     private Recurso recursoPadreSelected;
-    private List<Privilegio> privilegios;
-    private TreeNode recursos;
+    private List<Privilegio> privilegios;    
+    private TreeNode menu;
 
     public PrivilegioListBean() {
         super();
         //Fijando la uri del formulario de edición
         setPathForm("/seguridad/privilegios/edit");
+    }
+    
+    @PostConstruct
+    private void init(){
+        menu= new DefaultTreeNode("Menu", null);
         onSearch();
     }
-
+    
     @Override
     public void onSearch() {
         super.onSearch(); //To change body of generated methods, choose Tools | Templates.
@@ -56,7 +63,7 @@ public class PrivilegioListBean extends ListBaseBean {
 
     @Override
     public String setupQuery() {
-        String hql = "from Recurso r where r.recursoPadre=null";
+        String hql = "select distinct(r) from Recurso r join fetch r.recursoList where r.recursoPadre=null";
         return hql;
     }
 
@@ -65,13 +72,43 @@ public class PrivilegioListBean extends ListBaseBean {
         return super.getItems();
     }
 
-    public TreeNode getRecursos() {
-        return recursos;
+    
+    public void onSelectRol(){
+        menu= new DefaultTreeNode("Menu", null);
+        String hql="from Recurso r where r.recursoPadre=null";
+        
+        List<Recurso> padres=getServiceLocator().getGenericServicio().find(hql);
+        for(Recurso recurso:padres){
+            crearTree(recurso, menu);
+        }
     }
+    
+    public void crearTree(Recurso r,TreeNode padre){
+        String hql="from Recurso r where r.recursoPadre.idRecurso="+r.getIdRecurso();
+        List<Recurso> opciones=getServiceLocator().getGenericServicio().find(hql);
+        TreeNode hijo = new DefaultTreeNode(r, padre);
+        hijo.setExpanded(true);
+        String query="from Privilegio p where p.rol.idRol="+rolSelected.getIdRol()+" and p.recurso.idRecurso="+r.getIdRecurso();
+        List l= getServiceLocator().getGenericServicio().find(query);
+        hijo.setSelected(l!=null && !l.isEmpty() );
+
+        if(opciones!=null && !opciones.isEmpty()){
+            for(Recurso recurso:opciones){
+                crearTree(recurso, hijo);
+            } 
+        }else{
+           TreeNode pi = new DefaultTreeNode(new Recurso("Insertar"), hijo);
+           TreeNode pm= new DefaultTreeNode(new Recurso("Modificar"), hijo);
+           TreeNode pe=new DefaultTreeNode(new Recurso("Eliminar"), hijo);
+           
+        }
+    }
+    
+    
 
     public List<Rol> getRoles() {
         if (roles == null) {
-            roles = getBasicService().find("from Rol r");
+            roles = getServiceLocator().getGenericServicio().find("select distinct(r) from Rol r join fetch r.privilegioList ");
         }
         return roles;
     }
@@ -95,8 +132,8 @@ public class PrivilegioListBean extends ListBaseBean {
                 Privilegio p = new Privilegio();
                 p.setRol(rol);
                 p.setRecurso(recursoSelected);
-                getBasicService().save(p);
-                getBasicService().refresh(rol);
+                getServiceLocator().getGenericServicio().save(p);
+               // getServiceLocator().getGenericServicio().refresh(rol);
 
             } else {
                 Util.addMessage(FacesMessage.SEVERITY_WARN, "", "El rol ya posee este permiso");
@@ -105,41 +142,22 @@ public class PrivilegioListBean extends ListBaseBean {
         }
     }
 
-    public void treeToTable() {
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String property = params.get("property");
-        String indice = params.get("indice");
-        Privilegio p = new Privilegio();
-
-        Rol rol = roles.get(Integer.parseInt(indice));
-
-        Recurso r = (Recurso) getBasicService().getSingle("from Recurso r where r.descripcion='" + property + "'");
-        p.setRol(rol);
-        p.setRecurso(r);
-
-        if (!hasPrivilege(r, rol)) {
-            getBasicService().save(p);
-            getBasicService().refresh(rol);
-
-        }
-
-    }
 
     @Override
     public void onRemove(Serializable object) {
         super.onRemove(object); //To change body of generated methods, choose Tools | Templates.
-        getBasicService().refresh(this.rolSelected);
+        //getBasicService().refresh(this.rolSelected);
     }
 
     public void onRowEdit() {
-        getBasicService().refresh(this.rolSelected);
+        //getBasicService().refresh(this.rolSelected);
     }
 
     private boolean hasPrivilege(Recurso recurso, Rol rol) {
 
         String hql = "from Privilegio p where p.rol.idRol=" + rol.getIdRol() + " and p.recurso.idRecurso=" + recurso.getIdRecurso();
 
-        Privilegio p = (Privilegio) getBasicService().getSingle(hql);
+        Privilegio p = (Privilegio)  getServiceLocator().getGenericServicio().getUniqueValue(hql);
 
         return p != null;
     }
@@ -159,5 +177,22 @@ public class PrivilegioListBean extends ListBaseBean {
     public void setRecursoPadreSelected(Recurso recursoPadreSelected) {
         this.recursoPadreSelected = recursoPadreSelected;
     }
+
+    public List<Privilegio> getPrivilegios() {
+        return privilegios;
+    }
+
+    public void setPrivilegios(List<Privilegio> privilegios) {
+        this.privilegios = privilegios;
+    }
+
+    public TreeNode getMenu() {
+        return menu;
+    }
+
+    public void setMenu(TreeNode menu) {
+        this.menu = menu;
+    }
+    
 
 }

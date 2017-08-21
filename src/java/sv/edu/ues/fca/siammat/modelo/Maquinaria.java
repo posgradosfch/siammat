@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import org.hibernate.proxy.HibernateProxy;
 
 /**
  *
@@ -144,7 +145,13 @@ public class Maquinaria implements Serializable {
         if (!(object instanceof Maquinaria)) {
             return false;
         }
-        Maquinaria other = (Maquinaria) object;
+        Maquinaria other = null;
+        if(object instanceof HibernateProxy){
+            other = (Maquinaria) ((HibernateProxy) object).getHibernateLazyInitializer().getImplementation();
+        }else{
+            other = (Maquinaria) object;
+        }
+        
         if ((this.idMaquinaria == null && other.idMaquinaria != null) || (this.idMaquinaria != null && !this.idMaquinaria.equals(other.idMaquinaria))) {
             return false;
         }
@@ -165,7 +172,7 @@ public class Maquinaria implements Serializable {
             case 1:
                 return "Funcionando";
             case 2:
-                return "En repación";
+                return "En reparación";
             case 3: 
                 return "En desuso";
         }

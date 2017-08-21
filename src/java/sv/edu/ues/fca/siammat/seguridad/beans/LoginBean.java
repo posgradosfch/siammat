@@ -54,9 +54,10 @@ public class LoginBean extends ListBaseBean {
     }
 
     private void crearMenu() {
-       getBasicService().refresh(usuario.getRol());
-        List<Privilegio> padres = usuario.getRol().getPrivilegioList();
-        
+       //getBasicService().refresh(usuario.getRol());
+        //List<Privilegio> padres = usuario.getRol().getPrivilegioList();
+        String query="from Privilegio p join fetch p.recurso r left join fetch r.recursoPadre where p.rol.idRol="+usuario.getRol().getIdRol()+" order by r.orden";
+        List<Privilegio> padres = getServiceLocator().getGenericServicio().find(query);
         menu = new DefaultMenuModel();
 
         for (Privilegio privilegio : padres) {
@@ -83,8 +84,9 @@ public class LoginBean extends ListBaseBean {
         } else {//Si es una agrupacion, se crea un submenu y se recorre la lista creando los recursos hijos
             DefaultSubMenu defaultSubMenu = new DefaultSubMenu(recurso.getDescripcion());
             menuHijo = defaultSubMenu;
-
-            for (Recurso r : recurso.getRecursoList()) {
+            String hql="from Recurso r where r.recursoPadre.idRecurso="+recurso.getIdRecurso() +" order by r.orden";
+            List<Recurso> hijos=getServiceLocator().getGenericServicio().find(hql);
+            for (Recurso r : hijos) {
                 fillMenuItem(r, defaultSubMenu);
             }
         }
@@ -98,18 +100,17 @@ public class LoginBean extends ListBaseBean {
 
     private boolean hasPrivilege(Recurso recurso) {
 
-        String hql = "from Privilegio p where p.rol.idRol=" + usuario.getRol().getIdRol() + " and p.recurso.idRecurso=" + recurso.getIdRecurso();
+        String hql = "from Privilegio p join fetch p.recurso join fetch p.rol  where p.rol.idRol=" + usuario.getRol().getIdRol() + " and p.recurso.idRecurso=" + recurso.getIdRecurso();
 
-        Privilegio p = (Privilegio) getBasicService().getSingle(hql);
+        Privilegio p = (Privilegio) getServiceLocator().getGenericServicio().getUniqueValue(hql);
 
         return p != null;
     }
 
     public void onLogin() {
         String cryptedPass=CryptoUtils.encrypt(usuario.getClave());
-        
-        String query = "from Usuario u where u.usuario='" + usuario.getUsuario() + "' and u.clave='" + cryptedPass + "'";
-        Usuario u = (Usuario) getBasicService().getSingle(query);
+        String query = "from Usuario u join fetch u.empleado e join fetch u.rol r join fetch r.privilegioList where u.usuario='" + usuario.getUsuario() + "' and u.clave='" + cryptedPass + "'";
+        Usuario u = (Usuario) getServiceLocator().getGenericServicio().getUniqueValue(query);
         if (u != null) {
             Util.putParamIntoSessionMap(SESSION_USER_VARIABLE_NAME, u);
             String ctxPath = ((ServletContext) externalContext.getContext()).getContextPath();

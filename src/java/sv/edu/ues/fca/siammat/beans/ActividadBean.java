@@ -45,7 +45,7 @@ public class ActividadBean extends FormBaseBean{
    
     public List<Maquinaria> getMaquinarias() {
         if (maquinarias == null) {
-            maquinarias = getBasicService().find("from Maquinaria m");
+            maquinarias = getServiceLocator().getGenericServicio().find("from Maquinaria m");
         }
         return maquinarias;
     }

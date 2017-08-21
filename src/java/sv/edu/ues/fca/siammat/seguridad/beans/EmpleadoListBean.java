@@ -30,7 +30,7 @@ public class EmpleadoListBean extends ListBaseBean{
 
     @Override
     public String setupQuery() {
-        String hql="from Empleado e";
+        String hql="from Empleado e join fetch e.cargo";
         return hql;
     }
     

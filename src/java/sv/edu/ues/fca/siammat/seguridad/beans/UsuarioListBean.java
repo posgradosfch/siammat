@@ -31,7 +31,7 @@ public class UsuarioListBean extends ListBaseBean{
 
     @Override
     public String setupQuery() {
-        String hql="from Usuario u";
+        String hql="from Usuario u join fetch u.empleado join fetch u.rol ";
         return hql;
     }
     
