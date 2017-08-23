@@ -2,39 +2,59 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="/WEB-INF/templates/layout.xhtml"
-
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <ui:define name="content">
 
-        <h:form id="frm">
-            <ui:param name="bean" value="#{privilegioListBean}" />
+    <ui:define name="content">
+        <ui:param name="bean" value="#{privilegioListBean}" />
+        <h:form>
             <p:panel header="Gestión de Privilegios">
-                <p:dataTable id="lst" var="rol" value="#{bean.roles}" selectionMode="single"  selection="#{bean.rolSelected}" rowKey="#{rol.idRol}">
-                    <p:ajax event="rowSelect" update="frm:roles" listener="#{bean.onSelectRol()}" />
-                    <p:column headerText="Nombre">
-                        <p:outputLabel value="#{rol.nombre}" />
+                <p:growl autoUpdate="true" showDetail="true"/>
+                <p:panelGrid id="filtros" columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" >
+                    <p:selectOneMenu value="#{bean.rolSelected}" valueChangeListener="#{bean.onSelectRol}" converter="entityConverter" binding="#{bean.selectOneMenu}">
+                        <f:selectItem itemLabel="Seleccione" />
+                        <f:selectItems value="#{bean.roles}" var="rol" itemLabel="#{rol.nombre}" itemValue="#{rol}" />
+                        <p:ajax update="privilegios filtros" />
+                    </p:selectOneMenu>
+                    <p:commandButton rendered="#{bean.rolSelected!=null}" value="Agregar recursos" icon="ui-icon-plus"
+                                     actionListener="#{bean.onEdit(bean.rolSelected)}" >
+                        <p:ajax update="privilegios filtros" event="dialogReturn" listener="#{bean.updateTree()}" />
+                    </p:commandButton>
+                    <p:commandButton rendered="#{bean.menu.childCount > 0}" value="Actualizar privilegios" icon="ui-icon-disk" actionListener="#{bean.onSave()}" />
+                </p:panelGrid>
+
+                <h3>Privilegios</h3>
+                <p:treeTable value="#{bean.menu}" var="privilegio" id="privilegios" nodeVar="nodo">
+                    <p:column headerText="Recurso">
+                        <h:outputText  value="#{privilegio.recurso.descripcion}" />
                     </p:column>
-                    <p:column headerText="Descripcion">
-                        <p:outputLabel value="#{rol.descripcion}" />
+                    <p:column headerText="Insertar" style="width: 50px;text-align: center">
+                        <p:selectBooleanCheckbox rendered="#{nodo.getChildCount()==0}"  value="#{privilegio.insertar}" />
                     </p:column>
-                </p:dataTable>
-                
+                    <p:column headerText="Editar" style="width: 50px;text-align: center">
+                        <p:selectBooleanCheckbox  rendered="#{nodo.getChildCount()==0}" value="#{privilegio.editar}" />
+                    </p:column>
+                    <p:column headerText="Eliminar" style="width: 60px;text-align: center">
+                        <p:selectBooleanCheckbox  rendered="#{nodo.getChildCount()==0}" value="#{privilegio.eliminar}" />
+                    </p:column>
+                    <p:column style="width: 40px">
+                        <p:commandButton update="privilegios" icon="ui-icon-trash" actionListener="#{bean.onRemove(privilegio)}" title="Eliminar">
+                            <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" >
+
+                            </p:confirm>
+                            <p:ajax update="privilegios" event="dialogReturn" listener="#{bean.updateTree()}" />
+
+                        </p:commandButton>
+                    </p:column>
+                </p:treeTable>
                 <br />
-                
-                <p:tree value="#{bean.menu}" var="menu" id="roles" selectionMode="checkbox" style="width: 100%">
-                    <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
-                        <h:outputText value="#{menu.descripcion}"/>
-                    </p:treeNode>
-                </p:tree>
             </p:panel>
             <!--Cuadro de dialogo de confirmacion de eliminacion -->
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                 <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
             </p:confirmDialog>
-
         </h:form>
     </ui:define>
 

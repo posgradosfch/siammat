@@ -5,23 +5,24 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>#{rolBean.winTitle} Rol</title>
+        <title>Agregar recursos</title>
     </h:head>
     <h:body>
         <h:form>
             <p:messages autoUpdate="true" closable="true" />
             <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
-                <p:outputLabel value="Nombre" for="nombre" />
-                <p:inputText required="true" id="nombre" value="#{rolBean.rol.nombre}" style="width: 100%;text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" />
-
-                <p:outputLabel value="Descripción"  for="descripcion" />
-                <p:inputTextarea required="true" id="descripcion" value="#{rolBean.rol.descripcion}" style="width: 100%" />
-
+                <p:tree value="#{privilegioBean.menu}" var="recurso"
+                        selectionMode="checkbox"
+                        selection="#{privilegioBean.selectedNodes}">
+                    <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
+                        <h:outputText value="#{recurso.descripcion}"/>
+                    </p:treeNode>
+                </p:tree>
             </p:panelGrid>
             <p:separator style="width: 100%" />
-            
-            <p:commandButton value="Guardar" actionListener="#{rolBean.onSave()}" update=""/>
-            <p:commandButton value="Cancelar" actionListener="#{rolBean.onCancel()}" immediate="true"/>
+
+            <p:commandButton value="Guardar" actionListener="#{privilegioBean.onSave()}" update=""/>
+            <p:commandButton value="Cancelar" actionListener="#{privilegioBean.onCancel()}" immediate="true"/>
 
         </h:form>
     </h:body>

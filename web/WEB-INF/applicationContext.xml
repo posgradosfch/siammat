@@ -32,6 +32,7 @@
                 <value>sv.edu.ues.fca.siammat.seguridad.modelo.Empleado</value>
                 <value>sv.edu.ues.fca.siammat.seguridad.modelo.Cargo</value>
                 <value>sv.edu.ues.fca.siammat.modelo.Maquinaria</value>
+                <value>sv.edu.ues.fca.siammat.modelo.Actividad</value>
             </list>
         </property>
         <property name="hibernateProperties">

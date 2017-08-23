@@ -5,18 +5,20 @@
  */
 package sv.edu.ues.fca.siammat.seguridad.beans;
 
-import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
-import org.primefaces.event.DragDropEvent;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import sv.edu.ues.fca.siammat.beans.ListBaseBean;
 import sv.edu.ues.fca.siammat.seguridad.modelo.Privilegio;
 import sv.edu.ues.fca.siammat.seguridad.modelo.Recurso;
@@ -31,12 +33,11 @@ import sv.edu.ues.fca.siammat.util.Util;
 @ViewScoped
 public class PrivilegioListBean extends ListBaseBean {
 
-    private List<Rol> roles;
+    private List<Rol> roles = new ArrayList<>();
+    private SelectOneMenu selectOneMenu;
     private Rol rolSelected;
-    private Recurso recursoSelected;
-    private Recurso recursoPadreSelected;
-    private List<Privilegio> privilegios;    
     private TreeNode menu;
+    private List<Privilegio> privilegios;
 
     public PrivilegioListBean() {
         super();
@@ -44,22 +45,39 @@ public class PrivilegioListBean extends ListBaseBean {
         setPathForm("/seguridad/privilegios/edit");
     }
     
-    @PostConstruct
-    private void init(){
-        menu= new DefaultTreeNode("Menu", null);
-        onSearch();
+    public void onSave(){
+        createList(menu);
+        getServiceLocator().getGenericServicio().executeInTrans(new HibernateCallback() {
+            @Override
+            public Object doInHibernate(Session sn) throws HibernateException, SQLException {
+                for(Privilegio p:privilegios){
+                    sn.update(p);
+                }
+                
+                return 0;
+            }
+        });
+        Util.addMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Privilegios actualizados");
     }
     
-    @Override
-    public void onSearch() {
-        super.onSearch(); //To change body of generated methods, choose Tools | Templates.
+    private void createList(TreeNode treeNode){
+        privilegios=new ArrayList<>();
+        if(treeNode.getData() instanceof Privilegio){
+            privilegios.add((Privilegio) treeNode.getData());
+        }
+        if(treeNode.getChildCount() > 0){
+            for(TreeNode t:treeNode.getChildren()){
+                createList(t);
+            }
+        }
     }
 
-
-    public void onRecursoDrop(DragDropEvent ddEvent) {
-        // Recurso recurso =  (Recurso) ddEvent.getData();
-        System.out.println(ddEvent);
+    @PostConstruct
+    private void init() {
+        menu = new DefaultTreeNode("Menu", null);
+        roles = getServiceLocator().getGenericServicio().find("from Rol r");
     }
+    
 
     @Override
     public String setupQuery() {
@@ -72,44 +90,7 @@ public class PrivilegioListBean extends ListBaseBean {
         return super.getItems();
     }
 
-    
-    public void onSelectRol(){
-        menu= new DefaultTreeNode("Menu", null);
-        String hql="from Recurso r where r.recursoPadre=null";
-        
-        List<Recurso> padres=getServiceLocator().getGenericServicio().find(hql);
-        for(Recurso recurso:padres){
-            crearTree(recurso, menu);
-        }
-    }
-    
-    public void crearTree(Recurso r,TreeNode padre){
-        String hql="from Recurso r where r.recursoPadre.idRecurso="+r.getIdRecurso();
-        List<Recurso> opciones=getServiceLocator().getGenericServicio().find(hql);
-        TreeNode hijo = new DefaultTreeNode(r, padre);
-        hijo.setExpanded(true);
-        String query="from Privilegio p where p.rol.idRol="+rolSelected.getIdRol()+" and p.recurso.idRecurso="+r.getIdRecurso();
-        List l= getServiceLocator().getGenericServicio().find(query);
-        hijo.setSelected(l!=null && !l.isEmpty() );
-
-        if(opciones!=null && !opciones.isEmpty()){
-            for(Recurso recurso:opciones){
-                crearTree(recurso, hijo);
-            } 
-        }else{
-           TreeNode pi = new DefaultTreeNode(new Recurso("Insertar"), hijo);
-           TreeNode pm= new DefaultTreeNode(new Recurso("Modificar"), hijo);
-           TreeNode pe=new DefaultTreeNode(new Recurso("Eliminar"), hijo);
-           
-        }
-    }
-    
-    
-
     public List<Rol> getRoles() {
-        if (roles == null) {
-            roles = getServiceLocator().getGenericServicio().find("select distinct(r) from Rol r join fetch r.privilegioList ");
-        }
         return roles;
     }
 
@@ -121,71 +102,6 @@ public class PrivilegioListBean extends ListBaseBean {
         this.rolSelected = rolSelected;
     }
 
-    public void onChangeValue() {
-        System.out.println("df");
-    }
-
-    public void onAddPrivilegio(Rol rol) {
-        if (recursoSelected != null) {
-
-            if (!hasPrivilege(recursoSelected, rol)) {
-                Privilegio p = new Privilegio();
-                p.setRol(rol);
-                p.setRecurso(recursoSelected);
-                getServiceLocator().getGenericServicio().save(p);
-               // getServiceLocator().getGenericServicio().refresh(rol);
-
-            } else {
-                Util.addMessage(FacesMessage.SEVERITY_WARN, "", "El rol ya posee este permiso");
-
-            }
-        }
-    }
-
-
-    @Override
-    public void onRemove(Serializable object) {
-        super.onRemove(object); //To change body of generated methods, choose Tools | Templates.
-        //getBasicService().refresh(this.rolSelected);
-    }
-
-    public void onRowEdit() {
-        //getBasicService().refresh(this.rolSelected);
-    }
-
-    private boolean hasPrivilege(Recurso recurso, Rol rol) {
-
-        String hql = "from Privilegio p where p.rol.idRol=" + rol.getIdRol() + " and p.recurso.idRecurso=" + recurso.getIdRecurso();
-
-        Privilegio p = (Privilegio)  getServiceLocator().getGenericServicio().getUniqueValue(hql);
-
-        return p != null;
-    }
-
-    public Recurso getRecursoSelected() {
-        return recursoSelected;
-    }
-
-    public void setRecursoSelected(Recurso recursoSelected) {
-        this.recursoSelected = recursoSelected;
-    }
-
-    public Recurso getRecursoPadreSelected() {
-        return recursoPadreSelected;
-    }
-
-    public void setRecursoPadreSelected(Recurso recursoPadreSelected) {
-        this.recursoPadreSelected = recursoPadreSelected;
-    }
-
-    public List<Privilegio> getPrivilegios() {
-        return privilegios;
-    }
-
-    public void setPrivilegios(List<Privilegio> privilegios) {
-        this.privilegios = privilegios;
-    }
-
     public TreeNode getMenu() {
         return menu;
     }
@@ -193,6 +109,48 @@ public class PrivilegioListBean extends ListBaseBean {
     public void setMenu(TreeNode menu) {
         this.menu = menu;
     }
-    
 
+    public void onSelectRol(ValueChangeEvent valueChangeEvent) {
+
+        Rol r = (Rol) valueChangeEvent.getNewValue();
+        if (r == null) {
+            menu = new DefaultTreeNode("Menu", null);
+            return;
+        }
+        menu = new DefaultTreeNode("Menu", null);
+        List<Privilegio> privilegios = new ArrayList<>();
+        String hql = "from Privilegio p join fetch p.rol join fetch p.recurso where p.rol.idRol=" + r.getIdRol() + " and p.recurso.recursoPadre=null";
+        privilegios = getServiceLocator().getGenericServicio().find(hql);
+
+        for (Privilegio privilegio : privilegios) {
+            crearTree(privilegio, menu);
+        }
+
+    }
+
+    public void crearTree(Privilegio privilegio, TreeNode padre) {
+
+        String hql = "from Privilegio p join fetch p.rol join fetch p.recurso where p.recurso.recursoPadre.idRecurso=" + privilegio.getRecurso().getIdRecurso() + " and p.rol.idRol=" + privilegio.getRol().getIdRol();
+        List<Privilegio> opciones = getServiceLocator().getGenericServicio().find(hql);
+        TreeNode hijo = new DefaultTreeNode(privilegio, padre);
+        hijo.setExpanded(true);
+
+        if (opciones != null && !opciones.isEmpty()) {
+            for (Privilegio p : opciones) {
+                crearTree(p, hijo);
+            }
+        }
+    }
+
+    public SelectOneMenu getSelectOneMenu() {
+        return selectOneMenu;
+    }
+
+    public void setSelectOneMenu(SelectOneMenu selectOneMenu) {
+        this.selectOneMenu = selectOneMenu;
+    }
+    
+    public void updateTree(){
+        selectOneMenu.broadcast(new ValueChangeEvent(selectOneMenu, null, selectOneMenu.getValue()));
+    }
 }
