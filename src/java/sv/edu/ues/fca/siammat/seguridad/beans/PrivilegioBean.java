@@ -61,43 +61,40 @@ public class PrivilegioBean extends FormBaseBean {
 
     @Override
     public void onSave() {
+        privilegios = new ArrayList<>();
         createList(menu);
         getServiceLocator().getGenericServicio().executeInTrans(new HibernateCallback() {
             @Override
             public Object doInHibernate(Session sn) throws HibernateException, SQLException {
-                for(Privilegio p:privilegios){
+                for (Privilegio p : privilegios) {
                     sn.save(p);
                 }
-                
+
                 return 0;
             }
         });
         onCancel();
     }
-        private void createList(TreeNode treeNode){
-        privilegios=new ArrayList<>();
-        if(treeNode.getData() instanceof Recurso && treeNode.isSelected() && treeNode.getChildCount() ==0){
-            Privilegio p =new Privilegio();
+
+    private void createList(TreeNode treeNode) {
+        if (treeNode.getData() instanceof Recurso && treeNode.isSelected() && treeNode.getChildCount() == 0) {
+            Privilegio p = new Privilegio();
             p.setRecurso((Recurso) treeNode.getData());
             p.setRol(rol);
             privilegios.add(p);
         }
-        if(treeNode.getChildCount() > 0){
-            for(TreeNode t:treeNode.getChildren()){
+        if (treeNode.getChildCount() > 0) {
+            for (TreeNode t : treeNode.getChildren()) {
                 createList(t);
             }
         }
     }
-    
 
     public void crearTree(Recurso r, TreeNode padre) {
-        
 
-             String hqlAux= "select p.recurso.idRecurso  from Privilegio p where p.rol.idRol = "+rol.getIdRol();
+        String hqlAux = "select p.recurso.idRecurso  from Privilegio p where p.rol.idRol = " + rol.getIdRol();
 
-                
-        
-        String hql = "from Recurso r where r.recursoPadre.idRecurso=" + r.getIdRecurso() +" and r.idRecurso not in("+hqlAux+")";
+        String hql = "from Recurso r where r.recursoPadre.idRecurso=" + r.getIdRecurso() + " and r.idRecurso not in(" + hqlAux + ")";
         List<Recurso> opciones = getServiceLocator().getGenericServicio().find(hql);
         TreeNode hijo = new DefaultTreeNode(r, padre);
         hijo.setExpanded(true);
@@ -124,6 +121,5 @@ public class PrivilegioBean extends FormBaseBean {
     public void setSelectedNodes(TreeNode[] selectedNodes) {
         this.selectedNodes = selectedNodes;
     }
-
 
 }
