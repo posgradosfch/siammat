@@ -42,7 +42,9 @@ public class PrivilegioBean extends FormBaseBean {
     @PostConstruct
     private void init() {
         menu = new DefaultTreeNode("Menu", null);
-        String hql = "from Recurso r where r.recursoPadre=null";
+        String hqlAux = "select p.recurso.idRecurso  from Privilegio p where p.rol.idRol = " + rol.getIdRol();
+
+        String hql = "from Recurso r where r.recursoPadre=null and r.idRecurso not in ("+hqlAux+")";
 
         List<Recurso> padres = getServiceLocator().getGenericServicio().find(hql);
         for (Recurso recurso : padres) {
