@@ -80,10 +80,12 @@ public class LoginBean extends ListBaseBean {
         if (recurso.isDetalle()) {
             DefaultMenuItem menuItem = new DefaultMenuItem(recurso.getDescripcion());
             menuItem.setOutcome(recurso.getUri());
+            menuItem.setIcon(recurso.getIcono());
             menuHijo = menuItem;
         } else {//Si es una agrupacion, se crea un submenu y se recorre la lista creando los recursos hijos
             DefaultSubMenu defaultSubMenu = new DefaultSubMenu(recurso.getDescripcion());
             menuHijo = defaultSubMenu;
+            defaultSubMenu.setIcon(recurso.getIcono());
             String hql="from Recurso r where r.recursoPadre.idRecurso="+recurso.getIdRecurso() +" order by r.orden";
             List<Recurso> hijos=getServiceLocator().getGenericServicio().find(hql);
             for (Recurso r : hijos) {
