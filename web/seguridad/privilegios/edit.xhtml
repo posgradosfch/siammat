@@ -11,13 +11,14 @@
         <h:form>
             <p:messages autoUpdate="true" closable="true" />
             <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
-                <p:tree value="#{privilegioBean.menu}" var="recurso"
+                <p:tree value="#{privilegioBean.menu}" var="recurso" rendered="#{privilegioBean.menu.childCount > 0}"
                         selectionMode="checkbox"
                         selection="#{privilegioBean.selectedNodes}">
                     <p:treeNode expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
                         <h:outputText value="#{recurso.descripcion}"/>
                     </p:treeNode>
                 </p:tree>
+                <p:outputLabel   rendered="#{privilegioBean.menu.childCount==0}" value="Ya ha agregado todos los recursos al rol: #{privilegioBean.rol.nombre}" />
             </p:panelGrid>
             <p:separator style="width: 100%" />
 
