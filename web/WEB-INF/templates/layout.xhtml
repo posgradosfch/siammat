@@ -43,5 +43,11 @@
                   closable="false" resizable="false" showHeader="false" >
             <p:graphicImage value="/imgs/ajaxloadingbar.gif" />
         </p:dialog>
+        <p:dialog header="Sesión Finalizada" resizable="false" widgetVar="idleDialog" modal="true" width="400">  
+            <h:outputText value="La sesión ha caducado, por favor, pulse sobre el siguiente botón para volver a acceder a la aplicación" />
+            <br />
+            <input id="confirmBackToLogin" type="button" value="Iniciar sesión"
+                   onclick="window.location = '#{facesContext.externalContext.requestContextPath}/faces/seguridad/login.xhtml';" />
+        </p:dialog>  
     </h:body>
 </html>
