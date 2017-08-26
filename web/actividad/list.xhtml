@@ -23,12 +23,10 @@
                     </p:column>
                     <p:column headerText="Abreviatura">
                         <p:outputLabel value="#{actividad.abreviatura}" />
-                    </p:column>
-                    <p:column headerText="Maquinaria(Marca)">
-                        <p:outputLabel value="#{actividad.maquinaria.marca}" />
-                    </p:column>            
+                    </p:column>           
                     <p:column headerText="Acciones" style="width: 70px"> 
                         <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{actividadListBean.onEdit(actividad)}" title="Editar">
+                            <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
                         <p:commandButton update="lst" icon="ui-icon-trash" actionListener="#{actividadListBean.onRemove(actividad)}" title="Eliminar">
                             <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />

@@ -15,17 +15,11 @@
             <p:messages autoUpdate="true" closable="true" />
             <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
                 <p:outputLabel value="Nombre" for="nombre" />
-                <p:inputText required="true" id="nombre" value="#{actividadBean.actividad.nombre}" />
+                <p:inputText required="true" id="nombre" value="#{actividadBean.actividad.nombre}" style="width: 100%"/>
 
-                <p:outputLabel value="Abreviatura"  for="abreviatura" />
-                <p:inputTextarea required="true" id="abreviatura" value="#{actividadBean.actividad.abreviatura}" style="width: 100%" />
-
-                <p:outputLabel value="Maquinaria"  for="maquinaria" />
-                
-                <p:selectOneMenu id="maquinaria" value="#{actividadBean.actividad.maquinaria}" converter="entityConverter">
-                    <f:selectItem itemLabel="Seleccione" />
-                    <f:selectItems var="maquinaria" value="#{actividadBean.maquinarias}" itemLabel="#{maquinaria.marca}" itemValue="#{maquinaria}" />
-                </p:selectOneMenu>
+                <p:outputLabel value="Abreviatura (AAA)"  for="abreviatura" />
+                <p:inputText required="true" id="abreviatura" value="#{actividadBean.actividad.abreviatura}" validator="#{actividadBean.validacion}" style="width: 10%">
+                </p:inputText> 
             </p:panelGrid>
             <p:separator style="width: 100%" />
             
@@ -35,4 +29,3 @@
         </h:form>
     </h:body>
 </html>
-

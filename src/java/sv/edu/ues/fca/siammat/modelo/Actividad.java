@@ -44,9 +44,6 @@ public class Actividad implements Serializable {
     private String nombre;
     @Column(name = "abreviatura")
     private String abreviatura;
-    @JoinColumn(name = "id_maquinaria", referencedColumnName = "id_maquinaria")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Maquinaria maquinaria;
     
     public Actividad() {
     }
@@ -78,15 +75,7 @@ public class Actividad implements Serializable {
     public void setAbreviatura(String abreviatura) {
         this.abreviatura = abreviatura;
     }
-    
-    public Maquinaria getMaquinaria() {
-        return maquinaria;
-    }
-
-    public void setMaquinaria(Maquinaria maquinaria) {
-        this.maquinaria = maquinaria;
-    }
-    
+        
     @Override
     public int hashCode() {
         int hash = 0;

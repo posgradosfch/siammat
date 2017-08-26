@@ -10,6 +10,10 @@ import javax.faces.bean.ViewScoped;
 import sv.edu.ues.fca.siammat.modelo.Actividad;
 import sv.edu.ues.fca.siammat.beans.FormBaseBean;
 import java.util.List;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import sv.edu.ues.fca.siammat.modelo.Maquinaria;
 
 /**
@@ -20,7 +24,6 @@ import sv.edu.ues.fca.siammat.modelo.Maquinaria;
 @ViewScoped
 public class ActividadBean extends FormBaseBean{
     private Actividad actividad=new Actividad();
-    private List<Maquinaria> maquinarias;
 
     /**
      * Creates a new instance of actividadBean
@@ -42,11 +45,10 @@ public class ActividadBean extends FormBaseBean{
     public Actividad getActividad() {
         return actividad;
     }   
-   
-    public List<Maquinaria> getMaquinarias() {
-        if (maquinarias == null) {
-            maquinarias = getServiceLocator().getGenericServicio().find("from Maquinaria m");
-        }
-        return maquinarias;
-    }
+   public void validacion(FacesContext arg0, UIComponent arg1, Object arg2)
+         throws ValidatorException {
+      if ((((String)arg2).length()>3)||(((String)arg2).length()<3)) {
+         throw new ValidatorException(new FacesMessage("La abreviatura debe ser de 3 digitos"));
+      }
+   }
 }
