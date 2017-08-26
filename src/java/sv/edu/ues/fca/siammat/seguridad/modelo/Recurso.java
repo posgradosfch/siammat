@@ -43,6 +43,8 @@ public class Recurso implements Serializable {
     private String descripcion;
     @Column(name = "uri")
     private String uri;
+    @Column(name = "icono")
+    private String icono;
     @Column(name = "detalle", columnDefinition = "smallint")
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean detalle;
@@ -58,9 +60,9 @@ public class Recurso implements Serializable {
 
     public Recurso() {
     }
-    
+
     public Recurso(String descripcion) {
-        this.descripcion=descripcion;
+        this.descripcion = descripcion;
     }
 
     public Recurso(Integer idRecurso) {
@@ -160,6 +162,14 @@ public class Recurso implements Serializable {
     @Override
     public String toString() {
         return "sv.edu.ues.fca.siammat.seguridad.modelo.Recurso[ idRecurso=" + idRecurso + " ]";
+    }
+
+    public String getIcono() {
+        return icono;
+    }
+
+    public void setIcono(String icono) {
+        this.icono = icono;
     }
 
 }

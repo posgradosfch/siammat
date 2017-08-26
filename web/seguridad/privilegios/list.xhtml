@@ -26,6 +26,18 @@
 
                 <h3>Privilegios</h3>
                 <p:treeTable value="#{bean.menu}" var="privilegio" id="privilegios" nodeVar="nodo">
+                    <p:columnGroup type="header">
+                        <p:row>
+                            <p:column rowspan="2" headerText="Recurso" />
+                            <p:column colspan="3" headerText="Permisos" />
+                            <p:column rowspan="2"  headerText="Quitar" style="width: 50px" />
+                        </p:row>
+                        <p:row>
+                            <p:column  headerText="Insertar" />
+                            <p:column headerText="Modificar" />
+                            <p:column headerText="Eliminar" />
+                        </p:row>
+                    </p:columnGroup>
                     <p:column headerText="Recurso">
                         <h:outputText  value="#{privilegio.recurso.descripcion}" />
                     </p:column>
@@ -38,7 +50,7 @@
                     <p:column headerText="Eliminar" style="width: 60px;text-align: center">
                         <p:selectBooleanCheckbox  rendered="#{nodo.getChildCount()==0}" value="#{privilegio.eliminar}" />
                     </p:column>
-                    <p:column style="width: 40px">
+                    <p:column style="text-align: center">
                         <p:commandButton update="privilegios" icon="ui-icon-trash" actionListener="#{bean.onRemove(privilegio)}" title="Eliminar">
                             <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" >
 
