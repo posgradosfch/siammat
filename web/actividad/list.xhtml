@@ -29,7 +29,7 @@
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
                         <p:commandButton update="lst" icon="ui-icon-trash" actionListener="#{actividadListBean.onRemove(actividad)}" title="Eliminar">
-                            <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
+                            <p:confirm header="Confirmar" message="Desea eliminar registro?" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
                     </p:column>

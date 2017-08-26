@@ -48,7 +48,7 @@ public class ActividadBean extends FormBaseBean{
    public void validacion(FacesContext arg0, UIComponent arg1, Object arg2)
          throws ValidatorException {
       if ((((String)arg2).length()>3)||(((String)arg2).length()<3)) {
-         throw new ValidatorException(new FacesMessage("La abreviatura debe ser de 3 digitos"));
+         throw new ValidatorException(new FacesMessage("La abreviatura debe ser de 3 digitos!!"));
       }
    }
 }

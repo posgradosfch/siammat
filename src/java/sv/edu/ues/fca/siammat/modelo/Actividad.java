@@ -45,7 +45,7 @@ public class Actividad implements Serializable {
     @Column(name = "abreviatura")
     private String abreviatura;
     
-    public Actividad() {
+    public Actividad() {//Constructor
     }
     
     public Actividad(Integer idActividad) {
