@@ -11,6 +11,8 @@
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Production</param-value>
+        <param-name>primefaces.FONT_AWESOME</param-name>
+        <param-value>true</param-value>
     </context-param>
     <filter>
         <description>Encargado de validar cada url para asegurarse que hay un sesion activa</description>

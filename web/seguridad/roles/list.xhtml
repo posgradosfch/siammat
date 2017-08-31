@@ -13,9 +13,7 @@
 
                 </p:panelGrid>
                 <p:panelGrid><!--Botones -->
-                    <p:commandButton value="Buscar" icon="ui-icon-search" actionListener="#{rolListBean.onSearch()}" update="lst"/>
                     <p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{rolListBean.onNew()}" rendered="#{bean.privilegio.insertar}" />
-                    <p:commandButton value="Limpiar"  icon="ui-icon-refresh"/>
                 </p:panelGrid>
                 <br />
                 <!-- listado -->
