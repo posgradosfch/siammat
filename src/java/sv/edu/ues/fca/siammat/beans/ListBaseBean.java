@@ -42,6 +42,7 @@ public abstract class ListBaseBean implements Serializable {
     private FilterElementGroup filtros=new FilterElementGroup();
 
     public ListBaseBean() {
+        setUpParametros();
     }
 
     @PostConstruct
@@ -154,8 +155,8 @@ public abstract class ListBaseBean implements Serializable {
     public void setUpParametros() {
         parametros.put("modal", true);
         parametros.put("resizable", false);
-        parametros.put("contentWidth", "100%");
-        parametros.put("contentHeight", "100%");
+       // parametros.put("contentWidth", "100%");
+       // parametros.put("contentHeight", "100%");
     }
 
     public HashMap<String, Object> getParametros() {

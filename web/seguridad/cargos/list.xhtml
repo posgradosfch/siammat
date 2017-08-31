@@ -12,8 +12,12 @@
 
                 </p:panelGrid>
                 <p:panelGrid><!--Botones -->
+
                     <p:commandButton value="Buscar" icon="ui-icon-search" actionListener="#{cargoListBean.onSearch()}" update="lst"/>
                     <p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{cargoListBean.onNew()}" rendered="#{bean.privilegio.insertar}"/>
+
+                    <!--<p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{cargoListBean.onNew()}"/>-->
+
                 </p:panelGrid>
                 <br />
                 <!-- listado -->

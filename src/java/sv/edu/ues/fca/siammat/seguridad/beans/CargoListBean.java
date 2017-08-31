@@ -6,6 +6,7 @@
 package sv.edu.ues.fca.siammat.seguridad.beans;
 
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import sv.edu.ues.fca.siammat.beans.ListBaseBean;
@@ -22,6 +23,11 @@ public class CargoListBean extends ListBaseBean{
     public CargoListBean() {
         //Fijando la uri del formulario de edición
         setPathForm("/seguridad/cargos/edit");
+    }
+    
+    @PostConstruct
+    private void init(){
+        onSearch();
     }
     
     @Override

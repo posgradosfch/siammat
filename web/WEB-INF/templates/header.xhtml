@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <h:form>
-        <p:menubar model="#{loginBean.menu}">
+        <p:menubar model="#{loginBean.menu}" rendered="#{loginBean.menu.elements.size() >0}">
             <f:facet name="options">
                 <p:outputPanel rendered="#{loginBean.userLogged}">
                     <h:outputText style="margin-right:15px" value="Hola, #{loginBean.usuario.empleado.nombre}."/>
