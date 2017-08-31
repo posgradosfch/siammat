@@ -21,8 +21,8 @@
                 <br />
                 <p:panelGrid><!--Botones -->
                     <p:commandButton value="Buscar" icon="ui-icon-search" actionListener="#{bean.onSearch()}" update="lst" validateClient="false"/>
-                    <p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{bean.onNew()}"/>
-                    <!--<p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}" />-->
+                    <!--<p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{bean.onNew()}"/>-->
+                    <p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}" />
                     <p:commandButton value="Limpiar"  icon="ui-icon-refresh"/>
                 </p:panelGrid>
                 <br />
@@ -50,10 +50,10 @@
                         <p:outputLabel value="#{maquinaria.estadoName}" />
                     </p:column>
                     <p:column headerText="Acciones" style="width: 70px"> 
-                        <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{bean.onEdit(maquinaria)}" title="Editar">
+                        <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{bean.onEdit(maquinaria)}" rendered="#{bean.privilegio.insertar}" title="Editar">
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
-                        <p:commandButton update="lst" icon="ui-icon-trash" actionListener="#{bean.onRemove(maquinaria)}" title="Eliminar">
+                        <p:commandButton update="lst" icon="ui-icon-trash" actionListener="#{bean.onRemove(maquinaria)}" rendered="#{bean.privilegio.insertar}" title="Eliminar">
                             <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>

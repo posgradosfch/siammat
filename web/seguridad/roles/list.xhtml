@@ -27,9 +27,9 @@
                         <p:outputLabel value="#{rol.descripcion}" />
                     </p:column>
                     <p:column headerText="Acciones" style="width: 70px"> 
-                        <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{rolListBean.onEdit(rol)}" title="Editar">
+                        <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{rolListBean.onEdit(rol)}" rendered="#{bean.privilegio.insertar}" title="Editar">
                         </p:commandButton>
-                        <p:commandButton update="lst" icon="ui-icon-trash" actionListener="#{rolListBean.onRemove(rol)}" title="Eliminar">
+                        <p:commandButton update="lst" icon="ui-icon-trash" actionListener="#{rolListBean.onRemove(rol)}" rendered="#{bean.privilegio.insertar}" title="Eliminar">
                             <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>

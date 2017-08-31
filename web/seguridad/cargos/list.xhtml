@@ -13,7 +13,7 @@
                 </p:panelGrid>
                 <p:panelGrid><!--Botones -->
                     <p:commandButton value="Buscar" icon="ui-icon-search" actionListener="#{cargoListBean.onSearch()}" update="lst"/>
-                    <p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{cargoListBean.onNew()}"/>
+                    <p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{cargoListBean.onNew()}" rendered="#{bean.privilegio.insertar}"/>
                 </p:panelGrid>
                 <br />
                 <!-- listado -->
@@ -25,9 +25,9 @@
                         <p:outputLabel value="#{cargo.descripcion}" />
                     </p:column>
                     <p:column headerText="Acciones" style="width: 70px"> 
-                        <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{cargoListBean.onEdit(cargo)}" title="Editar">
+                        <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{cargoListBean.onEdit(cargo)}" rendered="#{bean.privilegio.insertar}" title="Editar">
                         </p:commandButton>
-                        <p:commandButton update="lst" icon="ui-icon-trash" actionListener="#{cargoListBean.onRemove(cargo)}" title="Eliminar">
+                        <p:commandButton update="lst" icon="ui-icon-trash" actionListener="#{cargoListBean.onRemove(cargo)}" rendered="#{bean.privilegio.insertar}" title="Eliminar">
                             <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>

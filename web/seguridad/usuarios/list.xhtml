@@ -30,9 +30,9 @@
                         <p:outputLabel value="#{usuario.usuario}" />
                     </p:column>
                     <p:column headerText="Acciones" style="width: 70px"> 
-                        <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{bean.onEdit(usuario)}" title="Editar">
+                        <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{bean.onEdit(usuario)}" rendered="#{bean.privilegio.insertar}" title="Editar">
                         </p:commandButton>
-                        <p:commandButton rendered="#{bean.privilegio.eliminar}" update="lst" icon="ui-icon-trash" actionListener="#{bean.onRemove(usuario)}" title="Eliminar">
+                        <p:commandButton rendered="#{bean.privilegio.eliminar}" update="lst" icon="ui-icon-trash" actionListener="#{bean.onRemove(usuario)}" rendered="#{bean.privilegio.insertar}"  title="Eliminar">
                             <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
