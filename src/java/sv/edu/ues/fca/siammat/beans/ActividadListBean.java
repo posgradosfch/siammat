@@ -32,7 +32,7 @@ public class ActividadListBean extends ListBaseBean{
 
     @Override
     public String setupQuery() {
-        String hql="from Actividad a";
+        String hql="from Actividad a ";
         return hql;
     }
     
