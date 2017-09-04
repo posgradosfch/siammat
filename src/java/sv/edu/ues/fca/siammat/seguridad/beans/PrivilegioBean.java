@@ -44,11 +44,11 @@ public class PrivilegioBean extends FormBaseBean {
         menu = new DefaultTreeNode("Menu", null);
         String hqlAux = "select p.recurso.idRecurso  from Privilegio p where p.rol.idRol = " + rol.getIdRol();
 
-        String hql = "from Recurso r where r.recursoPadre=null and r.idRecurso not in ("+hqlAux+")";
+        String hql = "from Recurso r where r.recursoPadre=null"; //and r.idRecurso";// not in (" + hqlAux + ")";
 
         List<Recurso> padres = getServiceLocator().getGenericServicio().find(hql);
         for (Recurso recurso : padres) {
-            crearTree(recurso, menu);
+            crearTree(recurso, menu, true);
         }
     }
 
@@ -92,19 +92,27 @@ public class PrivilegioBean extends FormBaseBean {
         }
     }
 
-    public void crearTree(Recurso r, TreeNode padre) {
+    /**
+     * Funcion recursiva que contruye el arbol
+     * @param data El recurso que se muestra
+     * @param padre El treenode padre
+     * @param esPadre Se utiliza para verificar si el recurso es menu principal
+     */
+    public void crearTree(Recurso data, TreeNode padre, Boolean esPadre) {
 
         String hqlAux = "select p.recurso.idRecurso  from Privilegio p where p.rol.idRol = " + rol.getIdRol();
 
-        String hql = "from Recurso r where r.recursoPadre.idRecurso=" + r.getIdRecurso() + " and r.idRecurso not in(" + hqlAux + ")";
+        String hql = "from Recurso r where r.recursoPadre.idRecurso=" + data.getIdRecurso() + " and r.idRecurso not in(" + hqlAux + ")";
         List<Recurso> opciones = getServiceLocator().getGenericServicio().find(hql);
-        TreeNode hijo = new DefaultTreeNode(r, padre);
+        TreeNode hijo = new DefaultTreeNode(data, padre);
         hijo.setExpanded(true);
 
         if (opciones != null && !opciones.isEmpty()) {
             for (Recurso recurso : opciones) {
-                crearTree(recurso, hijo);
+                crearTree(recurso, hijo, false);
             }
+        } else if (esPadre) {
+            menu.getChildren().remove(hijo);
         }
     }
 
