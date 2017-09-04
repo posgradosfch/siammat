@@ -11,13 +11,13 @@
         <h:form>
             <p:panel header="Gestión de Privilegios">
                 <p:growl autoUpdate="true" showDetail="true"/>
-                <p:panelGrid id="filtros" columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" >
+                <p:panelGrid id="filtros" columns="3" columnClasses="label,value" styleClass="ui-panelgrid-blank" >
                     <p:selectOneMenu value="#{bean.rolSelected}" valueChangeListener="#{bean.onSelectRol}" converter="entityConverter" binding="#{bean.selectOneMenu}">
                         <f:selectItem itemLabel="Seleccione" />
                         <f:selectItems value="#{bean.roles}" var="rol" itemLabel="#{rol.nombre}" itemValue="#{rol}" />
                         <p:ajax update="privilegios filtros" />
                     </p:selectOneMenu>
-                    <p:commandButton rendered="#{bean.rolSelected!=null}" value="Agregar recursos" icon="ui-icon-plus"
+                    <p:commandButton rendered="#{bean.rolSelected!=null}" value="Agregar recursos" class="btn btn-primary" icon="fa fa-plus"
                                      actionListener="#{bean.onEdit(bean.rolSelected)}" >
                         <p:ajax update="privilegios filtros" event="dialogReturn" listener="#{bean.updateTree()}" />
                     </p:commandButton>
@@ -30,7 +30,7 @@
                         <p:row>
                             <p:column rowspan="2" headerText="Recurso" />
                             <p:column colspan="3" headerText="Permisos" />
-                            <p:column rowspan="2"  headerText="Quitar" style="width: 50px" />
+                            <p:column rowspan="2"  headerText="Quitar" style="width: 70px" />
                         </p:row>
                         <p:row>
                             <p:column  headerText="Insertar" />
@@ -51,7 +51,7 @@
                         <p:selectBooleanCheckbox  rendered="#{nodo.getChildCount()==0}" value="#{privilegio.eliminar}" />
                     </p:column>
                     <p:column style="text-align: center">
-                        <p:commandButton update="privilegios" icon="ui-icon-trash" actionListener="#{bean.onRemove(privilegio)}" title="Eliminar">
+                        <p:commandButton update="privilegios" class="btn btn-danger" icon="fa fa-trash" actionListener="#{bean.onRemove(privilegio)}" title="Eliminar">
                             <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" >
 
                             </p:confirm>

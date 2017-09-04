@@ -9,25 +9,26 @@
         <ui:param name="bean" value="#{maquinarialListBean}" />
         <h:form>
             <p:panel header="Gestión de Maquinaria">
-                <p:panelGrid><!--filtros-->
-                    <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" >
-                        <p:outputLabel value="Marca" />
+                <div class="ui-g">
+                    <div class="ui-g-2"><p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}"/></div>
+                    
+                    <div class="ui-g-1"></div>
+                    <div class="ui-g-1"><p:outputLabel value="Marca" style="color:#555; float: right;"/></div>
+                    <div class="ui-g-2">                       
                         <p:inputText value="#{bean.sfMarca.value}" />
-                        <p:outputLabel value="Modelo" />
+                    </div>
+                    <div class="ui-g-1"><p:outputLabel value="Modelo" style="color:#555; float: right;"/></div>
+                    <div class="ui-g-2">
                         <p:inputText value="#{bean.sfModelo.value}" />
-                        
-                    </p:panelGrid>
-                </p:panelGrid>
-                <br />
-                <p:panelGrid><!--Botones -->
-                    <p:commandButton value="Buscar" icon="ui-icon-search" actionListener="#{bean.onSearch()}" update="lst" validateClient="false"/>
-                    <p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{bean.onNew()}"/>
-                    <!--<p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}" />-->
-                    <p:commandButton value="Limpiar"  icon="ui-icon-refresh"/>
-                </p:panelGrid>
+                    </div>
+                    <div class="ui-g-3">
+                        <p:commandButton class="btn btn-info" value="Buscar" icon="fa fa-search" actionListener="#{bean.onSearch()}" update="lst" validateClient="false"/>
+                        <p:commandButton class="btn btn-light" value="Limpiar"  icon="fa fa-refresh" style="float: right;"/>
+                    </div>
+                </div>
                 <br />
                 <!-- listado -->
-                <p:dataTable id="lst" var="maquinaria" value="#{bean.items}">
+                <p:dataTable id="lst" var="maquinaria" value="#{bean.items}" resizableColumns="true">
                     <p:column headerText="Marca">
                         <p:outputLabel value="#{maquinaria.marca}" />
                     </p:column>
@@ -49,11 +50,11 @@
                     <p:column headerText="Estado">
                         <p:outputLabel value="#{maquinaria.estadoName}" />
                     </p:column>
-                    <p:column headerText="Acciones" style="width: 70px"> 
-                        <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{bean.onEdit(maquinaria)}" title="Editar">
+                    <p:column headerText="Acciones" style="width: 90px"> 
+                        <p:commandButton class="btn btn-warning" update="lst" icon="fa fa-pencil" actionListener="#{bean.onEdit(maquinaria)}" title="Editar">
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
-                        <p:commandButton update="lst" icon="ui-icon-trash" actionListener="#{bean.onRemove(maquinaria)}" title="Eliminar">
+                        <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(maquinaria)}" title="Eliminar">
                             <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>

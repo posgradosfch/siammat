@@ -21,24 +21,21 @@
             }
         </style>
     </h:head>
-    <h:body>
+    <h:body style="background: #6DBC13;">
+        <h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome-jsf.css" />
         <h:outputStylesheet library="css" name="layout.css" />
-        <p:layout fullPage="true">
+        <ui:include src="header.xhtml" />
+        <div id="content" class="container-fluid">
+            <ui:insert name="content">
+                <span>Página en construcción</span>
+            </ui:insert>
+        </div>
 
-            <p:layoutUnit  class="layout_central" style="border: none" position="north" size="60"  resizable="true" closable="true" collapsible="true">
-                <ui:include src="header.xhtml" />
-            </p:layoutUnit>
-
-            <p:layoutUnit class="layout_central" position="south" size="50" resizable="true" closable="true" collapsible="true" style="border: 0px;text-align: center">
-                <h:outputText value="Derechos reservados - Sistema Informático para la Administracion de los Mantenimientos y Asignación de Transporte" style="text-align: right"/>
-            </p:layoutUnit>
-
-            <p:layoutUnit position="center" class="layout_central" style="border:0px">
-                <ui:insert name="content">
-                </ui:insert>
-            </p:layoutUnit>
-
-        </p:layout>
+        <div id="footer" class="footer">
+            <div class="container">
+                Derechos reservados - Sistema Informático para la Administracion de los Mantenimientos y Asignación de Transporte
+            </div>
+        </div>
         <p:dialog widgetVar="statusDialog" modal="false" draggable="false" header="Por favor espere"
                   closable="false" resizable="false" showHeader="false" >
             <p:graphicImage value="/imgs/ajaxloadingbar.gif" />

@@ -3,6 +3,6 @@
     <Resource auth="Container" 
         driverClassName="org.postgresql.Driver" 
         logAbandoned="true" maxActive="10" maxIdle="5" maxWait="-1" name="jdbc/dsSiammat" 
-        password="postgres" removeAbandoned="true" removeAbandonedTimeout="30" type="javax.sql.DataSource" 
+        password="pass123" removeAbandoned="true" removeAbandonedTimeout="30" type="javax.sql.DataSource" 
         url="jdbc:postgresql://localhost/siammat" username="postgres" />
 </Context>

@@ -13,21 +13,21 @@
 
                 </p:panelGrid>
                 <p:panelGrid><!--Botones -->
-                    <p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{rolListBean.onNew()}" rendered="#{bean.privilegio.insertar}" />
+                    <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{rolListBean.onNew()}" rendered="#{bean.privilegio.insertar}" />
                 </p:panelGrid>
                 <br />
                 <!-- listado -->
-                <p:dataTable id="lst" var="rol" value="#{rolListBean.items}">
+                <p:dataTable id="lst" var="rol" value="#{rolListBean.items}" resizableColumns="true">
                     <p:column headerText="Nombre">
                         <p:outputLabel value="#{rol.nombre}" />
                     </p:column>
                     <p:column headerText="Descripcion">
                         <p:outputLabel value="#{rol.descripcion}" />
                     </p:column>
-                    <p:column headerText="Acciones" style="width: 70px"> 
-                        <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{rolListBean.onEdit(rol)}" title="Editar">
+                    <p:column headerText="Acciones" style="width: 90px"> 
+                        <p:commandButton class="btn btn-warning" update="lst" icon="fa fa-pencil" actionListener="#{rolListBean.onEdit(rol)}" title="Editar">
                         </p:commandButton>
-                        <p:commandButton update="lst" icon="ui-icon-trash" actionListener="#{rolListBean.onRemove(rol)}" title="Eliminar">
+                        <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{rolListBean.onRemove(rol)}" title="Eliminar">
                             <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>

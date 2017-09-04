@@ -8,12 +8,6 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
-    <context-param>
-        <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Production</param-value>
-        <param-name>primefaces.FONT_AWESOME</param-name>
-        <param-value>true</param-value>
-    </context-param>
     <filter>
         <description>Encargado de validar cada url para asegurarse que hay un sesion activa</description>
         <filter-name>securityFilter</filter-name>
@@ -61,6 +55,6 @@
     <!--Tema de primefaces -->
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>bluesky</param-value>
+        <param-value>admin</param-value>
     </context-param>
 </web-app>

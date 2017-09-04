@@ -12,21 +12,21 @@
 
                 </p:panelGrid>
                 <p:panelGrid><!--Botones -->
-                    <p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{cargoListBean.onNew()}"/>
+                    <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{cargoListBean.onNew()}"/>
                 </p:panelGrid>
                 <br />
                 <!-- listado -->
-                <p:dataTable id="lst" var="cargo" value="#{cargoListBean.items}">
+                <p:dataTable id="lst" var="cargo" value="#{cargoListBean.items}" resizableColumns="true">
                     <p:column headerText="Nombre">
                         <p:outputLabel value="#{cargo.nombre}" />
                     </p:column>
                     <p:column headerText="Descripcion">
                         <p:outputLabel value="#{cargo.descripcion}" />
                     </p:column>
-                    <p:column headerText="Acciones" style="width: 70px"> 
-                        <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{cargoListBean.onEdit(cargo)}" title="Editar">
+                    <p:column headerText="Acciones" style="width: 90px"> 
+                        <p:commandButton class="btn btn-warning" update="lst" icon="fa fa-pencil" actionListener="#{cargoListBean.onEdit(cargo)}" title="Editar">
                         </p:commandButton>
-                        <p:commandButton update="lst" icon="ui-icon-trash" actionListener="#{cargoListBean.onRemove(cargo)}" title="Eliminar">
+                        <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{cargoListBean.onRemove(cargo)}" title="Eliminar">
                             <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
