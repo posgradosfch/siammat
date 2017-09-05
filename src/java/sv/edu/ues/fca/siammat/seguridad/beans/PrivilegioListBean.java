@@ -44,29 +44,32 @@ public class PrivilegioListBean extends ListBaseBean {
         //Fijando la uri del formulario de edición
         setPathForm("/seguridad/privilegios/edit");
     }
-    
-    public void onSave(){
+
+    public void onSave() {
         createList(menu);
         getServiceLocator().getGenericServicio().executeInTrans(new HibernateCallback() {
             @Override
             public Object doInHibernate(Session sn) throws HibernateException, SQLException {
-                for(Privilegio p:privilegios){
+                for (Privilegio p : privilegios) {
                     sn.update(p);
                 }
-                
+
                 return 0;
             }
         });
         Util.addMessage(FacesMessage.SEVERITY_INFO, "Guardar", "Privilegios actualizados");
     }
-    
-    private void createList(TreeNode treeNode){
-        privilegios=new ArrayList<>();
-        if(treeNode.getData() instanceof Privilegio){
+
+    private void createList(TreeNode treeNode) {
+        if (privilegios == null) {
+            privilegios = new ArrayList<>();
+        }
+
+        if (treeNode.getData() instanceof Privilegio) {
             privilegios.add((Privilegio) treeNode.getData());
         }
-        if(treeNode.getChildCount() > 0){
-            for(TreeNode t:treeNode.getChildren()){
+        if (treeNode.getChildCount() > 0) {
+            for (TreeNode t : treeNode.getChildren()) {
                 createList(t);
             }
         }
@@ -77,7 +80,6 @@ public class PrivilegioListBean extends ListBaseBean {
         menu = new DefaultTreeNode("Menu", null);
         roles = getServiceLocator().getGenericServicio().find("from Rol r");
     }
-    
 
     @Override
     public String setupQuery() {
@@ -149,8 +151,8 @@ public class PrivilegioListBean extends ListBaseBean {
     public void setSelectOneMenu(SelectOneMenu selectOneMenu) {
         this.selectOneMenu = selectOneMenu;
     }
-    
-    public void updateTree(){
+
+    public void updateTree() {
         selectOneMenu.broadcast(new ValueChangeEvent(selectOneMenu, null, selectOneMenu.getValue()));
     }
 }
