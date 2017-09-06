@@ -59,3 +59,45 @@ body > .container-fluid {
     padding-right: 15px;
     padding-left: 15px;
 }
+.landingPage{
+    color: white;
+    text-align: center;
+    font-family: Cabin,'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+.landingPage > h1 {
+    font-size: 100px;
+    margin: 0 0 35px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.landingPage > p {
+    font-size: 22px;
+}
+
+.cabecera{
+    border-color: #4B7220;
+    text-align: center;
+}
+
+.cabecera > .panel-heading{
+    color: white;
+    background: #4B7220;
+    font-weight: bold;
+}
+
+.cabecera > .panel-body{
+    color: #4B7220;
+}
+
+
+/* Personalizacion de plantilla boostrap
+-------------------------------------------------- */
+
+body .ui-datatable th.ui-state-default, body .ui-treetable th.ui-state-default {
+    border-color: #777 !important;
+}
+.ui-datatable tbody td {
+    border-color: #777 !important;
+}

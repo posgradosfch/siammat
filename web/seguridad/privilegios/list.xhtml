@@ -9,6 +9,19 @@
     <ui:define name="content">
         <ui:param name="bean" value="#{privilegioListBean}" />
         <h:form id="frmLst">
+            <style>
+                span.ui-treetable-toggler.ui-icon-triangle-1-s {
+                    background-image: url("/siammat/faces/javax.faces.resource/images/ui-icons_222222_256x240.png?ln=primefaces-admin") !important;
+                    display: inline !important;
+                }
+                body span.ui-treetable-toggler.ui-icon-triangle-1-e {
+                    background-image: url("/siammat/faces/javax.faces.resource/images/ui-icons_222222_256x240.png?ln=primefaces-admin") !important;
+                    display: inline !important;
+                }
+                body .ui-treetable td[role="gridcell"] {
+                    border-color: #777;
+                }
+            </style>
             <p:panel header="Gestión de Privilegios">
                 <p:growl autoUpdate="true" showDetail="true"/>
                 <p:panelGrid id="filtros" columns="3" columnClasses="label,value" styleClass="ui-panelgrid-blank" >
@@ -52,7 +65,7 @@
                     </p:column>
                     <p:column style="text-align: center">
                         <p:commandButton update="privilegios" class="btn btn-danger" icon="fa fa-trash" actionListener="#{bean.onRemove(privilegio)}" title="Eliminar">
-                            <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" >
+                            <p:confirm header="Confirmar" message="Desea eliminar registro" icon="fa fa-exclamation-triangle">
 
                             </p:confirm>
                             <p:ajax update="privilegios" event="dialogReturn" listener="#{bean.updateTree()}" />
