@@ -29,6 +29,7 @@ public class CargoListBean extends ListBaseBean{
     private void init(){
         onSearch();
     }
+ 
     
     @Override
     public List<Cargo> getItems() {//Asegurando que retorna el tipo de datos, y aprovechar sugerencias del editor
@@ -41,5 +42,5 @@ public class CargoListBean extends ListBaseBean{
         return hql;
     }
     
-    
+
 }

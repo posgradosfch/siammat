@@ -6,6 +6,7 @@
 package sv.edu.ues.fca.siammat.seguridad.beans;
 
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import sv.edu.ues.fca.siammat.beans.ListBaseBean;
@@ -35,5 +36,9 @@ public class UsuarioListBean extends ListBaseBean{
         return hql;
     }
     
+    @PostConstruct
+    private void init(){
+        onSearch();
+    }
     
 }

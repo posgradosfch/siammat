@@ -5,26 +5,26 @@
  */
 package sv.edu.ues.fca.siammat.beans;
 
-import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import sv.edu.ues.fca.siammat.beans.ListBaseBean;
-import sv.edu.ues.fca.siammat.modelo.Actividad;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import sv.edu.ues.fca.siammat.modelo.Lote;
 
 /**
  *
- * @author franck
+ * @author fran
  */
 @ManagedBean
 @ViewScoped
-public class ActividadListBean extends ListBaseBean{
+public class LoteListBean extends ListBaseBean{
 
     /**
-     * Creates a new instance of tractorListBean
+     * Creates a new instance of LoteListBean
      */
-    public ActividadListBean() {
-        setPathForm("/actividad/edit");
+    public LoteListBean() {
+        setPathForm("/lote/edit");
     }
     
     @PostConstruct
@@ -32,13 +32,13 @@ public class ActividadListBean extends ListBaseBean{
         onSearch();
     }
     @Override
-    public List<Actividad> getItems() {//Asegurando que retorna el tipo de datos, y aprovechar sugerencias del editor
+    public List<Lote> getItems() {//Asegurando que retorna el tipo de datos, y aprovechar sugerencias del editor
         return super.getItems(); 
     }
 
     @Override
     public String setupQuery() {
-        String hql="from Actividad a ";
+        String hql="from Lote l ";
         return hql;
     }
     

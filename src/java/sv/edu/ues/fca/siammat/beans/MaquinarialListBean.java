@@ -7,6 +7,7 @@ package sv.edu.ues.fca.siammat.beans;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import sv.edu.ues.fca.siammat.filtros.SimpleFilterElement;
@@ -65,5 +66,8 @@ public class MaquinarialListBean extends ListBaseBean{
         this.sfModelo = sfModelo;
     }
     
-    
+        @PostConstruct
+    private void init(){
+        onSearch();
+    }
 }

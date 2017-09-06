@@ -10,6 +10,7 @@
     <class>sv.edu.ues.fca.siammat.seguridad.modelo.Empleado</class>
     <class>sv.edu.ues.fca.siammat.seguridad.modelo.Cargo</class>
     <class>sv.edu.ues.fca.siammat.modelo.Maquinaria</class>
+    <class>sv.edu.ues.fca.siammat.modelo.Lote</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/siammat"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>
