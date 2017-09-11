@@ -7,7 +7,6 @@ package sv.edu.ues.fca.siammat.beans;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import sv.edu.ues.fca.siammat.filtros.SimpleFilterElement;
@@ -22,11 +21,13 @@ import sv.edu.ues.fca.siammat.modelo.UnidadTransporte;
 public class UnidadTransporteListBean extends ListBaseBean{
     private SimpleFilterElement<String> sfMarca = new SimpleFilterElement<String>("u.marca", SimpleFilterElement.AND, "LIKE");
     private SimpleFilterElement<String> sfModelo= new SimpleFilterElement<String>("u.modelo", SimpleFilterElement.AND, "LIKE");
+    private SimpleFilterElement<Integer> sfTipo = new SimpleFilterElement<Integer>("u.tipo",SimpleFilterElement.AND,"=");
     public UnidadTransporteListBean() {
         //Fijando la uri del formulario de edición
         setPathForm("/unidad_transporte/edit");
         getFiltros().addFilterElement(sfMarca);
         getFiltros().addFilterElement(sfModelo);
+        getFiltros().addFilterElement(sfTipo);
     }
     
     @Override
@@ -64,6 +65,14 @@ public class UnidadTransporteListBean extends ListBaseBean{
 
     public void setSfModelo(SimpleFilterElement<String> sfModelo) {
         this.sfModelo = sfModelo;
+    }
+
+    public SimpleFilterElement<Integer> getSfTipo() {
+        return sfTipo;
+    }
+
+    public void setSfTipo(SimpleFilterElement<Integer> sfTipo) {
+        this.sfTipo = sfTipo;
     }
     
 }

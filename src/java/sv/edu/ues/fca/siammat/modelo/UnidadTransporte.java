@@ -78,7 +78,7 @@ public class UnidadTransporte implements Serializable {
     }
     
     public String getTipoName(){
-        switch(this.estado){
+        switch(this.tipo){
             case 1:
                 return "Automóvil";
             case 2:

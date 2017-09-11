@@ -3,55 +3,68 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="/WEB-INF/templates/layout.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
         <ui:param name="bean" value="#{unidadTransporteListBean}" />
         <h:form>
             <p:panel header="Gestión de Unidades de Transporte">
                 <p:panelGrid columnClasses="label,value" columns="2" styleClass="ui-panelgrid-blank" >
-                    <p:outputLabel value="Marca"/>
+                    <p:outputLabel value="Marca" style="color:#555"/>
                     <p:inputText value="#{bean.sfMarca.value}" />
-                    <p:outputLabel value="Modelo" />
+                    <p:outputLabel value="Modelo" style="color:#555"/>
                     <p:inputText value="#{bean.sfModelo.value}" />
+                    <p:outputLabel value="Tipo" />
+                    <p:selectOneMenu value="#{bean.sfTipo.value}">
+                        <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                        <f:selectItem itemLabel="Automóvil" itemValue="1" />
+                        <f:selectItem itemLabel="Autobús" itemValue="2" />
+                        <f:selectItem itemLabel="Pick-up" itemValue="3" />
+                        <f:selectItem itemLabel="Motocicleta" itemValue="4" />
+                    </p:selectOneMenu>
                 </p:panelGrid>
                 <br />
-                <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}"/>
+                <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}"/>
                 <p:commandButton class="btn btn-info" value="Buscar" icon="fa fa-search" actionListener="#{bean.onSearch()}" update="lst" validateClient="false"/>
                 <p:commandButton type="reset" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh" />
 
 
                 <!-- listado -->
+                
                 <p:dataTable id="lst" var="unidadTransporte" value="#{bean.items}" resizableColumns="true" style="padding-top: 5px">
-                    <p:column headerText="Tipo">
+                    <p:column headerText="Tipo" style="width: 90px" >
                         <p:outputLabel value="#{unidadTransporte.tipoName}" />
                     </p:column>
-                    <p:column headerText="Marca">
+                    <p:column headerText="Marca" style="width: 90px">
                         <p:outputLabel value="#{unidadTransporte.marca}" />
                     </p:column>
-                    <p:column headerText="Modelo">
+                    <p:column headerText="Modelo" style="width: 90px">
                         <p:outputLabel value="#{unidadTransporte.modelo}" />
                     </p:column>
-                    <p:column headerText="Año">
+                    <p:column headerText="Año" style="width: 50px">
                         <p:outputLabel value="#{unidadTransporte.anio}" />
                     </p:column>
-                    <p:column headerText="Placa">
+                    <p:column headerText="Placa" style="width: 70px">
                         <p:outputLabel value="#{unidadTransporte.placa}" />
                     </p:column>
-                    <p:column headerText="Color">
+                    <p:column headerText="Color" style="width: 70px">
                         <p:outputLabel value="#{unidadTransporte.color}" />
                     </p:column>
-                    <p:column headerText="No. Motor">
+                    <p:column headerText="No.Motor" style="width:200px">
                         <p:outputLabel value="#{unidadTransporte.noMotor}" />
                     </p:column>
-                    <p:column headerText="Estado">
+                    <p:column headerText="No.Inventario" style="width: 220px">
+                        <p:outputLabel value="#{unidadTransporte.noInventario}" />
+                    </p:column>
+                    <p:column headerText="Estado" style="width: 110px">
                         <p:outputLabel value="#{unidadTransporte.estadoName}" />
                     </p:column>
                     <p:column headerText="Acciones" style="width: 90px"> 
-                        <p:commandButton class="btn btn-warning" update="lst" icon="fa fa-pencil" actionListener="#{bean.onEdit(unidadTransporte)}" title="Editar">
+                        <p:commandButton class="btn btn-warning" update="lst" icon="#{bean.privilegio.editar==true?'fa fa-pencil':'fa fa-info'}" actionListener="#{bean.onEdit(unidadTransporte)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
-                        <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(unidadTransporte)}" title="Eliminar">
+                        <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(unidadTransporte)}" title="Eliminar" rendered="#{bean.privilegio.eliminar}">
                             <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
