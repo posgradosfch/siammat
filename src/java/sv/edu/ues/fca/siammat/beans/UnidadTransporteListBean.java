@@ -66,8 +66,4 @@ public class UnidadTransporteListBean extends ListBaseBean{
         this.sfModelo = sfModelo;
     }
     
-        @PostConstruct
-    private void init(){
-        onSearch();
-    }
 }

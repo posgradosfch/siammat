@@ -9,27 +9,20 @@
         <ui:param name="bean" value="#{unidadTransporteListBean}" />
         <h:form>
             <p:panel header="Gestión de Unidades de Transporte">
-                <div class="ui-g">
-                    <div class="ui-g-2"><p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}"/></div>
-                    <form>
-                    <div class="ui-g-1"></div>
-                    <div class="ui-g-1"><p:outputLabel value="Marca" style="color:#555; float: right;"/></div>
-                    <div class="ui-g-2">                       
-                        <p:inputText value="#{bean.sfMarca.value}" />
-                    </div>
-                    <div class="ui-g-1"><p:outputLabel value="Modelo" style="color:#555; float: right;"/></div>
-                    <div class="ui-g-2">
-                        <p:inputText value="#{bean.sfModelo.value}" />
-                    </div>
-                    <div class="ui-g-3">
-                        <p:commandButton class="btn btn-info" value="Buscar" icon="fa fa-search" actionListener="#{bean.onSearch()}" update="lst" validateClient="false"/>
-                        <p:commandButton type="reset" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh" style="float: right;"/>
-                    </div>
-                    </form>
-                </div>
+                <p:panelGrid columnClasses="label,value" columns="2" styleClass="ui-panelgrid-blank" >
+                    <p:outputLabel value="Marca"/>
+                    <p:inputText value="#{bean.sfMarca.value}" />
+                    <p:outputLabel value="Modelo" />
+                    <p:inputText value="#{bean.sfModelo.value}" />
+                </p:panelGrid>
                 <br />
+                <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}"/>
+                <p:commandButton class="btn btn-info" value="Buscar" icon="fa fa-search" actionListener="#{bean.onSearch()}" update="lst" validateClient="false"/>
+                <p:commandButton type="reset" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh" />
+
+
                 <!-- listado -->
-                <p:dataTable id="lst" var="unidadTransporte" value="#{bean.items}" resizableColumns="true">
+                <p:dataTable id="lst" var="unidadTransporte" value="#{bean.items}" resizableColumns="true" style="padding-top: 5px">
                     <p:column headerText="Tipo">
                         <p:outputLabel value="#{unidadTransporte.tipoName}" />
                     </p:column>
