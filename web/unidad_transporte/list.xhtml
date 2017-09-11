@@ -6,48 +6,52 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        <ui:param name="bean" value="#{maquinarialListBean}" />
+        <ui:param name="bean" value="#{unidadTransporteListBean}" />
         <h:form>
-            <p:panel header="Gestión de Maquinaria">
+            <p:panel header="Gestión de Unidades de Transporte">
                 <p:panelGrid columnClasses="label,value" columns="2" styleClass="ui-panelgrid-blank" >
                     <p:outputLabel value="Marca"/>
                     <p:inputText value="#{bean.sfMarca.value}" />
-                    <p:outputLabel value="Modelo"/>
+                    <p:outputLabel value="Modelo" />
                     <p:inputText value="#{bean.sfModelo.value}" />
-
                 </p:panelGrid>
                 <br />
                 <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}"/>
                 <p:commandButton class="btn btn-info" value="Buscar" icon="fa fa-search" actionListener="#{bean.onSearch()}" update="lst" validateClient="false"/>
-                <p:commandButton class="btn btn-light" value="Limpiar"  icon="fa fa-refresh" />
+                <p:commandButton type="reset" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh" />
+
+
                 <!-- listado -->
-                <p:dataTable id="lst" var="maquinaria" value="#{bean.items}" resizableColumns="true" style="padding-top: 5px">
+                <p:dataTable id="lst" var="unidadTransporte" value="#{bean.items}" resizableColumns="true" style="padding-top: 5px">
+                    <p:column headerText="Tipo">
+                        <p:outputLabel value="#{unidadTransporte.tipoName}" />
+                    </p:column>
                     <p:column headerText="Marca">
-                        <p:outputLabel value="#{maquinaria.marca}" />
+                        <p:outputLabel value="#{unidadTransporte.marca}" />
                     </p:column>
                     <p:column headerText="Modelo">
-                        <p:outputLabel value="#{maquinaria.modelo}" />
+                        <p:outputLabel value="#{unidadTransporte.modelo}" />
                     </p:column>
                     <p:column headerText="Año">
-                        <p:outputLabel value="#{maquinaria.anio}" />
+                        <p:outputLabel value="#{unidadTransporte.anio}" />
                     </p:column>
                     <p:column headerText="Placa">
-                        <p:outputLabel value="#{maquinaria.placa}" />
+                        <p:outputLabel value="#{unidadTransporte.placa}" />
                     </p:column>
                     <p:column headerText="Color">
-                        <p:outputLabel value="#{maquinaria.color}" />
+                        <p:outputLabel value="#{unidadTransporte.color}" />
                     </p:column>
                     <p:column headerText="No. Motor">
-                        <p:outputLabel value="#{maquinaria.noMotor}" />
+                        <p:outputLabel value="#{unidadTransporte.noMotor}" />
                     </p:column>
                     <p:column headerText="Estado">
-                        <p:outputLabel value="#{maquinaria.estadoName}" />
+                        <p:outputLabel value="#{unidadTransporte.estadoName}" />
                     </p:column>
                     <p:column headerText="Acciones" style="width: 90px"> 
-                        <p:commandButton class="btn btn-warning" update="lst" icon="fa fa-pencil" actionListener="#{bean.onEdit(maquinaria)}" title="Editar">
+                        <p:commandButton class="btn btn-warning" update="lst" icon="fa fa-pencil" actionListener="#{bean.onEdit(unidadTransporte)}" title="Editar">
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
-                        <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(maquinaria)}" title="Eliminar">
+                        <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(unidadTransporte)}" title="Eliminar">
                             <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>

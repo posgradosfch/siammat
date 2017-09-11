@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <ui:param name="bean" value="#{unidadTransporteBean}" />
+        <title>#{bean.winTitle} Unidad de Transporte</title>
+    </h:head>
+    <h:body>
+        <style>
+            .label {
+                color:#444;
+            }
+            div.ui-selectonemenu-trigger span.ui-icon-triangle-1-s {
+                background-image: url("/siammat/faces/javax.faces.resource/images/ui-icons_222222_256x240.png?ln=primefaces-admin");
+                display: block;
+            }
+        </style>
+        <h:form>
+            <p:messages autoUpdate="true" closable="true" />
+            <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
+                   
+                <p:outputLabel value="Tipo"  for="noInventario" />
+                <p:selectOneMenu value="#{bean.unidadTransporte.tipo}"  style="width: 95%" >
+                    <f:selectItem itemLabel="Automóvil" itemValue="1" />
+                    <f:selectItem itemLabel="Autobús" itemValue="2" />
+                    <f:selectItem itemLabel="Pick-up" itemValue="3" />
+                    <f:selectItem itemLabel="Motocicleta" itemValue="4" />
+                </p:selectOneMenu>
+                
+                <p:outputLabel value="Marca" for="marca" />
+                <p:inputText required="true" id="marca" value="#{bean.unidadTransporte.marca}" style="width: 100%" />
+
+                <p:outputLabel value="Modelo"  for="modelo" />
+                <p:inputText required="true" id="modelo" value="#{bean.unidadTransporte.modelo}" style="width: 100%" />
+
+                <p:outputLabel value="Año"  for="anio" />
+                <p:inputText required="true" id="anio" value="#{bean.unidadTransporte.anio}" style="width: 100%" maxlength="4"/>
+
+                <p:outputLabel value="Placa"  for="placa" />
+                <p:inputText required="true" id="placa" value="#{bean.unidadTransporte.placa}" style="width: 100%" />
+
+                <p:outputLabel value="Color"  for="color" />
+                <p:inputText required="true" id="color" value="#{bean.unidadTransporte.color}" style="width: 100%" />
+
+                <p:outputLabel value="No. de Motor"  for="noMotor" />
+                <p:inputText required="true" id="noMotor" value="#{bean.unidadTransporte.noMotor}" style="width: 100%" />
+
+                <p:outputLabel value="No. de inventario"  for="noInventario" />
+                <p:inputText required="true" id="noInventario" value="#{bean.unidadTransporte.noInventario}" style="width: 100%" />
+
+                <p:outputLabel value="Tipo combustible"  for="noInventario" />
+                <p:selectOneMenu value="#{bean.unidadTransporte.tipoCombustible}"  style="width: 95%" >
+                    <f:selectItem itemLabel="Gasolina" itemValue="1" />
+                    <f:selectItem itemLabel="Diesel" itemValue="2" />
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Estado"  for="noInventario" />
+                <p:selectOneMenu value="#{bean.unidadTransporte.estado}"   style="width: 95%" >
+                    <f:selectItem itemLabel="Funcionando" itemValue="1" />
+                    <f:selectItem itemLabel="En reparacion" itemValue="2" />
+                    <f:selectItem itemLabel="En desuso" itemValue="3" />
+                </p:selectOneMenu>
+
+
+            </p:panelGrid>
+            <p:separator style="width: 100%" />
+
+            <p:commandButton value="Guardar"  class="btn btn-primary" actionListener="#{bean.onSave()}" update=""/>
+            <p:commandButton value="Cancelar" class="btn btn-danger" actionListener="#{bean.onCancel()}" immediate="true"/>
+
+        </h:form>
+    </h:body>
+</html>
+

@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import sv.edu.ues.fca.siammat.filtros.SimpleFilterElement;
-import sv.edu.ues.fca.siammat.modelo.Maquinaria;
+import sv.edu.ues.fca.siammat.modelo.UnidadTransporte;
 
 /**
  *
@@ -19,24 +19,24 @@ import sv.edu.ues.fca.siammat.modelo.Maquinaria;
  */
 @ManagedBean
 @ViewScoped
-public class MaquinarialListBean extends ListBaseBean{
-    private SimpleFilterElement<String> sfMarca = new SimpleFilterElement<String>("m.marca", SimpleFilterElement.AND, "LIKE");
-    private SimpleFilterElement<String> sfModelo= new SimpleFilterElement<String>("m.modelo", SimpleFilterElement.AND, "LIKE");
-    public MaquinarialListBean() {
+public class UnidadTransporteListBean extends ListBaseBean{
+    private SimpleFilterElement<String> sfMarca = new SimpleFilterElement<String>("u.marca", SimpleFilterElement.AND, "LIKE");
+    private SimpleFilterElement<String> sfModelo= new SimpleFilterElement<String>("u.modelo", SimpleFilterElement.AND, "LIKE");
+    public UnidadTransporteListBean() {
         //Fijando la uri del formulario de edición
-        setPathForm("/maquinaria/edit");
+        setPathForm("/unidad_transporte/edit");
         getFiltros().addFilterElement(sfMarca);
         getFiltros().addFilterElement(sfModelo);
     }
     
     @Override
-    public List<Maquinaria> getItems() {//Asegurando que retorna el tipo de datos, y aprovechar sugerencias del editor
+    public List<UnidadTransporte> getItems() {//Asegurando que retorna el tipo de datos, y aprovechar sugerencias del editor
         return super.getItems(); 
     }
 
     @Override
     public String setupQuery() {
-        String hql="from Maquinaria m";
+        String hql="from UnidadTransporte u";
         String wc = getFiltros().generateWhereClause();
         if(wc!=null && !wc.equals("")){
             hql+= " where "+wc;
