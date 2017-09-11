@@ -101,3 +101,9 @@ body .ui-datatable th.ui-state-default, body .ui-treetable th.ui-state-default {
 .ui-datatable tbody td {
     border-color: #777 !important;
 }
+
+
+.label {
+    color:#444;
+}
+
