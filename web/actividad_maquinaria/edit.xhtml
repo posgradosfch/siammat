@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <ui:param name="bean" value="#{actividadMaquinariaBean}" />
+        <title>#{bean.winTitle} Actividad Maquinaria</title>
+    </h:head>
+    <h:body>
+        <style>
+            .label {
+                color:#444;
+            }
+            div.ui-selectonemenu-trigger span.ui-icon-triangle-1-s {
+                background-image: url("/siammat/faces/javax.faces.resource/images/ui-icons_222222_256x240.png?ln=primefaces-admin");
+                display: block;
+            }
+        </style>
+        <h:form >
+            
+            <p:messages autoUpdate="true" closable="true" />
+            <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
+
+                <p:outputLabel for="fecha" value="Fecha" />
+                <p:calendar id="fecha" value="#{bean.actividadMaquinaria.fecha}" pattern="dd-MM-yyyy" required="true" />
+
+                <p:outputLabel value="Maquinaria" for="maquinaria" />
+                <p:selectOneMenu required="true" id="maquinaria" value="#{bean.actividadMaquinaria.idMaquinaria}" converter="entityConverter">
+                    <f:selectItem itemLabel="Seleccione" />
+                    <f:selectItems var="maquinaria" value="#{bean.maquinarias}" itemLabel="#{maquinaria.placa}" itemValue="#{maquinaria}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Actividad" for="actividad" />
+                <p:selectOneMenu required="true" id="actividad" value="#{bean.actividadMaquinaria.idActividad}" converter="entityConverter">
+                    <f:selectItem itemLabel="Seleccione" />
+                    <f:selectItems var="actividad" value="#{bean.actividades}" itemLabel="#{actividad.abreviatura}" itemValue="#{actividad}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Empleado" for="empleado" />
+                <p:selectOneMenu required="true" id="empleado" value="#{bean.actividadMaquinaria.idEmpleado}" converter="entityConverter">
+                    <f:selectItem itemLabel="Seleccione" />
+                    <f:selectItems var="empleado" value="#{bean.empleados}" itemLabel="#{empleado.nombre}" itemValue="#{empleado}" />
+                </p:selectOneMenu>  
+
+                <p:outputLabel value="Lote" for="lote" />
+                <p:selectOneMenu required="true" id="lote" value="#{bean.actividadMaquinaria.idLote}" converter="entityConverter">
+                    <f:selectItem itemLabel="Seleccione" />
+                    <f:selectItems var="lote" value="#{bean.lotes}" itemLabel="#{lote.descripcion}" itemValue="#{lote}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Extension de Trabajo (KM)" for="ext" />
+                <p:inputNumber required="true" id="ext" value="#{bean.actividadMaquinaria.extensionTrabajo}"/>  
+
+                <p:outputLabel value="Combustible Inicial (GL)" for="comb-i" />
+                <p:inputNumber required="true" id="comb-i" value="#{bean.actividadMaquinaria.combustibleInicial}"/> 
+
+                <p:outputLabel value="Combustible Final (GL)" for="comb-f" />
+                <p:inputNumber required="true" id="comb-f" value="#{bean.actividadMaquinaria.combustibleFinal}"/> 
+
+                <p:outputLabel value="Horometro Inicial de Maquina " for="horo-i" />
+                <p:inputNumber required="true" id="horo-i" value="#{bean.actividadMaquinaria.inicioHorometro}"/> 
+
+                <p:outputLabel value="Horometro Final de Maquina" for="horo-f" />
+                <p:inputNumber required="true" id="horo-f" value="#{bean.actividadMaquinaria.finHorometro}"/> 
+
+                <p:outputLabel for="inic" value="Hora Inicial" />
+                <p:calendar required="true" id="inic" value="#{bean.actividadMaquinaria.inicioReloj}" pattern="HH:mm" timeOnly="true"  />
+
+                <p:outputLabel for="fin" value="Hora Final" />
+                <p:calendar required="true" id="fin" value="#{bean.actividadMaquinaria.finReloj}" pattern="HH:mm" timeOnly="true"  />
+
+                <p:outputLabel value="Observacion" for="obser" />
+                <p:inputText id="obser" value="#{bean.actividadMaquinaria.observacion}" style="width: 100%" />
+
+            </p:panelGrid>
+            <p:separator style="width: 100%" />
+
+            <p:commandButton value="Guardar"  class="btn btn-primary" actionListener="#{bean.onSave()}" update=""/>
+            <p:commandButton value="Cancelar" class="btn btn-danger" actionListener="#{bean.onCancel()}" immediate="true"/>
+
+           
+        </h:form>
+    </h:body>
+</html>
+
+
+
