@@ -17,9 +17,9 @@
 
                 </p:panelGrid>
                 <br />
-                <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}"/>
+                <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}"/>
                 <p:commandButton class="btn btn-info" value="Buscar" icon="fa fa-search" actionListener="#{bean.onSearch()}" update="lst" validateClient="false"/>
-                <p:commandButton class="btn btn-light" value="Limpiar"  icon="fa fa-refresh" />
+                <p:commandButton type="reset" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh" />
                 <!-- listado -->
                 <p:dataTable id="lst" var="maquinaria" value="#{bean.items}" resizableColumns="true" style="padding-top: 5px">
                     <p:column headerText="Marca">
@@ -44,10 +44,10 @@
                         <p:outputLabel value="#{maquinaria.estadoName}" />
                     </p:column>
                     <p:column headerText="Acciones" style="width: 90px"> 
-                        <p:commandButton class="btn btn-warning" update="lst" icon="fa fa-pencil" actionListener="#{bean.onEdit(maquinaria)}" title="Editar">
+                        <p:commandButton class="btn btn-warning" update="lst" icon="#{bean.privilegio.editar==true?'fa fa-pencil':'fa fa-info'}" actionListener="#{bean.onEdit(maquinaria)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
-                        <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(maquinaria)}" title="Eliminar">
+                        <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(maquinaria)}" title="Eliminar" rendered="#{bean.privilegio.eliminar}">
                             <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>

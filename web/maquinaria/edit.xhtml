@@ -23,25 +23,25 @@
             <p:messages autoUpdate="true" closable="true" />
             <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
                 <p:outputLabel value="Marca" for="marca" />
-                <p:inputText required="true" id="marca" value="#{bean.maquinaria.marca}" style="width: 100%" />
+                <p:inputText required="true" id="marca" value="#{bean.maquinaria.marca}" style="width: 100%" maxlength="50"/>
 
                 <p:outputLabel value="Modelo"  for="modelo" />
-                <p:inputText required="true" id="modelo" value="#{bean.maquinaria.modelo}" style="width: 100%" />
+                <p:inputText required="true" id="modelo" value="#{bean.maquinaria.modelo}" style="width: 100%" maxlength="50"/>
 
                 <p:outputLabel value="Año"  for="anio" />
                 <p:inputText required="true" id="anio" value="#{bean.maquinaria.anio}" style="width: 100%" maxlength="4"/>
 
                 <p:outputLabel value="Placa"  for="placa" />
-                <p:inputText required="true" id="placa" value="#{bean.maquinaria.placa}" style="width: 100%" />
+                <p:inputText required="true" id="placa" value="#{bean.maquinaria.placa}" style="width: 100%" maxlength="7"/>
 
                 <p:outputLabel value="Color"  for="color" />
-                <p:inputText required="true" id="color" value="#{bean.maquinaria.color}" style="width: 100%" />
+                <p:inputText required="true" id="color" value="#{bean.maquinaria.color}" style="width: 100%" maxlength="20"/>
 
                 <p:outputLabel value="No. de Motor"  for="noMotor" />
-                <p:inputText required="true" id="noMotor" value="#{bean.maquinaria.noMotor}" style="width: 100%" />
+                <p:inputText required="true" id="noMotor" value="#{bean.maquinaria.noMotor}" style="width: 100%" maxlength="25"/>
 
                 <p:outputLabel value="No. de inventario"  for="noInventario" />
-                <p:inputText required="true" id="noInventario" value="#{bean.maquinaria.noInventario}" style="width: 100%" />
+                <p:inputText required="true" id="noInventario" value="#{bean.maquinaria.noInventario}" style="width: 100%" maxlength="30"/>
 
                 <p:outputLabel value="Tipo combustible"  for="noInventario" />
                 <p:selectOneMenu value="#{bean.maquinaria.tipoCombustible}"  style="width: 95%" >
