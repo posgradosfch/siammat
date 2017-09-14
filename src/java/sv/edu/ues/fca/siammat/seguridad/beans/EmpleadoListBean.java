@@ -34,11 +34,13 @@ public class EmpleadoListBean extends ListBaseBean{
         String hql="from Empleado e join fetch e.cargo";
         return hql;
     }
-    
-    @PostConstruct
-    private void init(){
+
+    @Override
+    public void doAfterServiceLocatorSet() {
         onSearch();
     }
+    
+    
     
     
 }

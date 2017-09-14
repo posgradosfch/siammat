@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <h:head>
+        <ui:param name="bean" value="#{actividadBean}" />
+        <title>#{bean.winTitle} Actividad</title>
+        <style>
+            .label {
+                color:#444;
+            }
+            div.ui-selectonemenu-trigger span.ui-icon-triangle-1-s {
+                background-image: url("/siammat/faces/javax.faces.resource/images/ui-icons_222222_256x240.png?ln=primefaces-admin");
+                display: block;
+            }
+            .ui-timepicker-table td a {
+                padding: 0
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:messages autoUpdate="true" closable="true" />
+            <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
+                <!--p:outputLabel value="Fecha" />
+                <p:outputLabel value="Placa" />
+                <p:outputLabel value="Responsable" />
+                <p:outputLabel value="Vale o cupon" />
+                <p:outputLabel value="Unidad solicitante" />
+                <p:outputLabel value="Hora de salida" /-->
+                <p:outputLabel value="Hora de salida" />
+                <pe:timePicker mode="popup" widgetVar="popupTimeWidget"  
+                               label="Popup time picker" dialogPosition="right" />  
+                <p:outputLabel value="Hora de regreso" />
+                <p:outputLabel value="Kilometraje recorrido" />
+                <p:outputLabel value="Recibe conforme" />
+            </p:panelGrid>
+            <p:separator style="width: 100%" />
+
+            <p:commandButton value="Guardar" actionListener="#{actividadBean.onSave()}" update=""/>
+            <p:commandButton value="Cancelar" actionListener="#{actividadBean.onCancel()}" immediate="true"/>
+
+        </h:form>
+    </h:body>
+</html>
