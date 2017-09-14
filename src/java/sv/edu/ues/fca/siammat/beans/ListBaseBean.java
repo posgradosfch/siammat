@@ -187,6 +187,11 @@ public abstract class ListBaseBean implements Serializable {
 
     public void setServiceLocator(ServiceLocator serviceLocator) {
         this.serviceLocator = serviceLocator;
+        doAfterServiceLocatorSet();
+    }
+    
+    public void doAfterServiceLocatorSet(){
+    
     }
     
     
