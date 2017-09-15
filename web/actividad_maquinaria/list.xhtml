@@ -10,26 +10,18 @@
         <ui:param name="bean" value="#{actividadMaquinariaListBean}" />
         <h:form>
             <p:panel header="Control de Actividades de Maquinaria">
-                <p:panelGrid><!--filtros-->
-                    <div class="ui-g-1"></div>
-                    <div class="ui-g-1"><p:outputLabel value="Fecha" style="color:#555; float: right;"/></div>
-                    <div class="ui-g-2"> 
-                        <p:calendar value="#{bean.sfFecha.value}" pattern="dd-MM-yyyy"/>
-                    </div>
-                    <div class="ui-g-1"><p:outputLabel value="Actividad (abreviatura)" style="color:#555; float: right;"/></div>
-                    <div class="ui-g-2">
-                        <!--<p:selectOneMenu id="actividad" value="#{bean.sfActividad.value}" converter="entityConverter">
-                            <f:selectItem itemLabel="Seleccione" />
-                            <f:selectItems var="actividad" value="#{bean.actividades}" itemLabel="#{actividad.abreviatura}" itemValue="#{actividad}" />
-                        </p:selectOneMenu>-->
-
-    <p:inputText value="#{bean.sfActividad.value}" />
-                    </div>
-
+                <p:panelGrid  columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" id="filtros"><!--filtros-->
+                    <p:outputLabel />
+                    <p:outputLabel value="Fecha" />
+                    <p:calendar value="#{bean.sfFecha.value}" pattern="dd-MM-yyyy" />
+                    <p:outputLabel value="Actividad (abreviatura)" />
+                    <p:inputText value="#{bean.sfActividad.value}" />
                 </p:panelGrid>
+                <br />
                 <p:panelGrid><!--Botones -->
-                    <p:commandButton value="Buscar" icon="ui-icon-search" actionListener="#{bean.onSearch()}" update="lst"/>
-                    <p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{bean.onNew()}"/>
+                    <p:commandButton value="Buscar" class="btn btn-info"   icon="ui-icon-search" actionListener="#{bean.onSearch()}" update="lst"/>
+                    <p:commandButton value="Nuevo" class="btn btn-primary" icon="ui-icon-plus" actionListener="#{bean.onNew()}"/>
+                    <p:commandButton update="filtros" type="reset" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh"  actionListener="#{bean.filtros.clearFilters()}"/>
                 </p:panelGrid>
                 <br />
                 <!-- listado -->
@@ -104,11 +96,11 @@
                         </h:outputText>
                     </p:column>
 
-                    <p:column headerText="Acciones" style="width: 70px"> 
-                        <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{bean.onEdit(actividadmaq)}" title="Editar">
+                    <p:column headerText="Acciones" style="width: 100px"> 
+                        <p:commandButton class="#{bean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="ui-icon-pencil" actionListener="#{bean.onEdit(actividadmaq)}" title="Editar">
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
-                        <p:commandButton update="lst" icon="ui-icon-trash" actionListener="#{bean.onRemove(actividadmaq)}" title="Eliminar">
+                        <p:commandButton  class="btn btn-danger"  update="lst" icon="ui-icon-trash" actionListener="#{bean.onRemove(actividadmaq)}" title="Eliminar">
                             <p:confirm header="Confirmar" message="Desea eliminar registro?" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>

@@ -5,6 +5,7 @@
  */
 package sv.edu.ues.fca.siammat.beans;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -42,5 +43,11 @@ public class ActividadListBean extends ListBaseBean{
     public void doAfterServiceLocatorSet() {
         onSearch();
     }
+
+    @Override
+    public void doAfterRemove(Serializable removedObject) {
+        onSearch();
+    }
+    
     
 }

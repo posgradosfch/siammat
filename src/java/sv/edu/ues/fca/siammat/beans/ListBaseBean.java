@@ -93,6 +93,7 @@ public abstract class ListBaseBean implements Serializable {
     public void onRemove(Serializable object) {
         try {
             serviceLocator.getGenericServicio().delete(object);
+            items.remove(object);
         } catch (PSQLException ex) {
             Logger.getLogger(ListBaseBean.class.getName()).log(Level.SEVERE, null, ex);
         } catch (HibernateJdbcException ex) {

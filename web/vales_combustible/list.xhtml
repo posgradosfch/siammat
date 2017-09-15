@@ -22,8 +22,8 @@
                     <p:inputText value="#{controlCombustibleListBean.sfPlaca.value}" />
                 </p:panelGrid>
                 <p:panelGrid><!--Botones -->
-                    <p:commandButton value="Buscar" icon="ui-icon-search" actionListener="#{controlCombustibleListBean.onSearch()}" update="lst"/>
-                    <p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{controlCombustibleListBean.onNew()}" rendered="#{controlCombustibleListBean.privilegio.insertar}"/>
+                    <p:commandButton value="Buscar" class="btn btn-info"  icon="ui-icon-search" actionListener="#{controlCombustibleListBean.onSearch()}" update="lst"/>
+                    <p:commandButton value="Nuevo" class="btn btn-primary" icon="ui-icon-plus" actionListener="#{controlCombustibleListBean.onNew()}" rendered="#{controlCombustibleListBean.privilegio.insertar}"/>
                     <p:commandButton update="filtros" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh" actionListener="#{controlCombustibleListBean.filtros.clearFilters()}" />
                 </p:panelGrid>
                 <br />
@@ -42,10 +42,10 @@
                         <p:outputLabel value="#{control.monto}" />
                     </p:column>   
                     <p:column headerText="Acciones" style="width: 100px"> 
-                        <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{controlCombustibleListBean.onEdit(control)}" title="Editar">
+                        <p:commandButton class="#{controlCombustibleListBean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="ui-icon-pencil" actionListener="#{controlCombustibleListBean.onEdit(control)}" title="Editar">
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
-                        <p:commandButton update="lst" icon="ui-icon-trash" actionListener="#{controlCombustibleListBean.onRemove(control)}" title="Eliminar">
+                        <p:commandButton class="btn btn-danger"  update="lst" icon="ui-icon-trash" actionListener="#{controlCombustibleListBean.onRemove(control)}" title="Eliminar">
                             <p:confirm header="Confirmar" message="Desea eliminar registro?" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
