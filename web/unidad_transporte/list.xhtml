@@ -9,8 +9,9 @@
     <ui:define name="content">
         <ui:param name="bean" value="#{unidadTransporteListBean}" />
         <h:form>
+            <p:messages autoUpdate="true" closable="true" />
             <p:panel header="Gestión de Unidades de Transporte">
-                <p:panelGrid columnClasses="label,value" columns="2" styleClass="ui-panelgrid-blank" >
+                <p:panelGrid columnClasses="label,value" columns="2" styleClass="ui-panelgrid-blank" id="filtros">
                     <p:outputLabel value="Marca" style="color:#555"/>
                     <p:inputText value="#{bean.sfMarca.value}" />
                     <p:outputLabel value="Modelo" style="color:#555"/>
@@ -24,14 +25,14 @@
                         <f:selectItem itemLabel="Motocicleta" itemValue="4" />
                     </p:selectOneMenu>
                 </p:panelGrid>
-                <br />
-                <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}"/>
+                <br />                
                 <p:commandButton class="btn btn-info" value="Buscar" icon="fa fa-search" actionListener="#{bean.onSearch()}" update="lst" validateClient="false"/>
-                <p:commandButton type="reset" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh" />
+                <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}"/>
+                <p:commandButton update="filtros" type="reset" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh"  actionListener="#{bean.filtros.clearFilters()}"/>
 
 
                 <!-- listado -->
-                
+
                 <p:dataTable id="lst" var="unidadTransporte" value="#{bean.items}" resizableColumns="true" style="padding-top: 5px">
                     <p:column headerText="Tipo" style="width: 90px" >
                         <p:outputLabel value="#{unidadTransporte.tipoName}" />

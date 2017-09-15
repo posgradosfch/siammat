@@ -51,10 +51,6 @@ public class UnidadTransporteListBean extends ListBaseBean{
         this.getItems().remove(object);
     }
     
-     @Override
-    public void doAfterServiceLocatorSet() {
-        onSearch();
-    }
     
     public SimpleFilterElement<String> getSfMarca() {
         return sfMarca;
