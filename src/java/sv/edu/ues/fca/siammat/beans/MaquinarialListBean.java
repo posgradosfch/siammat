@@ -49,6 +49,11 @@ public class MaquinarialListBean extends ListBaseBean{
         super.onRemove(object); //To change body of generated methods, choose Tools | Templates.
         this.getItems().remove(object);
     }
+    
+     @Override
+    public void doAfterServiceLocatorSet() {
+        onSearch();
+    }
 
     public SimpleFilterElement<String> getSfMarca() {
         return sfMarca;

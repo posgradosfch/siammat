@@ -58,10 +58,10 @@
 
 
             </p:panelGrid>
-            <p:separator style="width: 100%" />
+            <p:separator style="width: 100%"  rendered="#{bean.canSave}" />
 
-            <p:commandButton value="Guardar"  class="btn btn-primary" actionListener="#{bean.onSave()}" update=""/>
-            <p:commandButton value="Cancelar" class="btn btn-danger" actionListener="#{bean.onCancel()}" immediate="true"/>
+            <p:commandButton value="Guardar" class="btn btn-primary" actionListener="#{bean.onSave()}" rendered="#{bean.canSave}" />
+            <p:commandButton value="Cancelar" class="btn btn-danger" actionListener="#{bean.onCancel()}"  rendered="#{bean.canSave}" immediate="true"  />
 
         </h:form>
     </h:body>

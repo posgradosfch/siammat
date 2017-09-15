@@ -27,10 +27,6 @@ public class ActividadListBean extends ListBaseBean{
         setPathForm("/actividad/edit");
     }
     
-    @PostConstruct
-    private void init(){
-        onSearch();
-    }
     @Override
     public List<Actividad> getItems() {//Asegurando que retorna el tipo de datos, y aprovechar sugerencias del editor
         return super.getItems(); 
@@ -40,6 +36,11 @@ public class ActividadListBean extends ListBaseBean{
     public String setupQuery() {
         String hql="from Actividad a ";
         return hql;
+    }
+    
+         @Override
+    public void doAfterServiceLocatorSet() {
+        onSearch();
     }
     
 }

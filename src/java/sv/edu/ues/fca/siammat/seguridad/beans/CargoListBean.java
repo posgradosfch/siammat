@@ -25,10 +25,11 @@ public class CargoListBean extends ListBaseBean{
         setPathForm("/seguridad/cargos/edit");
     }
     
-    @PostConstruct
-    private void init(){
+    @Override
+    public void doAfterServiceLocatorSet() {
         onSearch();
     }
+    
  
     
     @Override

@@ -24,10 +24,10 @@
             <p:messages autoUpdate="true" closable="true" />
             <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
                 <p:outputLabel value="Nombre" for="nombre" />
-                <p:inputText required="true" id="nombre" value="#{bean.empleado.nombre}" style="width: 100%" />
+                <p:inputText required="true" id="nombre" value="#{bean.empleado.nombre}" style="width: 100%" maxlength="50" />
 
                 <p:outputLabel value="Apellido"  for="apellido" />
-                <p:inputText required="true" id="apellido" value="#{bean.empleado.apellido}" style="width: 100%" />
+                <p:inputText required="true" id="apellido" value="#{bean.empleado.apellido}" style="width: 100%" maxlength="50"/>
 
                 <p:outputLabel value="Cargo"  for="cargo" />
 
