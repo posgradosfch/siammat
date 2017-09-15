@@ -27,8 +27,8 @@ public class RolListBean extends ListBaseBean{
         setPathForm("/seguridad/roles/edit");
     }
     
-    @PostConstruct
-    private void init(){
+    @Override
+    public void doAfterServiceLocatorSet() {
         onSearch();
     }
     

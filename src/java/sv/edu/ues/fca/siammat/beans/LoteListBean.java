@@ -27,8 +27,8 @@ public class LoteListBean extends ListBaseBean{
         setPathForm("/lote/edit");
     }
     
-    @PostConstruct
-    private void init(){
+    @Override
+    public void doAfterServiceLocatorSet() {
         onSearch();
     }
     @Override

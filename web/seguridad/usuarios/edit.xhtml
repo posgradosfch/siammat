@@ -33,18 +33,18 @@
                 </p:selectOneMenu>
 
                 <p:outputLabel value="Usuario" for="usuario" />
-                <p:inputText required="true" id="usuario" value="#{bean.usuario.usuario}" />
+                <p:inputText required="true" id="usuario" value="#{bean.usuario.usuario}" maxlength="25" />
 
                 <p:outputLabel value="Contraseña"  for="clave" />
-                <p:password required="true" id="clave" value="#{bean.usuario.clave}"  />
+                <p:password required="true" id="clave" value="#{bean.usuario.clave}" maxlength="50" />
 
 
 
             </p:panelGrid>
-            <p:separator style="width: 100%" />
+            <p:separator style="width: 100%"  rendered="#{bean.canSave}" />
 
-            <p:commandButton value="Guardar" class="btn btn-primary" actionListener="#{bean.onSave()}" update=""/>
-            <p:commandButton value="Cancelar" class="btn btn-danger" actionListener="#{bean.onCancel()}" immediate="true"/>
+            <p:commandButton value="Guardar" class="btn btn-primary" actionListener="#{bean.onSave()}" rendered="#{bean.canSave}" />
+            <p:commandButton value="Cancelar" class="btn btn-danger" actionListener="#{bean.onCancel()}"  rendered="#{bean.canSave}" immediate="true"  />
 
         </h:form>
     </h:body>

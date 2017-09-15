@@ -7,29 +7,45 @@
 
     <ui:define name="content">
         <h:form>
-            <p:panel header="Gestión de Actividades de Maquinaria">
-                <p:panelGrid><!--filtros-->
+            <p:panel header="Control de combustible">
+                <p:messages autoUpdate="true" closable="true" />
+                <p:panelGrid columnClasses="label,value" columns="2" styleClass="ui-panelgrid-blank" id="filtros">
+                    <p:outputLabel value="Fecha" />
+                    <p:column>
 
+                        <p:calendar  value="#{controlCombustibleListBean.sfFecha.lowerValue}"/>
+                        <p:outputLabel value=" Hasta" />
+                        <p:calendar  value="#{controlCombustibleListBean.sfFecha.upperValue}"/>
+                    </p:column>
+
+                    <p:outputLabel value="Placa" />
+                    <p:inputText value="#{controlCombustibleListBean.sfPlaca.value}" />
                 </p:panelGrid>
                 <p:panelGrid><!--Botones -->
-                    <p:commandButton value="Buscar" icon="ui-icon-search" actionListener="#{valeCombustibleListBean.onSearch()}" update="lst"/>
-                    <p:commandButton value="Nuevo" icon="ui-icon-plus" 
-                                     actionListener="#{valeCombustibleListBean.onNew()}" rendered="#{valeCombustibleListBean.privilegio.insertar}"/>
+                    <p:commandButton value="Buscar" icon="ui-icon-search" actionListener="#{controlCombustibleListBean.onSearch()}" update="lst"/>
+                    <p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{controlCombustibleListBean.onNew()}" rendered="#{controlCombustibleListBean.privilegio.insertar}"/>
+                    <p:commandButton update="filtros" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh" actionListener="#{controlCombustibleListBean.filtros.clearFilters()}" />
                 </p:panelGrid>
                 <br />
                 <!-- listado -->
-                <p:dataTable id="lst" var="actividad" value="#{actividadListBean.items}">
-                    <p:column headerText="Nombre">
-                        <p:outputLabel value="#{actividad.nombre}" />
+                <p:dataTable id="lst" var="control" value="#{controlCombustibleListBean.items}">
+                    <p:column headerText="Fecha" style="width: 100px;text-align: center">
+                        <p:outputLabel value="#{control.fecha}" />
                     </p:column>
-                    <p:column headerText="Abreviatura">
-                        <p:outputLabel value="#{actividad.abreviatura}" />
-                    </p:column>           
-                    <p:column headerText="Acciones" style="width: 70px"> 
-                        <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{actividadListBean.onEdit(actividad)}" title="Editar">
+                    <p:column headerText="Destino">
+                        <p:outputLabel value="#{control.destino}" />
+                    </p:column>
+                    <p:column headerText="Responsable">
+                        <p:outputLabel value="#{control.responsable.nombre} #{control.responsable.apellido}" />
+                    </p:column>
+                    <p:column headerText="Monto($)">
+                        <p:outputLabel value="#{control.monto}" />
+                    </p:column>   
+                    <p:column headerText="Acciones" style="width: 100px"> 
+                        <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{controlCombustibleListBean.onEdit(control)}" title="Editar">
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
-                        <p:commandButton update="lst" icon="ui-icon-trash" actionListener="#{actividadListBean.onRemove(actividad)}" title="Eliminar">
+                        <p:commandButton update="lst" icon="ui-icon-trash" actionListener="#{controlCombustibleListBean.onRemove(control)}" title="Eliminar">
                             <p:confirm header="Confirmar" message="Desea eliminar registro?" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>

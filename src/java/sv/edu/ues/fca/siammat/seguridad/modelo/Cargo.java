@@ -31,6 +31,9 @@ import org.hibernate.proxy.HibernateProxy;
     @NamedQuery(name = "Cargo.findAll", query = "SELECT c FROM Cargo c")})
 public class Cargo implements Serializable {
 
+    @OneToMany(mappedBy = "cargo", fetch = FetchType.LAZY)
+    private List<Empleado> empleadoList;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -103,6 +106,14 @@ public class Cargo implements Serializable {
     @Override
     public String toString() {
         return "sv.edu.ues.fca.siammat.seguridad.modelo.Cargo[ idCargo=" + idCargo + " ]";
+    }
+
+    public List<Empleado> getEmpleadoList() {
+        return empleadoList;
+    }
+
+    public void setEmpleadoList(List<Empleado> empleadoList) {
+        this.empleadoList = empleadoList;
     }
 
 }

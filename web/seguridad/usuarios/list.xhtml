@@ -29,10 +29,11 @@
                     <p:column headerText="Usuario">
                         <p:outputLabel value="#{usuario.usuario}" />
                     </p:column>
-                    <p:column headerText="Acciones" style="width: 90px"> 
-                        <p:commandButton class="btn btn-warning" update="lst" icon="fa fa-pencil" actionListener="#{bean.onEdit(usuario)}" title="Editar">
+                    <p:column headerText="Acciones" style="width: 100px"> 
+                        <p:commandButton class="#{bean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="#{bean.privilegio.editar==true?'fa fa-pencil':'fa fa-info'}" actionListener="#{bean.onEdit(usuario)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">
+                            <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
-                        <p:commandButton class="btn btn-danger" rendered="#{bean.privilegio.eliminar}" update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(usuario)}" title="Eliminar">
+                        <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(usuario)}" title="Eliminar" rendered="#{bean.privilegio.eliminar}">
                             <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>

@@ -8,8 +8,8 @@
       xmlns:pe="http://primefaces.org/ui/extensions">
 
     <h:head>
-        <ui:param name="bean" value="#{actividadBean}" />
-        <title>#{bean.winTitle} Actividad</title>
+        <ui:param name="bean" value="#{controlCombustibleBean}" />
+        <title>#{bean.winTitle} Control de combustible</title>
         <style>
             .label {
                 color:#444;
@@ -27,23 +27,43 @@
         <h:form>
             <p:messages autoUpdate="true" closable="true" />
             <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
-                <!--p:outputLabel value="Fecha" />
+                <p:outputLabel value="Fecha" />
+                <p:calendar id="popup" value="#{bean.control.fecha}"/>
                 <p:outputLabel value="Placa" />
+                <p:inputText value="#{bean.control.placa}" />
                 <p:outputLabel value="Responsable" />
+                <p:selectOneMenu converter="entityConverter" value="#{bean.control.responsable}">
+                    <f:selectItem itemLabel="Seleccione" />
+                    <f:selectItems var="it" itemLabel="#{it.nombre} #{it.apellido}"  value="#{bean.empleados}"/>
+                </p:selectOneMenu>
                 <p:outputLabel value="Vale o cupon" />
+                <p:inputText value="#{bean.control.noVale}" />
+                <p:outputLabel value="Monto($)" />
+                <p:inputNumber value="#{bean.control.monto}" />
                 <p:outputLabel value="Unidad solicitante" />
-                <p:outputLabel value="Hora de salida" /-->
-                <p:outputLabel value="Hora de salida" />
+                <p:inputText  value="#{bean.control.unidadSolicitante}" style="width: 100%"/>
+
+                <p:outputLabel value="Destino" />
+                <p:inputText  value="#{bean.control.destino}" style="width: 100%"/>
+
+                <p:outputLabel value="Hora de salida"  />
                 <pe:timePicker mode="popup" widgetVar="popupTimeWidget"  
-                               label="Popup time picker" dialogPosition="right" />  
+                               label="Popup time picker" dialogPosition="right" value="#{bean.control.horaSalida}" />  
                 <p:outputLabel value="Hora de regreso" />
+                <pe:timePicker mode="popup" 
+                               label="Popup time picker" dialogPosition="right" value="#{bean.control.horaLlegada}" />  
                 <p:outputLabel value="Kilometraje recorrido" />
+                <p:inputNumber value="#{bean.control.kilometraje}" />
                 <p:outputLabel value="Recibe conforme" />
+                <p:selectOneMenu value="#{bean.control.empleadoRecibe}" converter="entityConverter">
+                    <f:selectItem itemLabel="Seleccione" />
+                    <f:selectItems var="it" itemLabel="#{it.nombre} #{it.apellido}"  value="#{bean.empleados}"/>
+                </p:selectOneMenu>
             </p:panelGrid>
             <p:separator style="width: 100%" />
 
-            <p:commandButton value="Guardar" actionListener="#{actividadBean.onSave()}" update=""/>
-            <p:commandButton value="Cancelar" actionListener="#{actividadBean.onCancel()}" immediate="true"/>
+            <p:commandButton value="Guardar" actionListener="#{bean.onSave()}" class="btn btn-primary"/>
+            <p:commandButton value="Cancelar" actionListener="#{bean.onCancel()}" class="btn btn-danger" immediate="true"/>
 
         </h:form>
     </h:body>

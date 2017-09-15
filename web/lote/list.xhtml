@@ -6,28 +6,28 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
+        <ui:param name="bean" value="#{loteListBean}" />
         <h:form>
             <p:panel header="Gestión de Lotes">
                 <p:panelGrid><!--filtros-->
 
                 </p:panelGrid>
                 <p:panelGrid><!--Botones -->
-                    <!--<p:commandButton value="Buscar" icon="ui-icon-search" actionListener="#{loteListBean.onSearch()}" update="lst"/>-->
-                    <p:commandButton value="Nuevo" icon="ui-icon-plus" actionListener="#{loteListBean.onNew()}"/>
+                    <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}"/>
                 </p:panelGrid>
                 <br />
                 <!-- listado -->
-                <p:dataTable id="lst" var="lote" value="#{loteListBean.items}">
-                    <p:column headerText="Descripcion">
+                <p:dataTable id="lst" var="lote" value="#{bean.items}">
+                    <p:column headerText="Descripción">
                         <p:outputLabel value="#{lote.descripcion}" />
                     </p:column>
            
-                    <p:column headerText="Acciones" style="width: 70px"> 
-                        <p:commandButton update="lst" icon="ui-icon-pencil" actionListener="#{loteListBean.onEdit(lote)}" title="Editar">
+                    <p:column headerText="Acciones" style="width: 100px"> 
+                        <p:commandButton class="#{bean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="#{bean.privilegio.editar==true?'fa fa-pencil':'fa fa-info'}" actionListener="#{bean.onEdit(lote)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
-                        <p:commandButton update="lst" icon="ui-icon-trash" actionListener="#{loteListBean.onRemove(lote)}" title="Eliminar">
-                            <p:confirm header="Confirmar" message="Desea eliminar registro?" icon="ui-icon-alert" />
+                        <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(lote)}" title="Eliminar" rendered="#{bean.privilegio.eliminar}">
+                            <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
                     </p:column>

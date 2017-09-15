@@ -36,8 +36,8 @@ public class UsuarioListBean extends ListBaseBean{
         return hql;
     }
     
-    @PostConstruct
-    private void init(){
+    @Override
+    public void doAfterServiceLocatorSet() {
         onSearch();
     }
     

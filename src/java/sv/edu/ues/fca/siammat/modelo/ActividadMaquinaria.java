@@ -21,9 +21,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import sv.edu.ues.fca.siammat.modelo.Actividad;
-import sv.edu.ues.fca.siammat.modelo.Lote;
-import sv.edu.ues.fca.siammat.modelo.Maquinaria;
 import sv.edu.ues.fca.siammat.seguridad.modelo.Empleado;
 
 /**
@@ -32,20 +29,6 @@ import sv.edu.ues.fca.siammat.seguridad.modelo.Empleado;
  */
 @Entity
 @Table(name = "actividad_maquinaria")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "ActividadMaquinaria.findAll", query = "SELECT am FROM ActividadMaquinaria am")})/*,
-    @NamedQuery(name = "ActividadMaquinaria.findByIdActividadMaquinaria", query = "SELECT a FROM ActividadMaquinaria a WHERE a.idActividadMaquinaria = :idActividadMaquinaria"),
-    @NamedQuery(name = "ActividadMaquinaria.findByFecha", query = "SELECT a FROM ActividadMaquinaria a WHERE a.fecha = :fecha"),
-    @NamedQuery(name = "ActividadMaquinaria.findByExtensionTrabajo", query = "SELECT a FROM ActividadMaquinaria a WHERE a.extensionTrabajo = :extensionTrabajo"),
-    @NamedQuery(name = "ActividadMaquinaria.findByCombustibleInicial", query = "SELECT a FROM ActividadMaquinaria a WHERE a.combustibleInicial = :combustibleInicial"),
-    @NamedQuery(name = "ActividadMaquinaria.findByCombustibleFinal", query = "SELECT a FROM ActividadMaquinaria a WHERE a.combustibleFinal = :combustibleFinal"),
-    @NamedQuery(name = "ActividadMaquinaria.findByCombustibleGastado", query = "SELECT a FROM ActividadMaquinaria a WHERE a.combustibleGastado = :combustibleGastado"),
-    @NamedQuery(name = "ActividadMaquinaria.findByInicioHorometro", query = "SELECT a FROM ActividadMaquinaria a WHERE a.inicioHorometro = :inicioHorometro"),
-    @NamedQuery(name = "ActividadMaquinaria.findByFinHorometro", query = "SELECT a FROM ActividadMaquinaria a WHERE a.finHorometro = :finHorometro"),
-    @NamedQuery(name = "ActividadMaquinaria.findByInicioReloj", query = "SELECT a FROM ActividadMaquinaria a WHERE a.inicioReloj = :inicioReloj"),
-    @NamedQuery(name = "ActividadMaquinaria.findByObservacion", query = "SELECT a FROM ActividadMaquinaria a WHERE a.observacion = :observacion"),
-    @NamedQuery(name = "ActividadMaquinaria.findByFinReloj", query = "SELECT a FROM ActividadMaquinaria a WHERE a.finReloj = :finReloj")})*/
 public class ActividadMaquinaria implements Serializable {
 
     private static final long serialVersionUID = 1L;
