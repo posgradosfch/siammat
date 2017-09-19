@@ -92,6 +92,12 @@ public class ActividadMaquinariaListBean extends ListBaseBean{
         return actividades;
     }
 
+    @Override
+    public void setUpParametros() {
+        super.setUpParametros();
+        getParametros().put("height", "650px");
+    }
+
 
     
 }

@@ -19,27 +19,30 @@ import sv.edu.ues.fca.siammat.modelo.Maquinaria;
  */
 @ManagedBean
 @ViewScoped
-public class MaquinarialListBean extends ListBaseBean{
+public class MaquinarialListBean extends ListBaseBean {
+
     private SimpleFilterElement<String> sfMarca = new SimpleFilterElement<String>("m.marca", SimpleFilterElement.AND, "LIKE");
-    private SimpleFilterElement<String> sfModelo= new SimpleFilterElement<String>("m.modelo", SimpleFilterElement.AND, "LIKE");
+    private SimpleFilterElement<String> sfModelo = new SimpleFilterElement<String>("m.modelo", SimpleFilterElement.AND, "LIKE");
+
     public MaquinarialListBean() {
         //Fijando la uri del formulario de edición
+        super();
         setPathForm("/maquinaria/edit");
         getFiltros().addFilterElement(sfMarca);
         getFiltros().addFilterElement(sfModelo);
     }
-    
+
     @Override
     public List<Maquinaria> getItems() {//Asegurando que retorna el tipo de datos, y aprovechar sugerencias del editor
-        return super.getItems(); 
+        return super.getItems();
     }
 
     @Override
     public String setupQuery() {
-        String hql="from Maquinaria m";
+        String hql = "from Maquinaria m";
         String wc = getFiltros().generateWhereClause();
-        if(wc!=null && !wc.equals("")){
-            hql+= " where "+wc;
+        if (wc != null && !wc.equals("")) {
+            hql += " where " + wc;
         }
         return hql;
     }
@@ -48,11 +51,6 @@ public class MaquinarialListBean extends ListBaseBean{
     public void onRemove(Serializable object) {
         super.onRemove(object); //To change body of generated methods, choose Tools | Templates.
         this.getItems().remove(object);
-    }
-    
-     @Override
-    public void doAfterServiceLocatorSet() {
-        onSearch();
     }
 
     public SimpleFilterElement<String> getSfMarca() {
@@ -70,5 +68,11 @@ public class MaquinarialListBean extends ListBaseBean{
     public void setSfModelo(SimpleFilterElement<String> sfModelo) {
         this.sfModelo = sfModelo;
     }
-    
+
+    @Override
+    public void setUpParametros() {
+        super.setUpParametros();
+        getParametros().put("height", "500px");
+    }
+
 }

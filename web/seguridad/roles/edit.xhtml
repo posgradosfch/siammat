@@ -29,8 +29,8 @@
             </p:panelGrid>
             <p:separator style="width: 100%"  rendered="#{bean.canSave}" />
 
-            <p:commandButton value="Guardar" class="btn btn-primary" actionListener="#{bean.onSave()}" rendered="#{bean.canSave}" />
-            <p:commandButton value="Cancelar" class="btn btn-danger" actionListener="#{bean.onCancel()}"  rendered="#{bean.canSave}" immediate="true"  />
+            <p:commandButton value="Guardar" class="btn btn-primary" actionListener="#{rolBean.onSave()}" rendered="#{rolBean.canSave}" />
+            <p:commandButton value="Cancelar" class="btn btn-danger" actionListener="#{rolBean.onCancel()}"  rendered="#{rolBean.canSave}" immediate="true"  />
 
         </h:form>
     </h:body>

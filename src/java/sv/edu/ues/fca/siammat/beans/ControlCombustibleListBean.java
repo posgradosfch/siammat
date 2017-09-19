@@ -63,5 +63,11 @@ public class ControlCombustibleListBean extends ListBaseBean{
     public void setSfFecha(BetweenFilterElement<Date> sfFecha) {
         this.sfFecha = sfFecha;
     }
+
+    @Override
+    public void setUpParametros() {
+        super.setUpParametros();
+        getParametros().put("height", "600px");
+    }
     
 }

@@ -26,10 +26,10 @@
                 <p:inputTextarea required="true" id="descripcion" value="#{cargoBean.cargo.descripcion}" style="width: 100%" maxlength="255" />
 
             </p:panelGrid>
-            <p:separator style="width: 100%"  rendered="#{bean.canSave}" />
+            <p:separator style="width: 100%"  rendered="#{cargoBean.canSave}" />
 
-            <p:commandButton value="Guardar" class="btn btn-primary" actionListener="#{bean.onSave()}" rendered="#{bean.canSave}" />
-            <p:commandButton value="Cancelar" class="btn btn-danger" actionListener="#{bean.onCancel()}"  rendered="#{bean.canSave}" immediate="true"  />
+            <p:commandButton value="Guardar" class="btn btn-primary" actionListener="#{cargoBean.onSave()}" rendered="#{cargoBean.canSave}" />
+            <p:commandButton value="Cancelar" class="btn btn-danger" actionListener="#{cargoBean.onCancel()}"  rendered="#{cargoBean.canSave}" immediate="true"  />
         </h:form>
     </h:body>
 </html>

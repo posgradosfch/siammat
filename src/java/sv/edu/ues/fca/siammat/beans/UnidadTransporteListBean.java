@@ -75,5 +75,13 @@ public class UnidadTransporteListBean extends ListBaseBean{
     public void setSfTipo(SimpleFilterElement<Integer> sfTipo) {
         this.sfTipo = sfTipo;
     }
+
+    @Override
+    public void setUpParametros() {
+        super.setUpParametros(); 
+        getParametros().put("height", "500px");
+    }
+    
+    
     
 }

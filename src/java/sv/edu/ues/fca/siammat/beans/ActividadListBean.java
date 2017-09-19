@@ -48,6 +48,12 @@ public class ActividadListBean extends ListBaseBean{
     public void doAfterRemove(Serializable removedObject) {
         onSearch();
     }
+
+    @Override
+    public void setUpParametros() {
+        super.setUpParametros();
+        getParametros().put("height", "200px");
+    }
     
     
 }
