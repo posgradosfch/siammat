@@ -17,8 +17,8 @@
 
                 </p:panelGrid>
                 <br />
+                <p:commandButton class="btn btn-info" value="Buscar" icon="fa fa-search" actionListener="#{bean.onSearch()}" update="lst"/>
                 <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}"/>
-                <p:commandButton class="btn btn-info" value="Buscar" icon="fa fa-search" actionListener="#{bean.onSearch()}" update="lst" validateClient="false"/>
                 <p:commandButton type="reset" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh" />
                 <!-- listado -->
                 <p:dataTable id="lst" var="maquinaria" value="#{bean.items}" resizableColumns="true" style="padding-top: 5px">

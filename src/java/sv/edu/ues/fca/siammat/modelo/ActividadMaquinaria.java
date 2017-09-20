@@ -42,17 +42,17 @@ public class ActividadMaquinaria implements Serializable {
     private Date fecha;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "extension_trabajo")
-    private Float extensionTrabajo;
+    private Double extensionTrabajo;
     @Column(name = "combustible_inicial")
-    private Integer combustibleInicial;
+    private Double combustibleInicial;
     @Column(name = "combustible_final")
-    private Integer combustibleFinal;
+    private Double combustibleFinal;
     @Column(name = "combustible_gastado")
-    private Integer combustibleGastado;
+    private Double combustibleGastado;
     @Column(name = "inicio_horometro")
-    private Float inicioHorometro;
+    private Double inicioHorometro;
     @Column(name = "fin_horometro")
-    private Float finHorometro;
+    private Double finHorometro;
     @Column(name = "inicio_reloj")
     @Temporal(TemporalType.TIME)
     private Date inicioReloj;
@@ -103,53 +103,55 @@ public class ActividadMaquinaria implements Serializable {
         this.fecha = fecha;
     }
 
-    public Float getExtensionTrabajo() {
+    public Double getExtensionTrabajo() {
         return extensionTrabajo;
     }
 
-    public void setExtensionTrabajo(Float extensionTrabajo) {
+    public void setExtensionTrabajo(Double extensionTrabajo) {
         this.extensionTrabajo = extensionTrabajo;
     }
 
-    public Integer getCombustibleInicial() {
+    public Double getCombustibleInicial() {
         return combustibleInicial;
     }
 
-    public void setCombustibleInicial(Integer combustibleInicial) {
+    public void setCombustibleInicial(Double combustibleInicial) {
         this.combustibleInicial = combustibleInicial;
     }
 
-    public Integer getCombustibleFinal() {
+    public Double getCombustibleFinal() {
         return combustibleFinal;
     }
 
-    public void setCombustibleFinal(Integer combustibleFinal) {
+    public void setCombustibleFinal(Double combustibleFinal) {
         this.combustibleFinal = combustibleFinal;
     }
 
-    public Integer getCombustibleGastado() {
+    public Double getCombustibleGastado() {
         return combustibleGastado;
     }
 
-    public void setCombustibleGastado(Integer combustibleGastado) {
+    public void setCombustibleGastado(Double combustibleGastado) {
         this.combustibleGastado = combustibleGastado;
     }
 
-    public Float getInicioHorometro() {
+    public Double getInicioHorometro() {
         return inicioHorometro;
     }
 
-    public void setInicioHorometro(Float inicioHorometro) {
+    public void setInicioHorometro(Double inicioHorometro) {
         this.inicioHorometro = inicioHorometro;
     }
 
-    public Float getFinHorometro() {
+    public Double getFinHorometro() {
         return finHorometro;
     }
 
-    public void setFinHorometro(Float finHorometro) {
+    public void setFinHorometro(Double finHorometro) {
         this.finHorometro = finHorometro;
     }
+
+    
 
     public Date getInicioReloj() {
         return inicioReloj;

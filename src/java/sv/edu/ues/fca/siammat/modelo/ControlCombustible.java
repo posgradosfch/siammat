@@ -60,7 +60,7 @@ public class ControlCombustible implements Serializable {
     @Temporal(TemporalType.TIME)
     private Date horaLlegada;
     @Column(name = "kilometraje")
-    private BigInteger kilometraje;
+    private Double kilometraje;
     @JoinColumn(name = "id_empleado_recibe", referencedColumnName = "id_empleado")
     @ManyToOne(fetch = FetchType.LAZY)
     private Empleado empleadoRecibe;
@@ -147,13 +147,15 @@ public class ControlCombustible implements Serializable {
         this.horaLlegada = horaLlegada;
     }
 
-    public BigInteger getKilometraje() {
+    public Double getKilometraje() {
         return kilometraje;
     }
 
-    public void setKilometraje(BigInteger kilometraje) {
+    public void setKilometraje(Double kilometraje) {
         this.kilometraje = kilometraje;
     }
+
+
 
     public Empleado getEmpleadoRecibe() {
         return empleadoRecibe;

@@ -53,7 +53,9 @@
                 <pe:timePicker mode="popup" 
                                label="Popup time picker" dialogPosition="right" value="#{bean.control.horaLlegada}" />  
                 <p:outputLabel value="Kilometraje recorrido" />
-                <p:inputNumber value="#{bean.control.kilometraje}" />
+                <p:inputNumber value="#{bean.control.kilometraje}" >
+                    
+                </p:inputNumber>
                 <p:outputLabel value="Recibe conforme" />
                 <p:selectOneMenu value="#{bean.control.empleadoRecibe}" converter="entityConverter">
                     <f:selectItem itemLabel="Seleccione" />
