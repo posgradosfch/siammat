@@ -82,7 +82,7 @@ public class ActividadMaquinariaBean extends FormBaseBean {
 
     @Override
     public void onSave() {   
-        Integer gasto=actividadMaquinaria.getCombustibleInicial()-actividadMaquinaria.getCombustibleFinal();
+        Double gasto=actividadMaquinaria.getCombustibleFinal()-actividadMaquinaria.getCombustibleInicial();
         actividadMaquinaria.setCombustibleGastado(gasto);
     super.onSave();
 
