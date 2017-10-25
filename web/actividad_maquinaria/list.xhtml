@@ -10,14 +10,20 @@
         <ui:param name="bean" value="#{actividadMaquinariaListBean}" />
         <h:form>
             <p:panel header="Control de Actividades de Maquinaria">
-                <p:panelGrid  columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" id="filtros"><!--filtros-->
-                    <p:outputLabel />
+                <p:messages autoUpdate="true" closable="true" />
+                <p:panelGrid columnClasses="label,value" columns="2" styleClass="ui-panelgrid-blank" id="filtros">
                     <p:outputLabel value="Fecha" />
-                    <p:calendar value="#{bean.sfFecha.value}" pattern="dd-MM-yyyy" />
+                    <p:column>
+
+                        <p:calendar  value="#{bean.sfFecha.lowerValue}"/>
+                        <p:outputLabel value=" Hasta" />
+                        <p:calendar  value="#{bean.sfFecha.upperValue}"/>
+                    </p:column>
+
                     <p:outputLabel value="Actividad (abreviatura)" />
                     <p:inputText value="#{bean.sfActividad.value}" />
                 </p:panelGrid>
-                <br />
+
                 <p:panelGrid><!--Botones -->
                     <p:commandButton value="Buscar" class="btn btn-info"   icon="ui-icon-search" actionListener="#{bean.onSearch()}" update="lst"/>
                     <p:commandButton value="Nuevo" class="btn btn-primary" icon="ui-icon-plus" actionListener="#{bean.onNew()}"/>
