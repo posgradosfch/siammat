@@ -25,8 +25,9 @@
                         <p:outputLabel value="#{rol.descripcion}" />
                     </p:column>
                     <p:column headerText="Acciones" style="width: 100px"> 
-                        <p:commandButton  update="lst" 
-                                         icon="#{bean.privilegio.editar==true?'fa fa-pencil':'fa fa-pencil'}" actionListener="#{bean.onEdit(rol)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">
+                        <p:commandButton class="#{bean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" 
+                                         update="lst" icon="#{bean.privilegio.editar==true?'fa fa-pencil':'fa fa-info'}" 
+                                         actionListener="#{bean.onEdit(rol)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
                         <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(rol)}" title="Eliminar" rendered="#{bean.privilegio.eliminar}">
