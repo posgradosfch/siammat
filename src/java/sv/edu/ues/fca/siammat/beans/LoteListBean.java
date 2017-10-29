@@ -7,9 +7,7 @@ package sv.edu.ues.fca.siammat.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import sv.edu.ues.fca.siammat.beans.ListBaseBean;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import sv.edu.ues.fca.siammat.modelo.Lote;
 
 /**

@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -7,8 +7,10 @@ package sv.edu.ues.fca.siammat.beans;
 
 import sv.edu.ues.fca.siammat.filtros.FilterElementGroup;
 import java.io.Serializable;
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -16,7 +18,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.j2ee.servlets.BaseHttpServlet;
 import org.postgresql.util.PSQLException;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
@@ -39,7 +46,7 @@ public abstract class ListBaseBean implements Serializable {
     private String query;
     @ManagedProperty("#{serviceLocator}")
     private ServiceLocator serviceLocator;
-    private FilterElementGroup filtros=new FilterElementGroup();
+    private FilterElementGroup filtros = new FilterElementGroup();
 
     public ListBaseBean() {
         setUpParametros();
@@ -156,8 +163,8 @@ public abstract class ListBaseBean implements Serializable {
     public void setUpParametros() {
         parametros.put("modal", true);
         parametros.put("resizable", false);
-       // parametros.put("contentWidth", "100%");
-       // parametros.put("contentHeight", "100%");
+        // parametros.put("contentWidth", "100%");
+        // parametros.put("contentHeight", "100%");
     }
 
     public HashMap<String, Object> getParametros() {
@@ -167,7 +174,6 @@ public abstract class ListBaseBean implements Serializable {
     public void setParametros(HashMap<String, Object> parametros) {
         this.parametros = parametros;
     }
-
 
     /**
      * Accion a realizar despues de eliminar un objeto
@@ -190,10 +196,29 @@ public abstract class ListBaseBean implements Serializable {
         this.serviceLocator = serviceLocator;
         doAfterServiceLocatorSet();
     }
-    
-    public void doAfterServiceLocatorSet(){
-    
+
+    public void doAfterServiceLocatorSet() {
+
     }
-    
-    
+
+        
+    public void showReport(String reporte, Map parametros) {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        ServletContext context = (ServletContext) externalContext.getContext();
+        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+
+        String path = context.getRealPath("/reportes/" + reporte);
+        parametros.put("SUBREPORT_DIR", context.getRealPath("/reportes/") + "/");
+        JasperPrint jasperPrint = null;
+        try {
+            jasperPrint = JasperFillManager.fillReport(path, parametros,getServiceLocator().getGenericServicio().getConexion());
+            request.getSession().setAttribute(BaseHttpServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);
+        } catch (JRException ex) {
+            ex.printStackTrace();
+        }
+        String javascript = "document.getElementById('srpt').click();";
+        RequestContext.getCurrentInstance().execute(javascript);
+        //FacesContext.getCurrentInstance().responseComplete();
+    }
+
 }

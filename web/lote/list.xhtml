@@ -13,7 +13,9 @@
 
                 </p:panelGrid>
                 <p:panelGrid><!--Botones -->
-                    <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}"/>
+                    <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}">
+                        <p:ajax event="dialogReturn" listener="#{bean.onSearch()}" update="lst" />
+                    </p:commandButton>
                 </p:panelGrid>
                 <br />
                 <!-- listado -->

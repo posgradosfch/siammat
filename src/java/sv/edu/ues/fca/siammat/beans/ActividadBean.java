@@ -5,6 +5,8 @@
  */
 package sv.edu.ues.fca.siammat.beans;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import sv.edu.ues.fca.siammat.modelo.Actividad;

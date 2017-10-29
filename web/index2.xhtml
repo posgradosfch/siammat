@@ -1,94 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-              xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:p="http://primefaces.org/ui">
-    <h:head></h:head>
-    <body>
-        <script type="text/javascript">
-            function initDND() {
-                $('.ui-treenode-leaf').draggable({
-                   helper: 'clone',
-                   scope: 'treetotable',
-                   zIndex: ++PrimeFaces.zindex
-                });
+<ui:composition template="/WEB-INF/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
 
-                $('.ui-datatable .droppoint').droppable({
-                   activeClass: 'ui-state-active',
-                   hoverClass: 'ui-state-highlight',
-                   tolerance: 'pointer',
-                   scope: 'treetotable',
-                   drop: function(event, ui) {
-                       var property = ui.draggable.find('.ui-treenode-label').text(),
-                       droppedColumnId = $(this).parents('th:first').attr('id'),
-                       dropPos = $(this).hasClass('dropleft') ? 0 : 1;
+    <ui:define name="title">
+        SIAMMAT
+    </ui:define>
 
-                       treeToTable([
-                            {name: 'property', value:  property}
-                           ,{name: 'droppedColumnId', value: droppedColumnId}
-                           ,{name: 'dropPos', value: dropPos}
-                       ]);
-                   }
-                });
+    <ui:define name="content">
+        <h:form>
+            <p:selectOneMenu value="#{reporteUsuarioListBean.idRol}">
+                <f:selectItem itemLabel="Seleccione" />
+                <f:selectItems var="rol" value="#{reporteUsuarioListBean.roles}" itemLabel="#{rol.descripcion}" itemValue="#{rol.idRol}" />
+            </p:selectOneMenu>
+            <a href="#{reporteUsuarioListBean.urlReportes}" hidden="true" target="rpts" id="srpt" />
+            <p:commandButton value="Generar Reporte" actionListener="#{reporteUsuarioListBean.generarReporte()}" />
 
-                $('.ui-datatable th').draggable({
-                   scope: 'tabletotree',
-                   helper: function() {
-                       var th = $(this);
-
-                       return th.clone().appendTo(document.body).css('width', th.width());
-                   }
-                });
-
-                $('.ui-tree').droppable({
-                   helper: 'clone',
-                   scope: 'tabletotree',
-                   activeClass: 'ui-state-active',
-                   hoverClass: 'ui-state-highlight',
-                   tolerance: 'touch',
-                   drop: function(event, ui) {                               
-                       tableToTree([
-                           {name: 'colIndex', value:  ui.draggable.index()}
-                       ]);
-                   }
-                });
-            }
-
-            $(function() {
-                initDND();
-            });
-        </script>
-
-        
-        <h:form id="form">
-            <p:remoteCommand name="treeToTable" actionListener="#{privilegioListBean.treeToTable}" update="tree cars" oncomplete="initDND()"/>
-            <p:remoteCommand name="tableToTree" actionListener="#{privilegioListBean.tableToTree}" update="tree cars" oncomplete="initDND()"/>
-
-            <p:tree id="tree" value="#{privilegioListBean.recursos}" var="column" style="margin-bottom:20px">
-                <p:treeNode>
-                    <h:outputText value="#{column}" />
-                </p:treeNode>
-
-                <p:treeNode type="column" icon="ui-icon-grip-dotted-vertical">
-                    <h:outputText value="#{column.descripcion}" />
-                </p:treeNode>
-            </p:tree>
-
-            <p:dataTable id="cars" var="rol" value="#{privilegioListBean.roles}">                    
-                <p:column >
-                        <h:outputText style="float:left;display:block;height:20px;width:10px;border:0 none;" styleClass="droppoint dropleft" />                           
-                        <h:outputText style="float:right;display:block;height:20px;width:10px;border:0 none;" styleClass="droppoint dropright" />
-
-                        <h:outputText value="#{rol.descripcion}" />
-                </p:column>
-            </p:dataTable>
         </h:form>
-    </body>
-</html>
+
+    </ui:define>
+
+</ui:composition>

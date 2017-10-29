@@ -48,7 +48,7 @@ public class PrivilegioBean extends FormBaseBean {
 
         List<Recurso> padres = getServiceLocator().getGenericServicio().find(hql);
         for (Recurso recurso : padres) {
-            crearTree(recurso, menu, true);
+            crearTree(recurso, menu, !recurso.isDetalle());
         }
     }
 
