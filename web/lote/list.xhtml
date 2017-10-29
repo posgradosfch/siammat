@@ -3,7 +3,8 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="/WEB-INF/templates/layout.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
         <ui:param name="bean" value="#{loteListBean}" />
@@ -20,10 +21,23 @@
                 <br />
                 <!-- listado -->
                 <p:dataTable id="lst" var="lote" value="#{bean.items}">
+                    <p:column headerText="Nombre">
+                        <p:outputLabel value="#{lote.nombre}" />
+                    </p:column>
                     <p:column headerText="Descripción">
                         <p:outputLabel value="#{lote.descripcion}" />
                     </p:column>
-           
+                    <p:column headerText="Distancia">
+                        <h:outputText value="#{lote.distancia}">
+                            <f:convertNumber pattern="#0.00" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Area">
+                        <h:outputText value="#{lote.area}">
+                            <f:convertNumber pattern="#0.00" />
+                        </h:outputText>
+                    </p:column>
+
                     <p:column headerText="Acciones" style="width: 100px"> 
                         <p:commandButton class="#{bean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="#{bean.privilegio.editar==true?'fa fa-pencil':'fa fa-info'}" actionListener="#{bean.onEdit(lote)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">
                             <p:ajax update="lst" event="dialogReturn" />

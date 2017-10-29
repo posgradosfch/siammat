@@ -42,10 +42,10 @@
                         <p:outputLabel value="#{control.monto}" />
                     </p:column>   
                     <p:column headerText="Acciones" style="width: 100px"> 
-                        <p:commandButton class="#{controlCombustibleListBean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="ui-icon-pencil" actionListener="#{controlCombustibleListBean.onEdit(control)}" title="Editar">
+                        <p:commandButton class="#{controlCombustibleListBean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="#{bean.privilegio.editar==true?'fa fa-info':'fa fa-pencil'}" actionListener="#{controlCombustibleListBean.onEdit(control)}" title="#{bean.privilegio.editar==true?'Información':'Editar'}">
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
-                        <p:commandButton class="btn btn-danger"  update="lst" icon="ui-icon-trash" actionListener="#{controlCombustibleListBean.onRemove(control)}" title="Eliminar">
+                        <p:commandButton class="btn btn-danger"  update="lst" icon="fa fa-trash" actionListener="#{controlCombustibleListBean.onRemove(control)}" title="Eliminar">
                             <p:confirm header="Confirmar" message="Desea eliminar registro?" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>

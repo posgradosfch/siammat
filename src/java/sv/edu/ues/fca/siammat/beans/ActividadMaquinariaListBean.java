@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import sv.edu.ues.fca.siammat.beans.ListBaseBean;
+import sv.edu.ues.fca.siammat.filtros.BetweenFilterElement;
 import sv.edu.ues.fca.siammat.filtros.SimpleFilterElement;
 import sv.edu.ues.fca.siammat.modelo.Actividad;
 import sv.edu.ues.fca.siammat.modelo.ActividadMaquinaria;
@@ -23,7 +24,8 @@ import sv.edu.ues.fca.siammat.modelo.ActividadMaquinaria;
 @ViewScoped
 public class ActividadMaquinariaListBean extends ListBaseBean{
     private List<Actividad> actividades;
-    private SimpleFilterElement<Date> sfFecha = new SimpleFilterElement<Date>("am.fecha", SimpleFilterElement.AND, "=");
+    private BetweenFilterElement<Date> sfFecha=new BetweenFilterElement<Date>("am.fecha", SimpleFilterElement.AND);
+    //private SimpleFilterElement<Date> sfFecha = new SimpleFilterElement<Date>("am.fecha", SimpleFilterElement.AND, "=");
     private SimpleFilterElement<String> sfActividad= new SimpleFilterElement<String>("am.idActividad.abreviatura", SimpleFilterElement.AND, "LIKE");
     /**
      * Creates a new instance of ActividadMaquinariaListBean
@@ -73,15 +75,23 @@ public class ActividadMaquinariaListBean extends ListBaseBean{
 
     /**
      * @return the sfFecha
-     */
+     
     public SimpleFilterElement<Date> getSfFecha() {
         return sfFecha;
-    }
+    }*/
 
     /**
      * @param sfFecha the sfFecha to set
-     */
+     
     public void setSfFecha(SimpleFilterElement<Date> sfFecha) {
+        this.sfFecha = sfFecha;
+    }*/
+    
+    public BetweenFilterElement<Date> getSfFecha() {
+        return sfFecha;
+    }
+
+    public void setSfFecha(BetweenFilterElement<Date> sfFecha) {
         this.sfFecha = sfFecha;
     }
 
