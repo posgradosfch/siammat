@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/templates/layout.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <ui:param name="bean" value="#{cuidadoTransporteListBean}" />
+        <h:form>
+            <p:panel header="Gestión de Mantenimientos y Reparaciones de Unidades de Transporte">
+                <p:messages autoUpdate="true" closable="true" />
+                <p:panelGrid columnClasses="label,value" columns="2" styleClass="ui-panelgrid-blank" id="filtros">
+                 <p:outputLabel value="Factura" />
+                 <p:inputText value="#{bean.sfFactura.value}" />
+                 <p:outputLabel value="Placa" />
+                 <p:inputText value="#{bean.sfUnidadPlaca.value}" />    
+                </p:panelGrid>
+                <p:panelGrid><!--Botones -->
+                    <p:commandButton class="btn btn-info" value="Buscar" icon="fa fa-search" actionListener="#{bean.onSearch()}" update="lst" validateClient="false"/>
+                    <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}"/>
+                    <p:commandButton update="filtros" type="reset" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh"  actionListener="#{bean.filtros.clearFilters()}"/>
+                </p:panelGrid>
+                <br />
+                <!-- listado -->
+                <p:dataTable id="lst" var="cuidadoTransporte" value="#{bean.items}" >
+                    <p:column headerText="Marca" style="width: 70px">
+                        <h:outputLabel value="#{cuidadoTransporte.idUnidad.marca}">
+                        </h:outputLabel>
+                    </p:column>
+
+                    <p:column headerText="Modelo" style="width: 70px">
+                        <p:outputLabel value="#{cuidadoTransporte.idUnidad.modelo}" />
+                    </p:column>
+
+                    <p:column headerText="Año" style="width: 50px">
+                        <p:outputLabel value="#{cuidadoTransporte.idUnidad.anio}" />
+                    </p:column>
+
+                    <p:column headerText="Placa" style="width: 85px">
+                        <p:outputLabel value="#{cuidadoTransporte.idUnidad.placa}" />
+                    </p:column>
+
+                    <p:column headerText="Acción" style="width: 100px">
+                        <p:outputLabel value="#{cuidadoTransporte.accionName}" />
+                    </p:column>
+
+                    <p:column headerText="Fecha inicio" style="width: 90px">
+                        <h:outputText value="#{cuidadoTransporte.fechaInicio}">
+                            <f:convertDateTime pattern="dd/M/yyyy" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Fecha fin" style="width: 90px">
+                        <h:outputText value="#{cuidadoTransporte.fechaFin}">
+                            <f:convertDateTime pattern="dd/M/yyyy" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Responsable">
+                        <h:outputLabel value="#{cuidadoTransporte.idResponsable.nombre} #{cuidadoTransporte.idResponsable.apellido}">
+                        </h:outputLabel>
+                    </p:column>
+
+                    <p:column headerText="Empresa encargada">
+                        <h:outputLabel value="#{cuidadoTransporte.empresa}">
+                        </h:outputLabel>
+                    </p:column>
+
+                    <p:column headerText="No. Factura" style="width: 90px">
+                        <h:outputLabel value="#{cuidadoTransporte.factura}">
+                        </h:outputLabel>
+                    </p:column>
+
+                    <p:column headerText="Componentes">
+                        <h:outputLabel value="#{cuidadoTransporte.componente}">
+                        </h:outputLabel>
+                    </p:column>
+                    
+                    <p:column headerText="Total" style="width: 65px">
+                        <h:outputText value="$#{cuidadoTransporte.total}">
+                            <f:convertNumber pattern="#0.00" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Acciones" style="width: 100px"> 
+                        <p:commandButton class="#{bean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="#{bean.privilegio.editar==true?'fa fa-pencil':'fa fa-info'}" actionListener="#{bean.onEdit(cuidadoTransporte)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">
+                            <p:ajax update="lst" event="dialogReturn" />
+                        </p:commandButton>
+                        <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(cuidadoTransporte)}" title="Eliminar" rendered="#{bean.privilegio.eliminar}">
+                            <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
+                            <p:ajax update="lst" event="dialogReturn" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+            <!--Cuadro de dialogo de confirmacion de eliminacion -->
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

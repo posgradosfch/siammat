@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <ui:param name="bean" value="#{cuidadoTransporteBean}" />
+        <title>#{bean.winTitle} Mantenimiento / Reparación de Unidad de Transporte</title>
+    </h:head>
+    <h:body>
+        <style>
+            .label {
+                color:#444;
+            }
+            div.ui-selectonemenu-trigger span.ui-icon-triangle-1-s {
+                background-image: url("/siammat/faces/javax.faces.resource/images/ui-icons_222222_256x240.png?ln=primefaces-admin");
+                display: block;
+            }
+        </style>
+        <h:form >
+            
+            <p:messages autoUpdate="true" closable="true" />
+            <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
+
+
+                <p:outputLabel value="Placa" for="placa" />
+                <p:selectOneMenu required="true" id="placa" value="#{bean.cuidadoTransporte.idUnidad}" converter="entityConverter">
+                    <f:selectItem itemLabel="Seleccione" />
+                    <f:selectItems var="unidadTransporte" value="#{bean.unidadTransportes}" itemLabel="#{unidadTransporte.placa}" itemValue="#{unidadTransporte}" />
+                </p:selectOneMenu>
+                
+                <p:outputLabel value="Acción"  for="accion" />
+                <p:selectOneMenu value="#{bean.cuidadoTransporte.accion}" id="accion">
+                    <f:selectItem itemLabel="Mantenimiento" itemValue="1" />
+                    <f:selectItem itemLabel="Reparación" itemValue="2" />
+                </p:selectOneMenu>
+                
+                <p:outputLabel value="Descripción" for="descripcion" />
+                <p:inputText required="true" id="descripcion" value="#{bean.cuidadoTransporte.descripcion}"/>
+                
+                <p:outputLabel  value="Fecha Inicio" for="fechaInicio" />
+                <p:calendar id="fechaInicio" value="#{bean.cuidadoTransporte.fechaInicio}" pattern="dd-MM-yyyy" required="true" />
+                
+                <p:outputLabel  value="Fecha Fin" for="fechaFin" />
+                <p:calendar id="fechaFin" value="#{bean.cuidadoTransporte.fechaFin}" pattern="dd-MM-yyyy" required="true" />
+
+                <p:outputLabel value="Responsable" for="responsable" />
+                <p:selectOneMenu required="true" id="responsable" value="#{bean.cuidadoTransporte.idResponsable}" converter="entityConverter">
+                    <f:selectItem itemLabel="Seleccione" />
+                    <f:selectItems var="empleado" value="#{bean.empleados}" itemLabel="#{empleado.nombre} #{empleado.apellido}" itemValue="#{empleado}" />
+                </p:selectOneMenu>  
+
+                <p:outputLabel value="Empresa encargada" for="empresaEncargada" />
+                <p:inputText required="true" id="empresaEncargada" value="#{bean.cuidadoTransporte.empresa}"/>  
+
+                <p:outputLabel value="No. Factura" for="noFactura" />
+                <p:inputText required="true" id="noFactura" value="#{bean.cuidadoTransporte.factura}"/> 
+                
+                <p:outputLabel value="Componentes" for="componentes" />
+                <p:inputText required="true" id="componentes" value="#{bean.cuidadoTransporte.componente}"/> 
+                
+                <p:outputLabel value="Total" for="total" />
+                <p:inputNumber required="true" id="total" value="#{bean.cuidadoTransporte.total}"/>
+                
+
+            </p:panelGrid>
+            <p:separator style="width: 100%" />
+
+            <p:commandButton value="Guardar" class="btn btn-primary" actionListener="#{bean.onSave()}" rendered="#{bean.canSave}" />
+            <p:commandButton value="Cancelar" class="btn btn-danger" actionListener="#{bean.onCancel()}"  rendered="#{bean.canSave}" immediate="true"  />
+
+           
+        </h:form>
+    </h:body>
+</html>
+
+
+
