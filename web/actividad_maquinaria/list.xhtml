@@ -34,7 +34,7 @@
                 <p:dataTable id="lst" var="actividadmaq" value="#{bean.items}"
                              rows="4"
                              paginator="true"
-                             paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink}"
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              >
                     <p:column headerText="Fecha">
                         <h:outputText value="#{actividadmaq.fecha}">
@@ -107,7 +107,7 @@
                     </p:column>
 
                     <p:column headerText="Acciones" style="width: 100px"> 
-               <p:commandButton class="#{bean.privilegio.editar==true?'btn btn-info':'btn btn-warning'}" 
+                        <p:commandButton class="#{bean.privilegio.editar==true?'btn btn-info':'btn btn-warning'}" 
                                          update="lst" icon="#{bean.privilegio.editar==true?'fa fa-info':'fa fa-pencil'}" 
                                          actionListener="#{bean.onEdit(actividadmaq)}" title="#{bean.privilegio.editar==true?'Informacion':'Editar'}">
                             <p:ajax update="lst" event="dialogReturn" />

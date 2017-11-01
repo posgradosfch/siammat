@@ -27,7 +27,7 @@
                 <p:dataTable id="lst" var="cuidadoTransporte" value="#{bean.items}"
                              rows="4"
                              paginator="true"
-                             paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink}"
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              >
                     <p:column headerText="Marca" style="width: 70px">
                         <h:outputLabel value="#{cuidadoTransporte.idUnidad.marca}">
