@@ -31,7 +31,11 @@
                 </p:panelGrid>
                 <br />
                 <!-- listado -->
-                <p:dataTable id="lst" var="actividadmaq" value="#{bean.items}">
+                <p:dataTable id="lst" var="actividadmaq" value="#{bean.items}"
+                             rows="4"
+                             paginator="true"
+                             paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink}"
+                             >
                     <p:column headerText="Fecha">
                         <h:outputText value="#{actividadmaq.fecha}">
                             <f:convertDateTime pattern="MM/dd/yyyy" />

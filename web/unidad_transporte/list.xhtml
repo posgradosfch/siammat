@@ -33,7 +33,11 @@
 
                 <!-- listado -->
 
-                <p:dataTable id="lst" var="unidadTransporte" value="#{bean.items}" resizableColumns="true" style="padding-top: 5px">
+                <p:dataTable id="lst" var="unidadTransporte" value="#{bean.items}" resizableColumns="true" style="padding-top: 5px"
+                             rows="4"
+                             paginator="true"
+                             paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink}"
+                             >
                     <p:column headerText="Tipo" style="width: 90px" >
                         <p:outputLabel value="#{unidadTransporte.tipoName}" />
                     </p:column>

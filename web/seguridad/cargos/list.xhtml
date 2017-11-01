@@ -17,7 +17,11 @@
                 </p:panelGrid>
                 <br />
                 <!-- listado -->
-                <p:dataTable id="lst" var="cargo" value="#{bean.items}" resizableColumns="true">
+                <p:dataTable id="lst" var="cargo" value="#{bean.items}" resizableColumns="true"
+                             rows="4"
+                             paginator="true"
+                             paginatorTemplate="{PreviousPageLink} {CurrentPageReport} {NextPageLink}"
+                             >
                     <p:column headerText="Nombre">
                         <p:outputLabel value="#{cargo.nombre}" />
                     </p:column>
