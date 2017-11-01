@@ -12,10 +12,10 @@
             <p:panel header="Gestión de Mantenimientos y Reparaciones de Unidades de Transporte">
                 <p:messages autoUpdate="true" closable="true" />
                 <p:panelGrid columnClasses="label,value" columns="2" styleClass="ui-panelgrid-blank" id="filtros">
-                 <p:outputLabel value="Factura" />
-                 <p:inputText value="#{bean.sfFactura.value}" />
-                 <p:outputLabel value="Placa" />
-                 <p:inputText value="#{bean.sfUnidadPlaca.value}" />    
+                    <p:outputLabel value="Factura" />
+                    <p:inputText value="#{bean.sfFactura.value}" />
+                    <p:outputLabel value="Placa" />
+                    <p:inputText value="#{bean.sfUnidadPlaca.value}" />    
                 </p:panelGrid>
                 <p:panelGrid><!--Botones -->
                     <p:commandButton class="btn btn-info" value="Buscar" icon="fa fa-search" actionListener="#{bean.onSearch()}" update="lst" validateClient="false"/>
@@ -81,7 +81,7 @@
                         <h:outputLabel value="#{cuidadoTransporte.componente}">
                         </h:outputLabel>
                     </p:column>
-                    
+
                     <p:column headerText="Total" style="width: 65px">
                         <h:outputText value="$#{cuidadoTransporte.total}">
                             <f:convertNumber pattern="#0.00" />
@@ -89,7 +89,9 @@
                     </p:column>
 
                     <p:column headerText="Acciones" style="width: 100px"> 
-                        <p:commandButton class="#{bean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="#{bean.privilegio.editar==true?'fa fa-pencil':'fa fa-info'}" actionListener="#{bean.onEdit(cuidadoTransporte)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">
+                        <p:commandButton class="#{bean.privilegio.editar==true?
+                                                  'btn btn-info':'btn btn-warning'}" 
+                                         update="lst" icon="#{bean.privilegio.editar==true?'fa fa-info':'fa fa-pencil'}" actionListener="#{bean.onEdit(cuidadoTransporte)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
                         <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(cuidadoTransporte)}" title="Eliminar" rendered="#{bean.privilegio.eliminar}">
