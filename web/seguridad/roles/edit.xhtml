@@ -16,12 +16,15 @@
                 background-image: url("/siammat/faces/javax.faces.resource/images/ui-icons_222222_256x240.png?ln=primefaces-admin");
                 display: block;
             }
+            .ui-outputlabel-rfi {
+                display: inline;
+            }
         </style>
         <h:form>
             <p:messages autoUpdate="true" closable="true" />
             <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
                 <p:outputLabel value="Nombre" for="nombre" />
-                <p:inputText required="true" id="nombre" value="#{rolBean.rol.nombre}" style="width: 100%;text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" maxlength="20" />
+                <p:inputText required="true" id="nombre" value="#{rolBean.rol.nombre}" style="width: 100%;text-transform:uppercase;" onkeyup="javascript:this.value = this.value.toUpperCase();" maxlength="20" />
 
                 <p:outputLabel value="Descripción"  for="descripcion" />
                 <p:inputTextarea required="true" id="descripcion" value="#{rolBean.rol.descripcion}" style="width: 100%" maxlength="150" />
