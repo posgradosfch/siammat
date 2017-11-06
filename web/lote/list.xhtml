@@ -21,9 +21,10 @@
                 <br />
                 <!-- listado -->
                 <p:dataTable id="lst" var="lote" value="#{bean.items}"
-                             rows="4"
+                            rows="4"
                              paginator="true"
-                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginatorPosition="bottom"
+                             paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}"
                              >
                     <p:column headerText="Nombre">
                         <p:outputLabel value="#{lote.nombre}" />

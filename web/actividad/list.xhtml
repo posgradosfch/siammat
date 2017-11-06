@@ -21,8 +21,8 @@
                 <p:dataTable id="lst" var="actividad" value="#{bean.items}"
                              rows="4"
                              paginator="true"
-                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                             >
+                             paginatorPosition="bottom"
+                             paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}">
 
                     <p:column headerText="Nombre">
                         <p:outputLabel value="#{actividad.nombre}" />

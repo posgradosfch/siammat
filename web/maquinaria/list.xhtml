@@ -21,10 +21,10 @@
                 <p:commandButton type="reset" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh" />
                 <!-- listado -->
                 <p:dataTable id="lst" var="maquinaria" value="#{bean.items}" resizableColumns="true" style="padding-top: 5px"
-                             rows="4"
+                            rows="4"
                              paginator="true"
-                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                             >
+                             paginatorPosition="bottom"
+                             paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}" >
                     <p:column headerText="Marca">
                         <p:outputLabel value="#{maquinaria.marca}" />
                     </p:column>

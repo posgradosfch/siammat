@@ -29,9 +29,10 @@
                 <br />
                 <!-- listado -->
                 <p:dataTable id="lst" var="control" value="#{controlCombustibleListBean.items}"
-                             rows="4"
+                           rows="4"
                              paginator="true"
-                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginatorPosition="bottom"
+                             paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}"
                              >
                     <p:column headerText="Fecha" style="width: 100px;text-align: center">
                         <p:outputLabel value="#{control.fecha}" />

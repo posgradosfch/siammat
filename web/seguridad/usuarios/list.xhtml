@@ -18,10 +18,10 @@
                 <br />
                 <!-- listado -->
                 <p:dataTable id="lst" var="usuario" value="#{bean.items}" rowKey="#{usuario.idUsuario}" resizableColumns="true"
-                             rows="4"
+                            rows="4"
                              paginator="true"
-                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                             >
+                             paginatorPosition="bottom"
+                             paginatorTemplate="{PreviousPageLink} {PageLinks} {NextPageLink}">
                     <p:column headerText="Nombre">
                         <p:outputLabel value="#{usuario.empleado.nombre}" />
                     </p:column>
