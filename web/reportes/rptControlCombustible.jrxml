@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptControlCombustible" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d4df7ed5-7137-4678-b69b-ecc99ae3f1b8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idMaquinaria" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[6]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+CASE (SELECT extract(MONTH FROM fecha))
+
+   WHEN 1 THEN 'Enero'
+
+   WHEN 2 THEN 'Febrero'
+
+   WHEN 3 THEN 'Marzo'
+
+   WHEN 4 THEN 'Abril'
+
+   WHEN 5 THEN 'Mayo'
+
+   WHEN 6 THEN 'Junio'
+
+   WHEN 7 THEN 'Julio'
+
+    WHEN 8 THEN 'Agosto'
+
+     WHEN 9 THEN 'Septiembre'
+
+      WHEN 10 THEN 'Octubre'
+
+       WHEN 11 THEN 'Noviembre'
+
+        WHEN 12 THEN 'Diciembre'
+END AS mes,
+*
+FROM
+  public.actividad_maquinaria
+where id_maquinaria=6
+order by fecha]]>
+	</queryString>
+	<field name="mes" class="java.lang.String"/>
+	<field name="id_actividad_maquinaria" class="java.lang.Integer"/>
+	<field name="fecha" class="java.sql.Date"/>
+	<field name="id_maquinaria" class="java.lang.Integer"/>
+	<field name="id_actividad" class="java.lang.Integer"/>
+	<field name="id_empleado" class="java.lang.Integer"/>
+	<field name="extension_trabajo" class="java.lang.Float"/>
+	<field name="combustible_inicial" class="java.lang.Integer"/>
+	<field name="combustible_final" class="java.lang.Integer"/>
+	<field name="combustible_gastado" class="java.lang.Integer"/>
+	<field name="inicio_horometro" class="java.lang.Float"/>
+	<field name="fin_horometro" class="java.lang.Float"/>
+	<field name="inicio_reloj" class="java.sql.Time"/>
+	<field name="observacion" class="java.lang.String"/>
+	<field name="id_lote" class="java.lang.Integer"/>
+	<field name="fin_reloj" class="java.sql.Time"/>
+	<variable name="combustible_gastado_1" class="java.lang.Integer" resetType="Group" resetGroup="mes" calculation="Sum">
+		<variableExpression><![CDATA[$F{combustible_gastado}]]></variableExpression>
+	</variable>
+	<group name="mes">
+		<groupExpression><![CDATA[$F{mes}]]></groupExpression>
+		<groupHeader>
+			<band height="21">
+				<textField>
+					<reportElement x="0" y="0" width="100" height="20" uuid="0d089137-d57f-41ef-add7-858819c9b6ae"/>
+					<textFieldExpression><![CDATA[$F{mes}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="mes">
+					<reportElement x="100" y="1" width="100" height="20" uuid="a69e150e-286e-4cb2-a09e-e71d2cdfedb8"/>
+					<textFieldExpression><![CDATA[$V{combustible_gastado_1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="20" uuid="2ac823a2-6f16-4d77-b41d-3dba80d0d2f9"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Gasto de combustible de la maquinaria]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="4d84f995-fe94-4972-8c5b-a7c8187ff9a0"/>
+				<text><![CDATA[fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="20" uuid="8bee8b3e-ee30-43df-ab71-7d7dd55b3d76"/>
+				<text><![CDATA[Combustible Gastado]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="1" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="13" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="127" splitType="Stretch">
+			<barChart>
+				<chart hyperlinkType="Reference">
+					<reportElement x="0" y="0" width="572" height="127" uuid="c4902fe3-230f-4686-8b8e-b2c3ac88c13e"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Grafico mensual"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{mes}]]></categoryExpression>
+						<valueExpression><![CDATA[$V{combustible_gastado_1}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>
