@@ -6,6 +6,9 @@
 	<parameter name="idMaquinaria" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[6]]></defaultValueExpression>
 	</parameter>
+	<parameter name="anho" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[2017]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
 CASE (SELECT extract(MONTH FROM fecha))
@@ -37,7 +40,7 @@ END AS mes,
 *
 FROM
   public.actividad_maquinaria
-where id_maquinaria=6
+where id_maquinaria=$P{idMaquinaria} and (SELECT extract(YEAR FROM fecha)=$P{anho})
 order by fecha]]>
 	</queryString>
 	<field name="mes" class="java.lang.String"/>
