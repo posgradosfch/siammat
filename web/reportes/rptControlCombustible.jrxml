@@ -6,7 +6,7 @@
 	<parameter name="idMaquinaria" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[6]]></defaultValueExpression>
 	</parameter>
-	<parameter name="anho" class="java.lang.Double">
+	<parameter name="anho" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[2017]]></defaultValueExpression>
 	</parameter>
 	<queryString>

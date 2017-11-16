@@ -10,19 +10,22 @@
         <ui:param name="bean" value="#{rptGastosMaquinariaListBean}" />
         <h:form>
             <p:panel header="Reporte mensual de gastos de combustible de Maquinaria">
+                <p:messages autoUpdate="true" closable="true" />
                 <p:panelGrid columnClasses="label,value" columns="2" styleClass="ui-panelgrid-blank" >
-                    <p:outputLabel value="Maquinaria"/>
-                    <p:selectOneMenu>
-                        <f:selectItem itemLabel="Seleccione" value="#{bean.idMaquinaria}" />
+                    <p:outputLabel for="maquina" value="Maquinaria"/>
+                    <p:selectOneMenu id="maquina" value="#{bean.idMaquinaria}" required="true" requiredMessage="Seleccione una máquina">
+                        <f:selectItem itemLabel="Seleccione" />
                         <f:selectItems value="#{bean.maquinariaList}" var="maquinaria"  itemLabel="#{maquinaria.marca} - #{maquinaria.modelo}" itemValue="#{maquinaria.idMaquinaria}"/>
                     </p:selectOneMenu>
-                    <p:outputLabel value="Año"/>
-                    <p:inputNumber value="#{bean.anio}" />
+                    <p:outputLabel  for="anio" value="Año"/>
+                    <p:inputNumber id="anio" required="true" requiredMessage="Ingrese el año" decimalPlaces="0" value="#{bean.anio}"  />
                 </p:panelGrid>
                 <br />
                 <p:commandButton class="btn btn-info" value="Generar" icon="fa fa-search" 
                                  actionListener="#{bean.generarReporte()}"/>
             </p:panel>
+            
+<!--            Esta etiqueta no puede obviarse, es la encargada de redireccionar-->
              <a href="#{reporteUsuarioListBean.urlReportes}" hidden="true" target="rpts" id="srpt" />
         </h:form>
     </ui:define>

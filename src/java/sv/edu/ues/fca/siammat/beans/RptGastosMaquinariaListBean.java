@@ -48,7 +48,7 @@ public class RptGastosMaquinariaListBean extends ListBaseBean{
     public void generarReporte(){
         Map m = new HashMap();
         m.put("idMaquinaria", idMaquinaria);
-        m.put("anio", anio);
+        m.put("anho", anio);
         this.showReport("rptControlCombustible.jasper", m);
     }
     
