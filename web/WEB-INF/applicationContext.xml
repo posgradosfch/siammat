@@ -38,6 +38,7 @@
                 <value>sv.edu.ues.fca.siammat.modelo.Lote</value>
                 <value>sv.edu.ues.fca.siammat.modelo.ActividadMaquinaria</value>
                 <value>sv.edu.ues.fca.siammat.modelo.CuidadoTransporte</value>
+                <value>sv.edu.ues.fca.siammat.modelo.CuidadoMaquinaria</value>
             </list>
         </property>
         <property name="hibernateProperties">

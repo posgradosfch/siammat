@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <ui:param name="bean" value="#{cuidadoMaquinariaBean}" />
+        <title>#{bean.winTitle} Mantenimiento o Reparación de Maquinaria</title>
+    </h:head>
+    <h:body>
+        <style>
+            .label {
+                color:#444;
+            }
+            div.ui-selectonemenu-trigger span.ui-icon-triangle-1-s {
+                background-image: url("/siammat/faces/javax.faces.resource/images/ui-icons_222222_256x240.png?ln=primefaces-admin");
+                display: block;
+            }
+            .ui-outputlabel-rfi {
+                display: inline;
+            }
+        </style>
+        <h:form >
+            
+            <p:messages autoUpdate="true" closable="true" />
+            <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
+
+                <p:outputLabel value="Marca de Maquinaria" for="maquinaria" />
+                <p:selectOneMenu required="true" id="maquinaria" value="#{bean.cuidadoMaquinaria.idMaquinaria}" converter="entityConverter">
+                    <f:selectItem itemLabel="Seleccione" />
+                    <f:selectItems var="maquinaria" value="#{bean.maquinarias}" itemLabel="#{maquinaria.marca}" itemValue="#{maquinaria}" />
+                </p:selectOneMenu>
+                
+                <p:outputLabel value="Modelo de Maquinaria" for="maquinaria_modelo" />
+                <p:selectOneMenu required="true" id="maquinaria_modelo" value="#{bean.cuidadoMaquinaria.idMaquinaria}" converter="entityConverter">
+                    <f:selectItem itemLabel="Seleccione" />
+                    <f:selectItems var="maquinaria" value="#{bean.maquinarias}" itemLabel="#{maquinaria.modelo}" itemValue="#{maquinaria}" />
+                </p:selectOneMenu>
+                
+                <p:outputLabel value="Encargado" for="empleado" />
+                <p:selectOneMenu required="true" id="empleado" value="#{bean.cuidadoMaquinaria.idEncargado}" converter="entityConverter">
+                    <f:selectItem itemLabel="Seleccione" />
+                    <f:selectItems var="empleado" value="#{bean.empleados}" itemLabel="#{empleado.nombre}" itemValue="#{empleado}" />
+                </p:selectOneMenu> 
+                
+                <p:outputLabel for="fecha" value="Fecha" />
+                <p:calendar id="fecha" value="#{bean.cuidadoMaquinaria.fecha}" pattern="dd-MM-yyyy" required="true" />
+
+                <p:outputLabel value="Descripción" for="descripcion" />
+                <p:inputTextarea required="true" id="descripcion" value="#{bean.cuidadoMaquinaria.descripcion}"/>
+                
+                <p:outputLabel value="Empresa encargada" for="empresa" />
+                <p:inputText required="true" id="empresa" value="#{bean.cuidadoMaquinaria.empresa}"/>
+                
+                <p:outputLabel value="Factura" for="factura" />
+                <p:inputNumber required="true" id="factura" value="#{bean.cuidadoMaquinaria.factura}" /> 
+                
+                <p:outputLabel value="Costo Taller" for="costo1" />
+                <p:inputNumber required="true" id="costo1" value="#{bean.cuidadoMaquinaria.costoTaller}"/> 
+                
+                <p:outputLabel value="Costo de Materiales" for="costo2" />
+                <p:inputNumber required="true" id="costo2" value="#{bean.cuidadoMaquinaria.costoMaterial}"/> 
+
+            </p:panelGrid>
+            <p:separator style="width: 100%" />
+
+            <p:commandButton value="Guardar" class="btn btn-primary" actionListener="#{bean.onSave()}" rendered="#{bean.canSave}" />
+            <p:commandButton value="Cancelar" class="btn btn-danger" actionListener="#{bean.onCancel()}"  rendered="#{bean.canSave}" immediate="true"  />
+
+           
+        </h:form>
+    </h:body>
+</html>
