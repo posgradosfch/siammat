@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Editar Reporte</title>
+    </h:head>
+    <h:body>
+        <style>
+            .label {
+                color:#444;
+            }
+            div.ui-selectonemenu-trigger span.ui-icon-triangle-1-s {
+                background-image: url("/siammat/faces/javax.faces.resource/images/ui-icons_222222_256x240.png?ln=primefaces-admin");
+                display: block;
+            }
+            .ui-outputlabel-rfi {
+                display: inline;
+            }
+        </style>
+        <h:form>
+            <p:messages autoUpdate="true" closable="true" />
+            <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
+                <p:outputLabel for="grafico" value="Tipo de Grafico" />
+                <p:selectOneMenu id="grafico" value="#{reporteBean.tipoGrafico}" style="width:125px">
+                    <f:selectItem itemLabel="Select One" itemValue="" />
+                    <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+                    <f:selectItem itemLabel="PS4" itemValue="PS4" />
+                    <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                </p:selectOneMenu>
+                <p:outputLabel for="variable" value="Tipo de Variable" />
+                <p:selectOneMenu id="variable" value="#{reporteBean.tipoGrafico}" style="width:125px">
+                    <f:selectItem itemLabel="Select One" itemValue="" />
+                    <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+                    <f:selectItem itemLabel="PS4" itemValue="PS4" />
+                    <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                </p:selectOneMenu>
+                <p:outputLabel for="periodo" value="Tipo de Periodo de Analisis" />
+                <p:selectOneMenu id="periodo" value="#{reporteBean.tipoGrafico}" style="width:125px">
+                    <f:selectItem itemLabel="Select One" itemValue="" />
+                    <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+                    <f:selectItem itemLabel="PS4" itemValue="PS4" />
+                    <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Periodo de Analisis" /><br/>
+                <p:outputLabel for="inicial" value="Inicial" />
+                <p:calendar id="inicial" value="#{reporteBean.date3}" showOn="button" />
+                <p:outputLabel for="final" value="Final" />
+                <p:calendar id="final" value="#{reporteBean.date4}" showOn="button" />
+
+                
+
+            </p:panelGrid> 
+            <h5 style="margin-top:0px">Sobre que Maquinaria (Puede seleccionar mas de uno)</h5>
+                <p:selectManyCheckbox id="basic" value="#{reporteBean.selectedConsoles}">
+                    <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+                    <f:selectItem itemLabel="PS4" itemValue="PS4" />
+                    <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+                </p:selectManyCheckbox>
+            <p:separator style="width: 100%"  />
+
+            <p:commandButton value="Guardar" class="btn btn-primary"  />
+            <p:commandButton value="Cancelar" class="btn btn-danger"  immediate="true"  />
+        </h:form>
+    </h:body>
+</html>

@@ -5,13 +5,16 @@
  */
 package sv.edu.ues.fca.siammat.seguridad.beans;
 
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import sv.edu.ues.fca.siammat.beans.ListBaseBean;
-import sv.edu.ues.fca.siammat.seguridad.modelo.Rol;
+import sv.edu.ues.fca.siammat.modelo.Reporte;
 
 /**
  *
@@ -19,46 +22,81 @@ import sv.edu.ues.fca.siammat.seguridad.modelo.Rol;
  */
 @ManagedBean
 @ViewScoped
-public class ReporteUsuarioListBean extends ListBaseBean{
-    
-    private List<Rol> roles;
-    private Integer idRol;
-    
+public class ReporteUsuarioListBean extends ListBaseBean {
+
+    private List<Reporte> reportes;
+    private int idReporte;
+    private Date fechaInicio;
+    private Date fechaFin;
+    private String lstPlacas;
+
     public ReporteUsuarioListBean() {
-        //Fijando la uri del formulario de edición
-        setPathForm("/seguridad/cargos/edit");
+        reportes = new ArrayList<Reporte>();
+        reportes.add(new Reporte(1, "Gastos de Combustible de Maquinaría"));
+        //reportes.add(new Reporte(2, "Gastos de Combustible de Unidades de Transporte"));
+        //reportes.add(new Reporte(3, "Gastos de Reparación y Mantenimiento de Maquinaría"));
+        //reportes.add(new Reporte(4, "Gastos de Reparación y Mantenimiento de Unidades de Transporte"));
     }
 
-    public void generarReporte(){
+    public void generarReporte() throws ParseException {
         Map m = new HashMap();
-        m.put("idRol", idRol);
-        this.showReport("rptUsuarios.jasper", m);
+
+        if (idReporte == 1) {
+            lstPlacas = lstPlacas.replaceAll("\\s", "");
+            lstPlacas = lstPlacas.replace(",", "','");
+            lstPlacas = "'" + lstPlacas + "'";
+
+            m.put("fechaInicio", fechaInicio);
+            m.put("fechaFin", fechaFin);
+            m.put("placas", lstPlacas);
+            this.showReport("maq_combu_mensual.jasper", m);
+        }
+
     }
-    
+
     @Override
     public String setupQuery() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void doAfterServiceLocatorSet() {
-        roles = getServiceLocator().getGenericServicio().find("from Rol");
+    public Date getFechaInicio() {
+        return fechaInicio;
     }
 
-    public List<Rol> getRoles() {
-        return roles;
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 
-    public void setRoles(List<Rol> roles) {
-        this.roles = roles;
+    public Date getFechaFin() {
+        return fechaFin;
     }
 
-    public Integer getIdRol() {
-        return idRol;
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
     }
 
-    public void setIdRol(Integer idRol) {
-        this.idRol = idRol;
+    public String getLstPlacas() {
+        return lstPlacas;
+    }
+
+    public void setLstPlacas(String lstPlacas) {
+        this.lstPlacas = lstPlacas;
+    }
+
+    public List<Reporte> getReportes() {
+        return reportes;
+    }
+
+    public void setReportes(List<Reporte> reportes) {
+        this.reportes = reportes;
+    }
+
+    public int getIdReporte() {
+        return idReporte;
+    }
+
+    public void setIdReporte(int idReporte) {
+        this.idReporte = idReporte;
     }
 
 }

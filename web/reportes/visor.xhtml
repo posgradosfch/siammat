@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/templates/layout.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">     
+        <h:form>
+            <p:panel header="Gestión de Reportes">
+                <p:commandButton class="btn btn-info"       value="Guardar"     icon="fa fa-floppy-o" />
+                <p:commandButton class="btn btn-primary"    value="Editar"      icon="fa fa-pencil"     actionListener="#{reporteBean.onNew()}">
+                    <p:ajax event="dialogReturn" listener="#{reporteBean.onSearch()}" />
+                </p:commandButton>
+                <p:commandButton class="btn btn-light"      value="Imprimir"    icon="fa fa-print" /> <br/>
+
+                <div class="row">
+                    <div class="page-header text-center">
+                        <h1>[Variable] de [Equipo]</h1>
+                        <h1><small>En periodo [Tiempo]</small></h1>
+                    </div>
+                    <div class="col-md-12">
+                        <p:dataTable var="player" value="#{reporteBean.players}" style="margin-top:40px">
+                            <p:columnGroup type="header">
+                                <p:row>
+                                    <p:column rowspan="2" headerText="Periodo" />
+                                    <p:column colspan="#{reporteBean.yearCount}" headerText="Maquinaria/Transporte" />
+                                </p:row>
+                                <p:row>
+                                    <ui:repeat value="#{reporteBean.years}" var="year">
+                                        <p:column headerText="#{year}" />
+                                    </ui:repeat>
+                                </p:row>
+                            </p:columnGroup>
+
+                            <p:column>
+                                <h:outputText value="#{player.name}" />
+                            </p:column>
+
+                            <p:columns value="#{reporteBean.years}" var="year">
+                                <h:outputText value="#{player.getGoals(year)}" />
+                            </p:columns>
+
+                        </p:dataTable>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 50px;">
+
+                        <!--p:chart type="pie" model="#{reporteBean.pieModel1}" style="width:100%; height:300px" />   
+                        <p:chart type="bar" model="#{reporteBean.barModel}"  style="height:300px"/-->
+                        <p:chart type="line" model="#{reporteBean.grupalModel}" style="width:100%; height:400px;"/>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="page-header text-center">
+                        <h1>[Variable] de [Equipo]:[NOMBRE]</h1>
+                        <h1><small>En periodo [Tiempo]</small></h1>
+                    </div>
+                    <div class="col-md-6" style="margin-top: 50px;">
+                        <p:dataTable id="individual" var="lote" value="#{loteListBean.items}"
+                                     rows="4"
+                                     paginator="true"
+                                     paginatorPosition="bottom"
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                     >
+                            <p:column headerText="Nombre">
+                                <p:outputLabel value="#{lote.nombre}" />
+                            </p:column>
+                            <p:column headerText="Descripción">
+                                <p:outputLabel value="#{lote.descripcion}" />
+                            </p:column>
+                            <p:column headerText="Distancia">
+                                <h:outputText value="#{lote.distancia}">
+                                    <f:convertNumber pattern="#0.00" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column headerText="Area">
+                                <h:outputText value="#{lote.area}">
+                                    <f:convertNumber pattern="#0.00" />
+                                </h:outputText>
+                            </p:column>
+                        </p:dataTable>
+                    </div>
+                    <div class="col-md-6" style="margin-top: 50px;">
+
+                        <p:chart type="pie" model="#{reporteBean.pieModel1}" style="width:100%; height:300px" />   
+                        <p:chart type="bar" model="#{reporteBean.barModel}"  style="height:300px"/>
+                        <p:chart type="line" model="#{reporteBean.dateModel}" style="height:400px;"/>
+
+                    </div>
+                </div>
+
+
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

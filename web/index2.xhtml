@@ -10,14 +10,60 @@
     </ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <p:selectOneMenu value="#{reporteUsuarioListBean.idRol}">
-                <f:selectItem itemLabel="Seleccione" />
-                <f:selectItems var="rol" value="#{reporteUsuarioListBean.roles}" itemLabel="#{rol.descripcion}" itemValue="#{rol.idRol}" />
-            </p:selectOneMenu>
-            <a href="#{reporteUsuarioListBean.urlReportes}" hidden="true" target="rpts" id="srpt" />
-            <p:commandButton value="Generar Reporte" actionListener="#{reporteUsuarioListBean.generarReporte()}" />
+        <style>
+            #content{
+                margin-top: 14px;
+            }
 
+        </style>
+        <h:form>
+            <p:panel header="Gestión de Reportes">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3" style="margin-top: 50px;">
+
+                        <form class="form-horizontal" role="form">
+                           
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Tipo de Variable</label>
+                                <div class="col-lg-10">
+                                    <p:selectOneMenu value="#{reporteUsuarioListBean.idReporte}">
+                                        <f:selectItem itemLabel="Seleccione" />
+                                        <f:selectItems var="reporte" value="#{reporteUsuarioListBean.reportes}" itemLabel="#{reporte.nombre}" itemValue="#{reporte.idReporte}" />
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-12 control-label">Periodo de Análisis</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Inicial</label>
+                                <div class="col-lg-10" style="margin-bottom: 5px;">
+                                    <p:calendar id="fechaInicio" value="#{reporteUsuarioListBean.fechaInicio}" pattern="dd-MM-yyyy" required="true" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Final</label>
+                                <div class="col-lg-10" style="margin-bottom: 5px;">
+                                    <p:calendar id="fechaFin" value="#{reporteUsuarioListBean.fechaFin}" pattern="dd-MM-yyyy" required="true" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Lista de placas</label>
+                                <div class="col-lg-10" style="margin-bottom: 5px;">
+                                    <p:inputText required="true" id="marca" value="#{reporteUsuarioListBean.lstPlacas}" style="width: 100%" placeholder="placa1,placa2,placa3"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 pull-right">
+                                    <a href="#{reporteUsuarioListBean.urlReportes}" hidden="true" target="rpts" id="srpt" />
+                                    <p:commandButton class="btn btn-primary" value="Generar Reporte" actionListener="#{reporteUsuarioListBean.generarReporte()}" />
+                                </div>
+                            </div>
+                            
+                        </form>  
+                    </div>
+                </div>
+            </p:panel>
         </h:form>
 
     </ui:define>
