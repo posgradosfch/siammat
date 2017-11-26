@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="borrar" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="648" leftMargin="72" rightMargin="72" topMargin="72" bottomMargin="72" uuid="147c33ef-00f0-4717-a3a5-0bf075578c48">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<style name="Title" fontName="Times New Roman" fontSize="20" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<parameter name="fechaFin" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaInicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="placas" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select m.placa as placa,
+         extract(month from a.fecha_fin) as fecha,
+         to_char(a.fecha_fin, 'TMMonth') as periodo,
+         SUM(a.total) as gasto
+    from cuidado_transporte as a
+    join unidad_transporte as m
+      on a.id_unidad = m.id_unidad
+   where a.fecha_fin >= $P{fechaInicio}
+     and a.fecha_fin <= $P{fechaFin}
+     and m.placa in ($P!{placas})
+group by m.placa, extract(month from a.fecha_fin), periodo
+order by fecha;]]>
+	</queryString>
+	<field name="placa" class="java.lang.String"/>
+	<field name="fecha" class="java.lang.Double"/>
+	<field name="periodo" class="java.lang.String"/>
+	<field name="gasto" class="java.lang.Float"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<image>
+				<reportElement x="1" y="0" width="105" height="106" uuid="b5cabd30-2ff7-4760-ad4a-c38ed87d7799"/>
+				<imageExpression><![CDATA["ues.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="106" y="0" width="436" height="46" uuid="f9aa386f-7c79-46fe-8615-2cc62f77336e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Gasto de Reparación y Mantenimiento de las Unidades de Transporte]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="106" y="46" width="416" height="22" uuid="07695504-a366-4174-a6f4-a517bebad1f1"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[En Periodo Mensual]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="70" width="416" height="42" isRemoveLineWhenBlank="true" uuid="9cff9eb3-33c3-48b2-b988-e4858f3bee0a"/>
+				<textElement textAlignment="Justified">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Muestra el total de gastos incurridos en reparación y mantenimiento de cada unidad de transporte durante el año.]]></text>
+			</staticText>
+			<image>
+				<reportElement x="542" y="0" width="105" height="106" uuid="f244fb6c-c952-48e8-9727-18980d1a4295"/>
+				<imageExpression><![CDATA["/home/ed/reportes/agro.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<summary>
+		<band height="50" splitType="Stretch">
+			<crosstab>
+				<reportElement x="0" y="0" width="648" height="50" uuid="b850a2a2-f79c-463e-961d-afa127cc9693"/>
+				<rowGroup name="periodo" width="70" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{periodo}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#9ACD32" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="25" uuid="e4cd8a77-d088-4a09-bf88-4d1747cc7650"/>
+								<textFieldExpression><![CDATA[$V{periodo}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#EAFFBF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="25" uuid="b20535a3-3998-4180-9ae8-4f0261068aa5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total periodo]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="placa" height="30" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{placa}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#9ACD32" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="30" uuid="348e34c1-c587-4db9-b028-8076f0932357"/>
+								<textFieldExpression><![CDATA[$V{placa}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents backcolor="#EAFFBF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="0" y="0" width="50" height="30" uuid="5079447f-df47-435d-8ef4-f2cd6c042194"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total placa]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="gastoMeasure" class="java.lang.Long" calculation="Sum">
+					<measureExpression><![CDATA[$F{gasto}]]></measureExpression>
+				</measure>
+				<crosstabCell width="50" height="25">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="27e109e3-49c8-46e1-8c7b-d08f0a68eab3"/>
+							<textFieldExpression><![CDATA[$V{gastoMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="periodo">
+					<cellContents backcolor="#EAFFBF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="5ba4c5c5-0ae5-4f0b-a55f-4b8dc40eab18"/>
+							<textFieldExpression><![CDATA[$V{gastoMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" columnTotalGroup="placa">
+					<cellContents backcolor="#EAFFBF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="10e910e2-29f1-4d5e-98ce-c885252c9234"/>
+							<textFieldExpression><![CDATA[$V{gastoMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="periodo" columnTotalGroup="placa">
+					<cellContents backcolor="#EAFFBF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="dd0fbc5d-3f77-46eb-83a2-2a79c6200323"/>
+							<textFieldExpression><![CDATA[$V{gastoMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>
