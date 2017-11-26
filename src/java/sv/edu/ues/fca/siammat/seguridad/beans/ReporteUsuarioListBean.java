@@ -34,7 +34,7 @@ public class ReporteUsuarioListBean extends ListBaseBean {
         reportes = new ArrayList<Reporte>();
         reportes.add(new Reporte(1, "Gastos de Combustible de Maquinaría"));
         reportes.add(new Reporte(2, "Gastos de Combustible de Unidades de Transporte"));
-        //reportes.add(new Reporte(3, "Gastos de Reparación y Mantenimiento de Maquinaría"));
+        reportes.add(new Reporte(3, "Gastos de Reparación y Mantenimiento de Maquinaría"));
         reportes.add(new Reporte(4, "Gastos de Reparación y Mantenimiento de Unidades de Transporte"));
     }
 
@@ -54,6 +54,9 @@ public class ReporteUsuarioListBean extends ListBaseBean {
         }
         if (idReporte == 2) {
             this.showReport("trans_combu_mensual.jasper", m);
+        }
+        if (idReporte == 3) {
+            this.showReport("maq_repa_mensual.jasper", m);
         }
         if (idReporte == 4) {
             this.showReport("trans_repa_mensual.jasper", m);
