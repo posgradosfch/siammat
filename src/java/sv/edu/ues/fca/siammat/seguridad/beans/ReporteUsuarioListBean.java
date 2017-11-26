@@ -18,7 +18,7 @@ import sv.edu.ues.fca.siammat.modelo.Reporte;
 
 /**
  *
- * @author galicia
+ * @author galicia-Fernando
  */
 @ManagedBean
 @ViewScoped
@@ -33,7 +33,7 @@ public class ReporteUsuarioListBean extends ListBaseBean {
     public ReporteUsuarioListBean() {
         reportes = new ArrayList<Reporte>();
         reportes.add(new Reporte(1, "Gastos de Combustible de Maquinaría"));
-        //reportes.add(new Reporte(2, "Gastos de Combustible de Unidades de Transporte"));
+        reportes.add(new Reporte(2, "Gastos de Combustible de Unidades de Transporte"));
         //reportes.add(new Reporte(3, "Gastos de Reparación y Mantenimiento de Maquinaría"));
         //reportes.add(new Reporte(4, "Gastos de Reparación y Mantenimiento de Unidades de Transporte"));
     }
@@ -41,15 +41,19 @@ public class ReporteUsuarioListBean extends ListBaseBean {
     public void generarReporte() throws ParseException {
         Map m = new HashMap();
 
-        if (idReporte == 1) {
-            lstPlacas = lstPlacas.replaceAll("\\s", "");
-            lstPlacas = lstPlacas.replace(",", "','");
-            lstPlacas = "'" + lstPlacas + "'";
+        lstPlacas = lstPlacas.replaceAll("\\s", "");
+        lstPlacas = lstPlacas.replace(",", "','");
+        lstPlacas = "'" + lstPlacas + "'";
 
-            m.put("fechaInicio", fechaInicio);
-            m.put("fechaFin", fechaFin);
-            m.put("placas", lstPlacas);
+        m.put("fechaInicio", fechaInicio);
+        m.put("fechaFin", fechaFin);
+        m.put("placas", lstPlacas);
+
+        if (idReporte == 1) {
             this.showReport("maq_combu_mensual.jasper", m);
+        }
+        if (idReporte == 2) {
+            this.showReport("trans_combu_mensual.jasper", m);
         }
 
     }
