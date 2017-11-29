@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="borrar" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="648" leftMargin="72" rightMargin="72" topMargin="72" bottomMargin="72" uuid="147c33ef-00f0-4717-a3a5-0bf075578c48">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="13"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<style name="Title" fontName="Times New Roman" fontSize="20" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -65,14 +65,14 @@ order by fecha;]]>
 			</staticText>
 			<image>
 				<reportElement x="542" y="0" width="105" height="106" uuid="f244fb6c-c952-48e8-9727-18980d1a4295"/>
-				<imageExpression><![CDATA["/home/ed/reportes/agro.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["agro.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>
 	<summary>
-		<band height="50" splitType="Stretch">
+		<band height="211" splitType="Stretch">
 			<crosstab>
-				<reportElement x="0" y="0" width="648" height="50" uuid="b850a2a2-f79c-463e-961d-afa127cc9693"/>
+				<reportElement x="0" y="0" width="353" height="50" uuid="b850a2a2-f79c-463e-961d-afa127cc9693"/>
 				<rowGroup name="periodo" width="70" totalPosition="End">
 					<bucket class="java.lang.String">
 						<bucketExpression><![CDATA[$F{periodo}]]></bucketExpression>
@@ -177,6 +177,31 @@ order by fecha;]]>
 					</cellContents>
 				</crosstabCell>
 			</crosstab>
+			<barChart>
+				<chart>
+					<reportElement x="367" y="0" width="280" height="210" uuid="96286867-d823-48c9-8188-f068325e23f5"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{placa}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{periodo}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{gasto}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
 		</band>
 	</summary>
 </jasperReport>

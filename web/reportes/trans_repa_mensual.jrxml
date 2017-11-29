@@ -65,14 +65,14 @@ order by fecha;]]>
 			</staticText>
 			<image>
 				<reportElement x="542" y="0" width="105" height="106" uuid="f244fb6c-c952-48e8-9727-18980d1a4295"/>
-				<imageExpression><![CDATA["/home/ed/reportes/agro.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["agro.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>
 	<summary>
-		<band height="50" splitType="Stretch">
+		<band height="213" splitType="Stretch">
 			<crosstab>
-				<reportElement x="0" y="0" width="648" height="50" uuid="b850a2a2-f79c-463e-961d-afa127cc9693"/>
+				<reportElement x="0" y="0" width="355" height="50" uuid="b850a2a2-f79c-463e-961d-afa127cc9693"/>
 				<rowGroup name="periodo" width="70" totalPosition="End">
 					<bucket class="java.lang.String">
 						<bucketExpression><![CDATA[$F{periodo}]]></bucketExpression>
@@ -177,6 +177,31 @@ order by fecha;]]>
 					</cellContents>
 				</crosstabCell>
 			</crosstab>
+			<barChart>
+				<chart>
+					<reportElement x="367" y="0" width="280" height="210" uuid="d3ac5883-9d98-42b9-81fa-d1b86228f2f9"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{placa}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{periodo}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{gasto}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
 		</band>
 	</summary>
 </jasperReport>
