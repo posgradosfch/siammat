@@ -66,10 +66,8 @@
                     <p:column headerText="Estado" style="width: 110px">
                         <p:outputLabel value="#{unidadTransporte.estadoName}" />
                     </p:column>
-                    <p:column headerText="Acciones" style="width: 90px"> 
-                        <p:commandButton class="#{bean.privilegio.editar==true?
-                                                  'btn btn-info':'btn btn-warning'}"
-                                         update="lst" icon="#{bean.privilegio.editar==true?'fa fa-info':'fa fa-pencil'}" actionListener="#{bean.onEdit(unidadTransporte)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">
+                    <p:column headerText="Acciones" style="width: 90px">
+                        <p:commandButton class="#{bean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="#{bean.privilegio.editar==true?'fa fa-pencil':'fa fa-info'}" actionListener="#{bean.onEdit(unidadTransporte)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
                         <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(unidadTransporte)}" title="Eliminar" rendered="#{bean.privilegio.eliminar}">

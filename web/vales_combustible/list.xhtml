@@ -22,8 +22,8 @@
                     <p:inputText value="#{controlCombustibleListBean.sfPlaca.value}" />
                 </p:panelGrid>
                 <p:panelGrid><!--Botones -->
-                    <p:commandButton value="Buscar" class="btn btn-info"  icon="ui-icon-search" actionListener="#{controlCombustibleListBean.onSearch()}" update="lst"/>
-                    <p:commandButton value="Nuevo" class="btn btn-primary" icon="ui-icon-plus" actionListener="#{controlCombustibleListBean.onNew()}" rendered="#{controlCombustibleListBean.privilegio.insertar}"/>
+                    <p:commandButton class="btn btn-info" value="Buscar" icon="fa fa-search" actionListener="#{controlCombustibleListBean.onSearch()}" update="lst"/>
+                    <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{controlCombustibleListBean.onNew()}" rendered="#{controlCombustibleListBean.privilegio.insertar}"/>
                     <p:commandButton update="filtros" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh" actionListener="#{controlCombustibleListBean.filtros.clearFilters()}" />
                 </p:panelGrid>
                 <br />
@@ -46,11 +46,11 @@
                     <p:column headerText="Monto($)">
                         <p:outputLabel value="#{control.monto}" />
                     </p:column>   
-                    <p:column headerText="Acciones" style="width: 100px"> 
-                        <p:commandButton class="#{controlCombustibleListBean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="#{bean.privilegio.editar==true?'fa fa-info':'fa fa-pencil'}" actionListener="#{controlCombustibleListBean.onEdit(control)}" title="#{bean.privilegio.editar==true?'Información':'Editar'}">
+                    <p:column headerText="Acciones" style="width: 100px">
+                        <p:commandButton class="#{controlCombustibleListBean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="#{controlCombustibleListBean.privilegio.editar==true?'fa fa-pencil':'fa fa-info'}" actionListener="#{controlCombustibleListBean.onEdit(control)}" title="#{controlCombustibleListBean.privilegio.editar==true?'Editar':'Información'}">
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
-                        <p:commandButton class="btn btn-danger"  update="lst" icon="fa fa-trash" actionListener="#{controlCombustibleListBean.onRemove(control)}" title="Eliminar">
+                        <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{controlCombustibleListBean.onRemove(control)}" title="Eliminar" rendered="#{controlCombustibleListBean.privilegio.eliminar}">
                             <p:confirm header="Confirmar" message="Desea eliminar registro?" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>

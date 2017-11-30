@@ -25,8 +25,8 @@
                 </p:panelGrid>
 
                 <p:panelGrid><!--Botones -->
-                    <p:commandButton value="Buscar" class="btn btn-info"   icon="ui-icon-search" actionListener="#{bean.onSearch()}" update="lst"/>
-                    <p:commandButton value="Nuevo" class="btn btn-primary" icon="ui-icon-plus" actionListener="#{bean.onNew()}"/>
+                    <p:commandButton class="btn btn-info" value="Buscar" icon="fa fa-search" actionListener="#{bean.onSearch()}" update="lst"/>
+                    <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}"/>
                     <p:commandButton update="filtros" type="reset" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh"  actionListener="#{bean.filtros.clearFilters()}"/>
                 </p:panelGrid>
                 <br />
@@ -107,13 +107,11 @@
                         </h:outputText>
                     </p:column>
 
-                    <p:column headerText="Acciones" style="width: 100px"> 
-                        <p:commandButton class="#{bean.privilegio.editar==true?'btn btn-info':'btn btn-warning'}" 
-                                         update="lst" icon="#{bean.privilegio.editar==true?'fa fa-info':'fa fa-pencil'}" 
-                                         actionListener="#{bean.onEdit(actividadmaq)}" title="#{bean.privilegio.editar==true?'Informacion':'Editar'}">
+                    <p:column headerText="Acciones" style="width: 100px">
+                        <p:commandButton class="#{bean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="#{bean.privilegio.editar==true?'fa fa-pencil':'fa fa-info'}" actionListener="#{bean.onEdit(actividadmaq)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>
-                        <p:commandButton  class="btn btn-danger"  update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(actividadmaq)}" title="Eliminar">
+                        <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(actividadmaq)}" title="Eliminar" rendered="#{bean.privilegio.eliminar}">
                             <p:confirm header="Confirmar" message="Desea eliminar registro?" icon="ui-icon-alert" />
                             <p:ajax update="lst" event="dialogReturn" />
                         </p:commandButton>

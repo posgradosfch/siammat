@@ -65,11 +65,9 @@
                     <f:selectItems var="it" itemLabel="#{it.nombre} #{it.apellido}"  value="#{bean.empleados}"/>
                 </p:selectOneMenu>
             </p:panelGrid>
-            <p:separator style="width: 100%" />
-
-            <p:commandButton value="Guardar" actionListener="#{bean.onSave()}" class="btn btn-primary"/>
-            <p:commandButton value="Cancelar" actionListener="#{bean.onCancel()}" class="btn btn-danger" immediate="true"/>
-
+            <p:separator style="width: 100%"  rendered="#{bean.canSave}" />
+            <p:commandButton value="Guardar" class="btn btn-primary" actionListener="#{bean.onSave()}" rendered="#{bean.canSave}" />
+            <p:commandButton value="Cancelar" class="btn btn-danger" actionListener="#{bean.onCancel()}"  rendered="#{bean.canSave}" immediate="true"  />
         </h:form>
     </h:body>
 </html>
