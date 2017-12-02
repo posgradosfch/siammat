@@ -48,13 +48,13 @@
                 
                 <p:outputLabel  value="Fecha Fin" for="fechaFin" />
                 <p:calendar id="fechaFin" value="#{bean.cuidadoTransporte.fechaFin}" pattern="dd-MM-yyyy" required="true" />
-
+                
                 <p:outputLabel value="Responsable" for="responsable" />
                 <p:selectOneMenu required="true" id="responsable" value="#{bean.cuidadoTransporte.idResponsable}" converter="entityConverter">
                     <f:selectItem itemLabel="Seleccione" />
                     <f:selectItems var="empleado" value="#{bean.empleados}" itemLabel="#{empleado.nombre} #{empleado.apellido}" itemValue="#{empleado}" />
                 </p:selectOneMenu>  
-
+               
                 <p:outputLabel value="Empresa encargada" for="empresaEncargada" />
                 <p:inputText required="true" id="empresaEncargada" value="#{bean.cuidadoTransporte.empresa}"/>  
 

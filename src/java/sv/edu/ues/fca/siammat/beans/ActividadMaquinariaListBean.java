@@ -10,7 +10,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import sv.edu.ues.fca.siammat.beans.ListBaseBean;
 import sv.edu.ues.fca.siammat.filtros.BetweenFilterElement;
 import sv.edu.ues.fca.siammat.filtros.SimpleFilterElement;
 import sv.edu.ues.fca.siammat.modelo.Actividad;
@@ -22,7 +21,7 @@ import sv.edu.ues.fca.siammat.modelo.ActividadMaquinaria;
  */
 @ManagedBean
 @ViewScoped
-public class ActividadMaquinariaListBean extends ListBaseBean{
+public class ActividadMaquinariaListBean extends ListBaseBean {
     private List<Actividad> actividades;
     private BetweenFilterElement<Date> sfFecha=new BetweenFilterElement<Date>("am.fecha", SimpleFilterElement.AND);
     //private SimpleFilterElement<Date> sfFecha = new SimpleFilterElement<Date>("am.fecha", SimpleFilterElement.AND, "=");

@@ -105,6 +105,9 @@ public class Empleado implements Serializable {
         } else {
             other = (Empleado) object;
         }
+        if ((this.idEmpleado == null && other.idEmpleado != null) || (this.idEmpleado != null && !this.idEmpleado.equals(other.idEmpleado))) {
+            return false;
+        }
 
         return true;
     }
