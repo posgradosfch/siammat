@@ -34,11 +34,6 @@ public class ActividadMaquinariaListBean extends ListBaseBean {
         getFiltros().addFilterElement(sfFecha);
         getFiltros().addFilterElement(sfActividad);
     }
-    
-    @PostConstruct
-    private void init(){
-        onSearch();
-    }
     @Override
     public List<ActividadMaquinaria> getItems() {//Asegurando que retorna el tipo de datos, y aprovechar sugerencias del editor
         return super.getItems(); 
@@ -72,20 +67,6 @@ public class ActividadMaquinariaListBean extends ListBaseBean {
         this.sfActividad = sfActividad;
     }
 
-    /**
-     * @return the sfFecha
-     
-    public SimpleFilterElement<Date> getSfFecha() {
-        return sfFecha;
-    }*/
-
-    /**
-     * @param sfFecha the sfFecha to set
-     
-    public void setSfFecha(SimpleFilterElement<Date> sfFecha) {
-        this.sfFecha = sfFecha;
-    }*/
-    
     public BetweenFilterElement<Date> getSfFecha() {
         return sfFecha;
     }
@@ -107,6 +88,13 @@ public class ActividadMaquinariaListBean extends ListBaseBean {
         getParametros().put("height", "650px");
     }
 
+    @Override
+    public void doAfterServiceLocatorSet() {
+       super.onSearch();
+        super.doAfterServiceLocatorSet(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 
     
 }
