@@ -23,14 +23,14 @@
                         <f:selectItem itemLabel="Autobús" itemValue="2" />
                         <f:selectItem itemLabel="Pick-up" itemValue="3" />
                         <f:selectItem itemLabel="Motocicleta" itemValue="4" />
+                        <f:selectItem itemLabel="Microbús" itemValue="5" />
                     </p:selectOneMenu>
                 </p:panelGrid>
                 <br />                
                 <p:commandButton class="btn btn-info" value="Buscar" icon="fa fa-search" actionListener="#{bean.onSearch()}" update="lst" validateClient="false"/>
                 <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}"/>
                 <p:commandButton update="filtros" type="reset" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh"  actionListener="#{bean.filtros.clearFilters()}"/>
-
-
+                
                 <!-- listado -->
 
                 <p:dataTable id="lst" var="unidadTransporte" value="#{bean.items}" resizableColumns="true" style="padding-top: 5px"
