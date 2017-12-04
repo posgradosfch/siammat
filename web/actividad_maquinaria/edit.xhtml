@@ -45,7 +45,7 @@
                 <p:outputLabel value="Empleado" for="empleado" />
                 <p:selectOneMenu required="true" id="empleado" value="#{bean.actividadMaquinaria.idEmpleado}" converter="entityConverter">
                     <f:selectItem itemLabel="Seleccione" />
-                    <f:selectItems var="empleado" value="#{bean.empleados}" itemLabel="#{empleado.nombre}" itemValue="#{empleado}" />
+                    <f:selectItems var="empleado" value="#{bean.empleados}" itemLabel="#{empleado.nombre} #{empleado.apellido}" itemValue="#{empleado}" />
                 </p:selectOneMenu>  
 
                 <p:outputLabel value="Lote" for="lote" />
@@ -70,10 +70,10 @@
                 <p:inputNumber required="true" id="horo-f" value="#{bean.actividadMaquinaria.finHorometro}"/> 
 
                 <p:outputLabel for="inic" value="Hora Inicial" />
-                <p:calendar required="true" id="inic" value="#{bean.actividadMaquinaria.inicioReloj}" pattern="HH:mm" timeOnly="true"  />
+                <p:calendar required="true" id="inic" value="#{bean.actividadMaquinaria.inicioReloj}" pattern="hh:mm a" timeOnly="true"  />
 
                 <p:outputLabel for="fin" value="Hora Final" />
-                <p:calendar required="true" id="fin" value="#{bean.actividadMaquinaria.finReloj}" pattern="HH:mm" timeOnly="true"  />
+                <p:calendar required="true" id="fin" value="#{bean.actividadMaquinaria.finReloj}" pattern="hh:mm a" timeOnly="true"  />
 
                 <p:outputLabel value="Observacion" for="obser" />
                 <p:inputText id="obser" value="#{bean.actividadMaquinaria.observacion}" style="width: 100%" />

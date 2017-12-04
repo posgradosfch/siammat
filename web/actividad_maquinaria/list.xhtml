@@ -39,7 +39,7 @@
                              > 
                     <p:column headerText="Fecha">
                         <h:outputText value="#{actividadmaq.fecha}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                            <f:convertDateTime pattern="dd/M/yyyy" />
                         </h:outputText>
                     </p:column>
 
@@ -52,7 +52,7 @@
                     </p:column>
 
                     <p:column headerText="Encargado">
-                        <p:outputLabel value="#{actividadmaq.idEmpleado.nombre}" />
+                        <p:outputLabel value="#{actividadmaq.idEmpleado.nombre} #{actividadmaq.idEmpleado.apellido}" />
                     </p:column>
 
                     <p:column headerText="Lote">
@@ -97,13 +97,13 @@
 
                     <p:column headerText="Hora Inicial">
                         <h:outputText value="#{actividadmaq.inicioReloj}">
-                            <f:convertDateTime pattern="HH:mm" />
+                            <f:convertDateTime locale="es_SV" pattern="hh:mm a" timeZone="America/El_Salvador"/>
                         </h:outputText>
                     </p:column>
 
                     <p:column headerText="Hora Final">
                         <h:outputText value="#{actividadmaq.finReloj}">
-                            <f:convertDateTime pattern="HH:mm" />
+                            <f:convertDateTime locale="es_SV" pattern="hh:mm a" timeZone="America/El_Salvador" />
                         </h:outputText>
                     </p:column>
 

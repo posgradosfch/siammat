@@ -34,15 +34,6 @@ import sv.edu.ues.fca.siammat.seguridad.modelo.Recurso;
 @NamedQuery(name = "Actividad.findAll", query = "SELECT a FROM Actividad a")})
 public class Actividad implements Serializable {
 
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "horometro_inicial")
-    private Float horometroInicial;
-    @Column(name = "horometro_final")
-    private Float horometroFinal;
-    @JoinColumn(name = "id_lote", referencedColumnName = "id_lote")
-    @ManyToOne
-    private Lote idLote;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -114,29 +105,4 @@ public class Actividad implements Serializable {
     public String toString() {
         return "sv.edu.ues.fca.siammat.modelo.Actividad[ idActividad=" + idActividad + " ]";
     }
-
-    public Float getHorometroInicial() {
-        return horometroInicial;
-    }
-
-    public void setHorometroInicial(Float horometroInicial) {
-        this.horometroInicial = horometroInicial;
-    }
-
-    public Float getHorometroFinal() {
-        return horometroFinal;
-    }
-
-    public void setHorometroFinal(Float horometroFinal) {
-        this.horometroFinal = horometroFinal;
-    }
-
-    public Lote getIdLote() {
-        return idLote;
-    }
-
-    public void setIdLote(Lote idLote) {
-        this.idLote = idLote;
-    }
-        
 }

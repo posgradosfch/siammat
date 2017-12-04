@@ -30,19 +30,6 @@
                     <p:column headerText="Abreviatura">
                         <p:outputLabel value="#{actividad.abreviatura}" />
                     </p:column> 
-                    <p:column headerText="Horometro Inicial">
-                        <h:outputText value="#{actividad.horometroInicial}">
-                            <f:convertNumber pattern="#0.00" />
-                        </h:outputText>
-                    </p:column>
-                    <p:column headerText="Horometro Final">
-                        <h:outputText value="#{actividad.horometroFinal}">
-                            <f:convertNumber pattern="#0.00" />
-                        </h:outputText>
-                    </p:column>
-                    <p:column headerText="Lote">
-                        <p:outputLabel value="#{actividad.idLote.nombre}" />
-                    </p:column>
                     <p:column headerText="Acciones" style="width: 100px"> 
                         <p:commandButton class="#{bean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="#{bean.privilegio.editar==true?'fa fa-pencil':'fa fa-info'}" actionListener="#{bean.onEdit(actividad)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">
                             <p:ajax update="lst" event="dialogReturn" />

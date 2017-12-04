@@ -9,7 +9,7 @@
 
     <h:head>
         <ui:param name="bean" value="#{controlCombustibleBean}" />
-        <title>#{bean.winTitle} Control de combustible</title>
+        <title>#{bean.winTitle} Control de asignaciones</title>
         <style>
             .label {
                 color:#444;
@@ -48,16 +48,13 @@
 
                 <p:outputLabel value="Destino" />
                 <p:inputText  value="#{bean.control.destino}" style="width: 100%"/>
-
+                
                 <p:outputLabel value="Hora de salida"  />
-                <pe:timePicker mode="popup" widgetVar="popupTimeWidget"  
-                               label="Popup time picker" dialogPosition="right" value="#{bean.control.horaSalida}" />  
+                <p:calendar required="true"  value="#{bean.control.horaSalida}" pattern="hh:mm a" timeOnly="true"  />
                 <p:outputLabel value="Hora de regreso" />
-                <pe:timePicker mode="popup" 
-                               label="Popup time picker" dialogPosition="right" value="#{bean.control.horaLlegada}" />  
-                <p:outputLabel value="Kilometraje recorrido" />
+                <p:calendar required="true" value="#{bean.control.horaLlegada}" pattern="hh:mm a" timeOnly="true"  />
+                <p:outputLabel value="Kilometraje recorrido"/>
                 <p:inputNumber value="#{bean.control.kilometraje}" >
-                    
                 </p:inputNumber>
                 <p:outputLabel value="Recibe conforme" />
                 <p:selectOneMenu value="#{bean.control.empleadoRecibe}" converter="entityConverter">

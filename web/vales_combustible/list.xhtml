@@ -3,11 +3,12 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="/WEB-INF/templates/layout.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
         <h:form>
-            <p:panel header="Control de combustible">
+            <p:panel header="Control de asignaciones">
                 <p:messages autoUpdate="true" closable="true" />
                 <p:panelGrid columnClasses="label,value" columns="2" styleClass="ui-panelgrid-blank" id="filtros">
                     <p:outputLabel value="Fecha" />
@@ -35,7 +36,9 @@
                              paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                              >
                     <p:column headerText="Fecha" style="width: 100px;text-align: center">
-                        <p:outputLabel value="#{control.fecha}" />
+                        <h:outputText value="#{control.fecha}">
+                            <f:convertDateTime pattern="dd/M/yyyy" />
+                        </h:outputText>
                     </p:column>
                     <p:column headerText="Destino">
                         <p:outputLabel value="#{control.destino}" />

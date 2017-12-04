@@ -30,9 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQuery(name = "Lote.findAll", query = "SELECT l FROM Lote l")})
 public class Lote implements Serializable {
 
-    @OneToMany(mappedBy = "idLote")
-    private Collection<Actividad> actividadCollection;
-
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "distancia")
     private Float distancia;
@@ -121,14 +118,5 @@ public class Lote implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    @XmlTransient
-    public Collection<Actividad> getActividadCollection() {
-        return actividadCollection;
-    }
-
-    public void setActividadCollection(Collection<Actividad> actividadCollection) {
-        this.actividadCollection = actividadCollection;
-    }
-    
+  
 }

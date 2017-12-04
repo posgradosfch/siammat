@@ -32,18 +32,6 @@
                 <p:outputLabel value="Abreviatura (AAA) "  for="abreviatura" />
                 <p:inputText required="true" id="abreviatura" value="#{actividadBean.actividad.abreviatura}" validator="#{actividadBean.validacion}" style="width: 10%" maxlength="4">
                 </p:inputText>
-                
-                <p:outputLabel value="Horometro Inicial " for="horo-i" />
-                <p:inputNumber required="true" id="horo-i" value="#{bean.actividad.horometroInicial}"/> 
-
-                <p:outputLabel value="Horometro Final" for="horo-f" />
-                <p:inputNumber required="true" id="horo-f" value="#{bean.actividad.horometroFinal}"/> 
-
-                <p:outputLabel value="Lote" for="lote" />
-                <p:selectOneMenu required="true" id="lote" value="#{bean.actividad.idLote}" converter="entityConverter">
-                    <f:selectItem itemLabel="Seleccione" />
-                    <f:selectItems var="lote" value="#{bean.lotes}" itemLabel="#{lote.nombre}" itemValue="#{lote}" />
-                </p:selectOneMenu>
             </p:panelGrid>
             <p:separator style="width: 100%"  rendered="#{bean.canSave}" />
 
