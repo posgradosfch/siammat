@@ -27,16 +27,10 @@
             <p:messages autoUpdate="true" closable="true" />
             <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
 
-                <p:outputLabel value="Marca de Maquinaria" for="maquinaria" />
+                <p:outputLabel value="Maquinaria" for="maquinaria" />
                 <p:selectOneMenu required="true" id="maquinaria" value="#{bean.cuidadoMaquinaria.idMaquinaria}" converter="entityConverter">
                     <f:selectItem itemLabel="Seleccione" />
-                    <f:selectItems var="maquinaria" value="#{bean.maquinarias}" itemLabel="#{maquinaria.marca}" itemValue="#{maquinaria}" />
-                </p:selectOneMenu>
-                
-                <p:outputLabel value="Modelo de Maquinaria" for="maquinaria_modelo" />
-                <p:selectOneMenu required="true" id="maquinaria_modelo" value="#{bean.cuidadoMaquinaria.idMaquinaria}" converter="entityConverter">
-                    <f:selectItem itemLabel="Seleccione" />
-                    <f:selectItems var="maquinaria" value="#{bean.maquinarias}" itemLabel="#{maquinaria.modelo}" itemValue="#{maquinaria}" />
+                    <f:selectItems var="maquinaria" value="#{bean.maquinarias}" itemLabel="Marca:#{maquinaria.marca}-----Modelo:#{maquinaria.modelo}" itemValue="#{maquinaria}" />
                 </p:selectOneMenu>
                 
                 <p:outputLabel value="Acción"  for="accion" />
