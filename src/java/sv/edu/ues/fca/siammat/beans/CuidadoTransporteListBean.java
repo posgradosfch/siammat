@@ -25,7 +25,7 @@ import sv.edu.ues.fca.siammat.modelo.UnidadTransporte;
 @ViewScoped
 public class CuidadoTransporteListBean extends ListBaseBean{
      private SimpleFilterElement<Integer> sfFactura = new SimpleFilterElement<Integer>("c.factura", SimpleFilterElement.AND, "=");
-     private SimpleFilterElement<Integer> sfUnidadPlaca = new SimpleFilterElement<Integer>("c.idUnidad.placa",SimpleFilterElement.AND,"=");
+     private SimpleFilterElement<String> sfUnidadPlaca = new SimpleFilterElement<String>("c.idUnidad.placa",SimpleFilterElement.AND,"LIKE");
    
     /**
      * Creates a new instance of CuidadoTransporteListBean
@@ -33,6 +33,7 @@ public class CuidadoTransporteListBean extends ListBaseBean{
     public CuidadoTransporteListBean() {
         setPathForm("/cuidado_transporte/edit");
         getFiltros().addFilterElement(sfFactura);
+        getFiltros().addFilterElement(sfUnidadPlaca);
 
     }
     
@@ -74,11 +75,11 @@ public class CuidadoTransporteListBean extends ListBaseBean{
         this.sfFactura = sfFactura;
     }
 
-    public SimpleFilterElement<Integer> getSfUnidadPlaca() {
+    public SimpleFilterElement<String> getSfUnidadPlaca() {
         return sfUnidadPlaca;
     }
 
-    public void setSfUnidadPlaca(SimpleFilterElement<Integer> sfUnidadPlaca) {
+    public void setSfUnidadPlaca(SimpleFilterElement<String> sfUnidadPlaca) {
         this.sfUnidadPlaca = sfUnidadPlaca;
     }
 

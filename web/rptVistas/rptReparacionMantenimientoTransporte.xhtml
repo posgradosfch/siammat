@@ -14,10 +14,10 @@
             <p:panel header="Reporte mensual de gastos de unidades de transporte">
                 <p:messages autoUpdate="true" closable="true" />
                 <p:panelGrid columnClasses="label,value" columns="2" styleClass="ui-panelgrid-blank" >
-                    <p:outputLabel for="maquina" value="Unidad"/>
+                    <p:outputLabel for="maquina" value="Unidad de transporte"/>
                     <p:selectOneMenu id="maquina" value="#{bean.idMaquinaria}" required="true" requiredMessage="Seleccione una máquina">
                         <f:selectItem itemLabel="Seleccione" />
-                        <f:selectItems value="#{bean.unidadesTransporte}" var="maquinaria"  itemLabel="#{maquinaria.marca} - #{maquinaria.modelo}" itemValue="#{maquinaria.idUnidad}"/>
+                        <f:selectItems value="#{bean.unidadesTransporte}" var="maquinaria"  itemLabel="#{maquinaria.marca} - #{maquinaria.modelo} - #{maquinaria.placa}" itemValue="#{maquinaria.idUnidad}"/>
                     </p:selectOneMenu>
                     <p:outputLabel  for="anio" value="Año"/>
                     <p:inputNumber id="anio" required="true" requiredMessage="Ingrese el año" decimalPlaces="0" value="#{bean.anio}"  />
