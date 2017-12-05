@@ -23,7 +23,7 @@
             }
         </style>
         <h:form >
-            
+
             <p:messages autoUpdate="true" closable="true" />
             <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
 
@@ -57,23 +57,32 @@
                 <p:outputLabel value="Extension de Trabajo (KM)" for="ext" />
                 <p:inputNumber required="true" id="ext" value="#{bean.actividadMaquinaria.extensionTrabajo}"/>  
 
-                <p:outputLabel value="Combustible Inicial (GL)" for="comb-i" />
-                <p:inputNumber required="true" id="comb-i" value="#{bean.actividadMaquinaria.combustibleInicial}"/> 
+                <p:outputLabel value="Combustible (GL) Inicial" for="comb-i" />
+                <p:column>
+                    <p:inputNumber required="true" id="comb-i" value="#{bean.actividadMaquinaria.combustibleInicial}"/> 
+                    <p:outputLabel value="Final" for="comb-f" />
+                    <p:inputNumber required="true" id="comb-f" value="#{bean.actividadMaquinaria.combustibleFinal}"/> 
+                </p:column>
 
-                <p:outputLabel value="Combustible Final (GL)" for="comb-f" />
-                <p:inputNumber required="true" id="comb-f" value="#{bean.actividadMaquinaria.combustibleFinal}"/> 
 
-                <p:outputLabel value="Horometro Inicial de Maquina " for="horo-i" />
-                <p:inputNumber required="true" id="horo-i" value="#{bean.actividadMaquinaria.inicioHorometro}"/> 
 
-                <p:outputLabel value="Horometro Final de Maquina" for="horo-f" />
-                <p:inputNumber required="true" id="horo-f" value="#{bean.actividadMaquinaria.finHorometro}"/> 
+
+                <p:outputLabel value="Horometro de Maquina Inicial " for="horo-i" />
+                <p:column>
+                    <p:inputNumber required="true" id="horo-i" value="#{bean.actividadMaquinaria.inicioHorometro}"/> 
+                    <p:outputLabel value=" Final " for="horo-f" />
+                    <p:inputNumber required="true" id="horo-f" value="#{bean.actividadMaquinaria.finHorometro}"/> 
+
+                </p:column>
 
                 <p:outputLabel for="inic" value="Hora Inicial" />
-                <p:calendar required="true" id="inic" value="#{bean.actividadMaquinaria.inicioReloj}" pattern="hh:mm a" timeOnly="true"  />
+                <p:column>
+                    <p:calendar required="true" id="inic" value="#{bean.actividadMaquinaria.inicioReloj}" pattern="hh:mm a" timeOnly="true"  />
 
-                <p:outputLabel for="fin" value="Hora Final" />
-                <p:calendar required="true" id="fin" value="#{bean.actividadMaquinaria.finReloj}" pattern="hh:mm a" timeOnly="true"  />
+                    <p:outputLabel for="fin" value=" Final" />
+                    <p:calendar required="true" id="fin" value="#{bean.actividadMaquinaria.finReloj}" pattern="hh:mm a" timeOnly="true"  />
+
+                </p:column>
 
                 <p:outputLabel value="Observacion" for="obser" />
                 <p:inputText id="obser" value="#{bean.actividadMaquinaria.observacion}" style="width: 100%" />
@@ -84,7 +93,7 @@
             <p:commandButton value="Guardar" class="btn btn-primary" actionListener="#{bean.onSave()}" rendered="#{bean.canSave}" update=""/>
             <p:commandButton value="Cancelar" class="btn btn-danger" actionListener="#{bean.onCancel()}"  rendered="#{bean.canSave}" immediate="true"  />
 
-           
+
         </h:form>
     </h:body>
 </html>
