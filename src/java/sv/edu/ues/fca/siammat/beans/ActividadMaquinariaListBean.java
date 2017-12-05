@@ -85,16 +85,9 @@ public class ActividadMaquinariaListBean extends ListBaseBean {
     @Override
     public void setUpParametros() {
         super.setUpParametros();
-        getParametros().put("height", "650px");
+        getParametros().put("height", "800px");
     }
 
-    @Override
-    public void doAfterServiceLocatorSet() {
-       super.onSearch();
-        super.doAfterServiceLocatorSet(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-
+   
     
 }
