@@ -85,7 +85,8 @@ public class ActividadMaquinariaListBean extends ListBaseBean {
     @Override
     public void setUpParametros() {
         super.setUpParametros();
-        getParametros().put("height", "800px");
+        getParametros().put("height", "500px");
+        getParametros().put("top", "50px");
     }
 
    

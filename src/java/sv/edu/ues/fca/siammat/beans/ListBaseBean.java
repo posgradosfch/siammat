@@ -89,6 +89,7 @@ public abstract class ListBaseBean implements Serializable {
 
     public void onNew() {
         beforeNew();
+        setUpParametros();
         Util.putParamIntoSessionMap("accion", "1");
         RequestContext.getCurrentInstance().openDialog(pathForm, parametros, null);
     }
@@ -117,6 +118,7 @@ public abstract class ListBaseBean implements Serializable {
     public void onEdit(Serializable object) {
         Util.putParamIntoSessionMap("accion", "2");
         Util.putParamIntoSessionMap("objeto", object);
+        setUpParametros();
         RequestContext.getCurrentInstance().openDialog(pathForm, parametros, null);
     }
 
