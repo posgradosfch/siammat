@@ -9,15 +9,15 @@
 
     <ui:define name="content">
         <ui:param name="bean" value="#{rptGastosMaquinariaListBean}" />
-        <c:set value="maq_combu_mensual.jasper" target="#{rptGastosMaquinariaListBean}" property="reporte" />
+        <c:set value="trans_combu_mensual.jasper" target="#{rptGastosMaquinariaListBean}" property="reporte" />
         <h:form>
-            <p:panel header="Reporte mensual de gastos de combustible de Maquinaria">
+            <p:panel header="Reporte mensual de gastos de uniades de transporte">
                 <p:messages autoUpdate="true" closable="true" />
                 <p:panelGrid columnClasses="label,value" columns="2" styleClass="ui-panelgrid-blank" >
                     <p:outputLabel for="maquina" value="Maquinaria"/>
                     <p:selectOneMenu id="maquina" value="#{bean.idMaquinaria}" required="true" requiredMessage="Seleccione una máquina">
                         <f:selectItem itemLabel="Seleccione" />
-                        <f:selectItems value="#{bean.maquinariaList}" var="maquinaria"  itemLabel="#{maquinaria.marca} - #{maquinaria.modelo}" itemValue="#{maquinaria.idMaquinaria}"/>
+                        <f:selectItems value="#{bean.unidadesTransporte}" var="maquinaria"  itemLabel="#{maquinaria.marca} - #{maquinaria.modelo}" itemValue="#{maquinaria.idUnidad}"/>
                     </p:selectOneMenu>
                     <p:outputLabel  for="anio" value="Año"/>
                     <p:inputNumber id="anio" required="true" requiredMessage="Ingrese el año" decimalPlaces="0" value="#{bean.anio}"  />

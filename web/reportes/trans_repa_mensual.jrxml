@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="borrar" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="648" leftMargin="72" rightMargin="72" topMargin="72" bottomMargin="72" uuid="147c33ef-00f0-4717-a3a5-0bf075578c48">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptRepacionMaquinaria" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="648" leftMargin="72" rightMargin="72" topMargin="72" bottomMargin="72" uuid="147c33ef-00f0-4717-a3a5-0bf075578c48">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="157"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<style name="Title" fontName="Times New Roman" fontSize="20" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
-	<parameter name="fechaFin" class="java.util.Date">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	<parameter name="idMaquinaria" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[6]]></defaultValueExpression>
 	</parameter>
-	<parameter name="fechaInicio" class="java.util.Date">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
-	<parameter name="placas" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	<parameter name="anho" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[2017]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[select m.placa as placa,
@@ -23,9 +20,7 @@
     from cuidado_transporte as a
     join unidad_transporte as m
       on a.id_unidad = m.id_unidad
-   where a.fecha_fin >= $P{fechaInicio}
-     and a.fecha_fin <= $P{fechaFin}
-     and m.placa in ($P!{placas})
+   where  m.id_unidad=$P{idMaquinaria} and (SELECT extract(YEAR FROM fecha_fin)=$P{anho})
 group by m.placa, extract(month from a.fecha_fin), periodo
 order by fecha;]]>
 	</queryString>

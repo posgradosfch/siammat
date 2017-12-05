@@ -144,6 +144,14 @@ public class PrivilegioListBean extends ListBaseBean {
         }
     }
 
+    @Override
+    public void setUpParametros() {
+        getParametros().put("height", "400px");
+        super.setUpParametros(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    
     public SelectOneMenu getSelectOneMenu() {
         return selectOneMenu;
     }
