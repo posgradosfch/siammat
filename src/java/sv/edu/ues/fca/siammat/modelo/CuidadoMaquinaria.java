@@ -56,6 +56,8 @@ public class CuidadoMaquinaria implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
+    @Column(name = "accion")
+    private int accion;
     @JoinColumn(name = "id_encargado", referencedColumnName = "id_empleado")
     @ManyToOne
     private Empleado idEncargado;
@@ -68,6 +70,24 @@ public class CuidadoMaquinaria implements Serializable {
 
     public CuidadoMaquinaria(Integer idCuidadoMaquinaria) {
         this.idCuidadoMaquinaria = idCuidadoMaquinaria;
+    }
+
+    public String getAccionName() {
+        switch (this.accion) {
+            case 1:
+                return "Mantenimiento";
+            case 2:
+                return "Reparación";
+        }
+        return "";
+    }
+
+    public int getAccion() {
+        return accion;
+    }
+
+    public void setAccion(int accion) {
+        this.accion = accion;
     }
 
     public Integer getIdCuidadoMaquinaria() {
@@ -174,5 +194,5 @@ public class CuidadoMaquinaria implements Serializable {
     public String toString() {
         return "sv.edu.ues.fca.siammat.modelo.CuidadoMaquinaria[ idCuidadoMaquinaria=" + idCuidadoMaquinaria + " ]";
     }
-    
+
 }

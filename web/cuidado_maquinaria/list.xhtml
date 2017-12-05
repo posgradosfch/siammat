@@ -15,10 +15,8 @@
                     <p:outputLabel value="Fecha" style="color:#555; float: right;"/>
                        <p:calendar value="#{bean.sfFecha.value}" pattern="dd-MM-yyyy"/>
                     <p:outputLabel value="Factura" />
-                    <p:inputText value="#{bean.sfFactura.value}" />
-                    
-                    <!--<p:outputLabel value="Placa" />
-                    <p:inputText value="" />-->    
+                    <p:inputNumber value="#{bean.sfFactura.value}"/>
+                     
                 </p:panelGrid>
                 <p:panelGrid><!--Botones -->
                     <p:commandButton class="btn btn-info" value="Buscar" icon="fa fa-search" actionListener="#{bean.onSearch()}" update="lst" validateClient="false"/>

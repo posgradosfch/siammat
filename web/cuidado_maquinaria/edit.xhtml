@@ -39,6 +39,12 @@
                     <f:selectItems var="maquinaria" value="#{bean.maquinarias}" itemLabel="#{maquinaria.modelo}" itemValue="#{maquinaria}" />
                 </p:selectOneMenu>
                 
+                <p:outputLabel value="Acción"  for="accion" />
+                <p:selectOneMenu value="#{bean.cuidadoMaquinaria.accion}" id="accion">
+                    <f:selectItem itemLabel="Mantenimiento" itemValue="1" />
+                    <f:selectItem itemLabel="Reparación" itemValue="2" />
+                </p:selectOneMenu>
+                
                 <p:outputLabel value="Encargado" for="empleado" />
                 <p:selectOneMenu required="true" id="empleado" value="#{bean.cuidadoMaquinaria.idEncargado}" converter="entityConverter">
                     <f:selectItem itemLabel="Seleccione" />
