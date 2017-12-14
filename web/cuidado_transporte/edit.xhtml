@@ -28,10 +28,10 @@
             <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
 
 
-                <p:outputLabel value="Placa" for="placa" />
-                <p:selectOneMenu required="true" id="placa" value="#{bean.cuidadoTransporte.idUnidad}" converter="entityConverter">
+                <p:outputLabel value="Unidad de transporte" for="unidad" />
+                <p:selectOneMenu required="true" id="unidad" value="#{bean.cuidadoTransporte.idUnidad}" converter="entityConverter">
                     <f:selectItem itemLabel="Seleccione" />
-                    <f:selectItems var="unidadTransporte" value="#{bean.unidadTransportes}" itemLabel="#{unidadTransporte.placa}" itemValue="#{unidadTransporte}" />
+                    <f:selectItems var="unidadTransporte" value="#{bean.unidadTransportes}" itemLabel="#{unidadTransporte.marca}, #{unidadTransporte.modelo}, #{unidadTransporte.anio}, #{unidadTransporte.placa}" itemValue="#{unidadTransporte}" />
                 </p:selectOneMenu>
                 
                 <p:outputLabel value="Acción"  for="accion" />
@@ -52,7 +52,7 @@
                 <p:outputLabel value="Responsable" for="responsable" />
                 <p:selectOneMenu required="true" id="responsable" value="#{bean.cuidadoTransporte.idResponsable}" converter="entityConverter">
                     <f:selectItem itemLabel="Seleccione" />
-                    <f:selectItems var="empleado" value="#{bean.empleados}" itemLabel="#{empleado.nombre} #{empleado.apellido}" itemValue="#{empleado}" />
+                    <f:selectItems var="empleado" value="#{bean.empleados}" itemLabel="#{empleado.apellido}, #{empleado.nombre}" itemValue="#{empleado}" />
                 </p:selectOneMenu>  
                
                 <p:outputLabel value="Empresa encargada" for="empresaEncargada" />

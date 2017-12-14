@@ -48,14 +48,14 @@ public class CuidadoTransporteBean extends FormBaseBean {
 
     public List<Empleado> getEmpleados() {
         if (empleados == null) {
-            empleados = getServiceLocator().getGenericServicio().find("from Empleado e");
+            empleados = getServiceLocator().getGenericServicio().find("from Empleado e ORDER BY apellido ASC");
         }
         return empleados;
     }
 
     public List<UnidadTransporte> getUnidadTransportes() {
         if (unidadesTransporte == null) {
-            unidadesTransporte = getServiceLocator().getGenericServicio().find("from UnidadTransporte u");
+            unidadesTransporte = getServiceLocator().getGenericServicio().find("from UnidadTransporte u ORDER BY marca ASC");
         }
         return unidadesTransporte;
     }
