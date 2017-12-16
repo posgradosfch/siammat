@@ -2,18 +2,18 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptMaquinariaCombustible" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="648" leftMargin="72" rightMargin="72" topMargin="72" bottomMargin="72" uuid="147c33ef-00f0-4717-a3a5-0bf075578c48">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="12"/>
+	<property name="ireport.y" value="154"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<style name="Title" fontName="Times New Roman" fontSize="20" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<parameter name="idMaquinaria" class="java.lang.Integer" isForPrompting="false">
-		<defaultValueExpression><![CDATA[6]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[11]]></defaultValueExpression>
 	</parameter>
 	<parameter name="anho" class="java.lang.Integer" isForPrompting="false">
-		<defaultValueExpression><![CDATA[2017]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[1998]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select m.placa as placa,
+		<![CDATA[select concat(m.marca) as placa,
          extract(month from a.fecha) as fecha,
          to_char(a.fecha, 'TMMonth') as periodo,
          SUM(a.combustible_gastado) as gasto
@@ -21,13 +21,13 @@
     join maquinaria as m
       on a.id_maquinaria = m.id_maquinaria
    where m.id_maquinaria=$P{idMaquinaria} and (SELECT extract(YEAR FROM fecha)=$P{anho})
-group by placa, extract(month from a.fecha), periodo
+group by marca, extract(month from a.fecha), periodo
 order by fecha;]]>
 	</queryString>
 	<field name="placa" class="java.lang.String"/>
 	<field name="fecha" class="java.lang.Double"/>
 	<field name="periodo" class="java.lang.String"/>
-	<field name="gasto" class="java.lang.Long"/>
+	<field name="gasto" class="java.lang.Float"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -67,9 +67,9 @@ order by fecha;]]>
 	<summary>
 		<band height="210" splitType="Stretch">
 			<crosstab>
-				<reportElement x="0" y="0" width="353" height="50" uuid="b850a2a2-f79c-463e-961d-afa127cc9693"/>
+				<reportElement x="0" y="0" width="168" height="50" uuid="b850a2a2-f79c-463e-961d-afa127cc9693"/>
 				<rowGroup name="periodo" width="70" totalPosition="End">
-					<bucket class="java.lang.String">
+					<bucket order="Descending" class="java.lang.String">
 						<bucketExpression><![CDATA[$F{periodo}]]></bucketExpression>
 					</bucket>
 					<crosstabRowHeader>
@@ -116,65 +116,52 @@ order by fecha;]]>
 							<box>
 								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 							</box>
-							<staticText>
-								<reportElement x="0" y="0" width="50" height="30" uuid="5079447f-df47-435d-8ef4-f2cd6c042194"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<text><![CDATA[Total placa]]></text>
-							</staticText>
 						</cellContents>
 					</crosstabTotalColumnHeader>
 				</columnGroup>
-				<measure name="gastoMeasure" class="java.lang.Long" calculation="Sum">
+				<measure name="gastoMeasure" class="java.lang.Double" calculation="Sum">
 					<measureExpression><![CDATA[$F{gasto}]]></measureExpression>
 				</measure>
-				<crosstabCell width="50" height="25">
+				<crosstabCell width="68" height="25">
 					<cellContents>
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textField>
-							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="27e109e3-49c8-46e1-8c7b-d08f0a68eab3"/>
+						<textField pattern="###0.00">
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="68" height="25" uuid="27e109e3-49c8-46e1-8c7b-d08f0a68eab3"/>
 							<textFieldExpression><![CDATA[$V{gastoMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell height="25" rowTotalGroup="periodo">
+				<crosstabCell width="68" height="25" rowTotalGroup="periodo">
 					<cellContents backcolor="#EAFFBF" mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textField>
-							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="5ba4c5c5-0ae5-4f0b-a55f-4b8dc40eab18"/>
+						<textField pattern="###0.00">
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="68" height="25" uuid="5ba4c5c5-0ae5-4f0b-a55f-4b8dc40eab18"/>
 							<textFieldExpression><![CDATA[$V{gastoMeasure}]]></textFieldExpression>
 						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell width="50" columnTotalGroup="placa">
+				<crosstabCell width="50" height="25" columnTotalGroup="placa">
 					<cellContents backcolor="#EAFFBF" mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textField>
-							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="10e910e2-29f1-4d5e-98ce-c885252c9234"/>
-							<textFieldExpression><![CDATA[$V{gastoMeasure}]]></textFieldExpression>
-						</textField>
 					</cellContents>
 				</crosstabCell>
-				<crosstabCell rowTotalGroup="periodo" columnTotalGroup="placa">
+				<crosstabCell width="50" rowTotalGroup="periodo" columnTotalGroup="placa">
 					<cellContents backcolor="#EAFFBF" mode="Opaque">
 						<box>
 							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textField>
-							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="dd0fbc5d-3f77-46eb-83a2-2a79c6200323"/>
-							<textFieldExpression><![CDATA[$V{gastoMeasure}]]></textFieldExpression>
-						</textField>
 					</cellContents>
 				</crosstabCell>
 			</crosstab>
 			<barChart>
 				<chart>
-					<reportElement x="369" y="0" width="280" height="210" uuid="c912495d-0ae0-4797-9a40-7c3bb4442d90"/>
+					<reportElement x="168" y="0" width="481" height="210" uuid="c912495d-0ae0-4797-9a40-7c3bb4442d90"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
@@ -186,12 +173,13 @@ order by fecha;]]>
 						<valueExpression><![CDATA[$F{gasto}]]></valueExpression>
 					</categorySeries>
 				</categoryDataset>
-				<barPlot>
-					<plot/>
+				<barPlot isShowTickLabels="true">
+					<plot labelRotation="0.0"/>
 					<itemLabel/>
-					<categoryAxisFormat>
+					<categoryAxisFormat labelRotation="0.0">
 						<axisFormat/>
 					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["Galones"]]></valueAxisLabelExpression>
 					<valueAxisFormat>
 						<axisFormat/>
 					</valueAxisFormat>

@@ -19,10 +19,11 @@
                 <br />
                 <!-- listado -->
                 <p:dataTable id="lst" var="actividad" value="#{bean.items}"
-                             rows="4"
+                             rows="10"
                              paginator="true"
                              paginatorPosition="bottom"
-                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                              rowsPerPageTemplate="5,10,15"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 >
                     <p:column headerText="Nombre">
                         <p:outputLabel value="#{actividad.nombre}" />

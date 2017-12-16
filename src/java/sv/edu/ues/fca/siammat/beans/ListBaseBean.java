@@ -29,6 +29,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.seguridad.modelo.util.ServiceLocator;
 import org.springframework.orm.hibernate3.HibernateJdbcException;
+import sv.edu.ues.fca.siammat.modelo.ActividadMaquinaria;
 import sv.edu.ues.fca.siammat.seguridad.modelo.Privilegio;
 import sv.edu.ues.fca.siammat.seguridad.modelo.Usuario;
 import sv.edu.ues.fca.siammat.util.Util;
@@ -65,8 +66,11 @@ public abstract class ListBaseBean implements Serializable {
     }
 
     public void onSearch() {
-
-        items = serviceLocator.getGenericServicio().find(setupQuery());
+        String query=setupQuery();
+        if(query==null || "".equals(query))
+            return;
+        
+        items = serviceLocator.getGenericServicio().find(query);
         if (items == null || items.isEmpty()) {
             Util.addMessage(FacesMessage.SEVERITY_INFO, "No se encontraron registros", "");
         }

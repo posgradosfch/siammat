@@ -33,13 +33,13 @@
                 <p:outputLabel value="Maquinaria" for="maquinaria" />
                 <p:selectOneMenu required="true" id="maquinaria" value="#{bean.actividadMaquinaria.idMaquinaria}" converter="entityConverter">
                     <f:selectItem itemLabel="Seleccione" />
-                    <f:selectItems var="maquinaria" value="#{bean.maquinarias}" itemLabel="#{maquinaria.placa}" itemValue="#{maquinaria}" />
+                    <f:selectItems var="maquinaria" value="#{bean.maquinarias}" itemLabel="#{maquinaria.marca} - #{maquinaria.modelo} " itemValue="#{maquinaria}" />
                 </p:selectOneMenu>
 
                 <p:outputLabel value="Actividad" for="actividad" />
-                <p:selectOneMenu required="true" id="actividad" value="#{bean.actividadMaquinaria.idActividad}" converter="entityConverter">
+                <p:selectOneMenu filter="true" filterMatchMode="contains" required="true" id="actividad" value="#{bean.actividadMaquinaria.idActividad}" converter="entityConverter">
                     <f:selectItem itemLabel="Seleccione" />
-                    <f:selectItems var="actividad" value="#{bean.actividades}" itemLabel="#{actividad.abreviatura}" itemValue="#{actividad}" />
+                    <f:selectItems var="actividad" value="#{bean.actividades}" itemLabel="#{actividad.nombre}" itemValue="#{actividad}" />
                 </p:selectOneMenu>
 
                 <p:outputLabel value="Empleado" for="empleado" />
@@ -49,12 +49,12 @@
                 </p:selectOneMenu>  
 
                 <p:outputLabel value="Lote" for="lote" />
-                <p:selectOneMenu required="true" id="lote" value="#{bean.actividadMaquinaria.idLote}" converter="entityConverter">
+                <p:selectOneMenu filter="true" filterMatchMode="contains" required="true" id="lote" value="#{bean.actividadMaquinaria.idLote}" converter="entityConverter">
                     <f:selectItem itemLabel="Seleccione" />
-                    <f:selectItems var="lote" value="#{bean.lotes}" itemLabel="#{lote.descripcion}" itemValue="#{lote}" />
+                    <f:selectItems var="lote" value="#{bean.lotes}" itemLabel="#{lote.nombre}" itemValue="#{lote}" />
                 </p:selectOneMenu>
 
-                <p:outputLabel value="Extension de Trabajo (KM)" for="ext" />
+                <p:outputLabel value="Extension de Trabajo (Hectareas)" for="ext" />
                 <p:inputNumber required="true" id="ext" value="#{bean.actividadMaquinaria.extensionTrabajo}"/>  
 
                 <p:outputLabel value="Combustible (GL) Inicial" for="comb-i" />
@@ -64,9 +64,6 @@
                     <p:inputNumber required="true" id="comb-f" value="#{bean.actividadMaquinaria.combustibleFinal}"/> 
                 </p:column>
 
-
-
-
                 <p:outputLabel value="Horometro de Maquina Inicial " for="horo-i" />
                 <p:column>
                     <p:inputNumber required="true" id="horo-i" value="#{bean.actividadMaquinaria.inicioHorometro}"/> 
@@ -75,14 +72,14 @@
 
                 </p:column>
 
-                <p:outputLabel for="inic" value="Hora Inicial" />
+                <!--p:outputLabel for="inic" value="Hora Inicial" />
                 <p:column>
-                    <p:calendar required="true" id="inic" value="#{bean.actividadMaquinaria.inicioReloj}" pattern="hh:mm a" timeOnly="true"  />
+                    <p:calendar required="true" id="inic" value="{bean.actividadMaquinaria.inicioReloj}" pattern="hh:mm a" timeOnly="true"  />
 
                     <p:outputLabel for="fin" value=" Final" />
-                    <p:calendar required="true" id="fin" value="#{bean.actividadMaquinaria.finReloj}" pattern="hh:mm a" timeOnly="true"  />
+                    <p:calendar required="true" id="fin" value="{bean.actividadMaquinaria.finReloj}" pattern="hh:mm a" timeOnly="true"  />
 
-                </p:column>
+                </p:column-->
 
                 <p:outputLabel value="Observacion" for="obser" />
                 <p:inputText id="obser" value="#{bean.actividadMaquinaria.observacion}" style="width: 100%" />

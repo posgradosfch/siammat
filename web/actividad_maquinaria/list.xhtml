@@ -15,13 +15,18 @@
                     <p:outputLabel value="Fecha" />
                     <p:column>
 
-                        <p:calendar  value="#{bean.sfFecha.lowerValue}"/>
+                        <p:calendar  value="#{bean.sfFecha.lowerValue}" pattern="dd/mm/yyyy"/>
                         <p:outputLabel value=" Hasta" />
-                        <p:calendar  value="#{bean.sfFecha.upperValue}"/>
+                        <p:calendar  value="#{bean.sfFecha.upperValue}" pattern="dd/mm/yyyy"/>
                     </p:column>
 
                     <p:outputLabel value="Actividad (abreviatura)" />
                     <p:inputText value="#{bean.sfActividad.value}" />
+                    <p:outputLabel value="Maquinaria" for="maquinaria" />
+                    <p:selectOneMenu id="maquinaria" value="#{bean.sfMaquinaria.value}" >
+                        <f:selectItem itemLabel="Seleccione" />
+                        <f:selectItems var="maquinaria" value="#{bean.maquinariaList}" itemLabel="#{maquinaria.marca} - #{maquinaria.modelo} " itemValue="#{maquinaria.idMaquinaria}" />
+                    </p:selectOneMenu>
                 </p:panelGrid>
 
                 <p:panelGrid><!--Botones -->
@@ -32,19 +37,44 @@
                 <br />
                 <!-- listado -->
                 <p:dataTable id="lst" var="actividadmaq" value="#{bean.items}"
-                             rows="4"
+                             rows="15"
                              paginator="true"
                              paginatorPosition="bottom"
-                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15,20"
+
                              > 
+                    <f:facet name="header">
+                        <h:commandLink>
+                            <p:graphicImage library="images" name="excel.png" width="24"/>
+                            <p:dataExporter type="xls" target="lst" fileName="cars" />
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage library="images" name="pdf.png" width="24"/>
+                            <p:dataExporter type="pdf" target="lst" fileName="cars"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage library="images" name="csv.png" width="24"/>
+                            <p:dataExporter type="csv" target="lst" fileName="cars" />
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage library="images" name="xml.png" width="24"/>
+                            <p:dataExporter type="xml" target="lst" fileName="cars" />
+                        </h:commandLink>
+
+                    </f:facet>
+
                     <p:column headerText="Fecha">
                         <h:outputText value="#{actividadmaq.fecha}">
                             <f:convertDateTime pattern="dd/M/yyyy" />
                         </h:outputText>
                     </p:column>
 
-                    <p:column headerText="Maquina (Placa)">
-                        <p:outputLabel value="#{actividadmaq.idMaquinaria.placa}" />
+                    <p:column headerText="Maquinaria">
+                        <p:outputLabel value="#{actividadmaq.idMaquinaria.marca} - #{actividadmaq.idMaquinaria.modelo}" />
                     </p:column>
 
                     <p:column headerText="Actividad">
@@ -56,7 +86,7 @@
                     </p:column>
 
                     <p:column headerText="Lote">
-                        <p:outputLabel value="#{actividadmaq.idLote.descripcion}" />
+                        <p:outputLabel value="#{actividadmaq.idLote.nombre}" />
                     </p:column>
 
                     <p:column headerText="Extension de Trabajo">
@@ -83,7 +113,7 @@
                         </h:outputText>
                     </p:column>
 
-                    <!--<p:column headerText="Horometro Inicial">
+                    <p:column headerText="Horometro Inicial">
                         <h:outputText value="#{actividadmaq.inicioHorometro}">
                             <f:convertNumber pattern="#0.00" />
                         </h:outputText>
@@ -93,19 +123,19 @@
                         <h:outputText value="#{actividadmaq.finHorometro}">
                             <f:convertNumber pattern="#0.00" />
                         </h:outputText>
-                    </p:column>-->
+                    </p:column>
 
-                    <p:column headerText="Hora Inicial">
-                        <h:outputText value="#{actividadmaq.inicioReloj}">
+                    <!--p:column headerText="Hora Inicial">
+                        <h:outputText value="{actividadmaq.inicioReloj}">
                             <f:convertDateTime locale="es_SV" pattern="hh:mm a" timeZone="America/El_Salvador"/>
                         </h:outputText>
                     </p:column>
 
                     <p:column headerText="Hora Final">
-                        <h:outputText value="#{actividadmaq.finReloj}">
+                        <h:outputText value="{actividadmaq.finReloj}">
                             <f:convertDateTime locale="es_SV" pattern="hh:mm a" timeZone="America/El_Salvador" />
                         </h:outputText>
-                    </p:column>
+                    </p:column-->
 
                     <p:column headerText="Acciones" style="width: 100px">
                         <p:commandButton class="#{bean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="#{bean.privilegio.editar==true?'fa fa-pencil':'fa fa-info'}" actionListener="#{bean.onEdit(actividadmaq)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">

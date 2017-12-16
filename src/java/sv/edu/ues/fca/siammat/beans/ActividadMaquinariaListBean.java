@@ -14,6 +14,8 @@ import sv.edu.ues.fca.siammat.filtros.BetweenFilterElement;
 import sv.edu.ues.fca.siammat.filtros.SimpleFilterElement;
 import sv.edu.ues.fca.siammat.modelo.Actividad;
 import sv.edu.ues.fca.siammat.modelo.ActividadMaquinaria;
+import sv.edu.ues.fca.siammat.modelo.Maquinaria;
+import sv.edu.ues.fca.siammat.util.Util;
 
 /**
  *
@@ -23,15 +25,18 @@ import sv.edu.ues.fca.siammat.modelo.ActividadMaquinaria;
 @ViewScoped
 public class ActividadMaquinariaListBean extends ListBaseBean {
     private List<Actividad> actividades;
+    private List<Maquinaria> maquinariaList;
     private BetweenFilterElement<Date> sfFecha=new BetweenFilterElement<Date>("am.fecha", SimpleFilterElement.AND);
     //private SimpleFilterElement<Date> sfFecha = new SimpleFilterElement<Date>("am.fecha", SimpleFilterElement.AND, "=");
     private SimpleFilterElement<String> sfActividad= new SimpleFilterElement<String>("am.idActividad.abreviatura", SimpleFilterElement.AND, "LIKE");
+    private SimpleFilterElement<Integer> sfMaquinaria= new SimpleFilterElement<Integer>("am.idMaquinaria.idMaquinaria", SimpleFilterElement.AND, "=");
     /**
      * Creates a new instance of ActividadMaquinariaListBean
      */
     public ActividadMaquinariaListBean() {
         setPathForm("/actividad_maquinaria/edit");
         getFiltros().addFilterElement(sfFecha);
+        getFiltros().addFilterElement(sfMaquinaria);
         getFiltros().addFilterElement(sfActividad);
     }
     @Override
@@ -45,8 +50,10 @@ public class ActividadMaquinariaListBean extends ListBaseBean {
         String filtro = getFiltros().generateWhereClause();
         if(filtro!=null && !filtro.equals("")){
             hql+= " where "+filtro;
+        }else{
+            Util.addErrorMessage("Debe usar por lo menos un filtro");
+                return "";
         }
-
         return hql;
         
     }    
@@ -87,6 +94,26 @@ public class ActividadMaquinariaListBean extends ListBaseBean {
         super.setUpParametros();
         getParametros().put("height", "500px");
         getParametros().put("top", "50px");
+    }
+
+    public SimpleFilterElement<Integer> getSfMaquinaria() {
+        return sfMaquinaria;
+    }
+
+    public void setSfMaquinaria(SimpleFilterElement<Integer> sfMaquinaria) {
+        this.sfMaquinaria = sfMaquinaria;
+    }
+
+    public List<Maquinaria> getMaquinariaList() {
+        if(maquinariaList==null){
+            maquinariaList=getServiceLocator().getGenericServicio().find("from Maquinaria");
+        }
+        
+        return maquinariaList;
+    }
+
+    public void setMaquinariaList(List<Maquinaria> maquinariaList) {
+        this.maquinariaList = maquinariaList;
     }
 
    

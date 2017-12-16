@@ -8,7 +8,6 @@ package sv.edu.ues.fca.siammat.beans;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import sv.edu.ues.fca.siammat.beans.FormBaseBean;
 import sv.edu.ues.fca.siammat.modelo.Actividad;
 import sv.edu.ues.fca.siammat.modelo.ActividadMaquinaria;
 import sv.edu.ues.fca.siammat.modelo.Lote;
