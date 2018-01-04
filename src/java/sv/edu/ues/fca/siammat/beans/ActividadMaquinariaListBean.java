@@ -92,8 +92,11 @@ public class ActividadMaquinariaListBean extends ListBaseBean {
     @Override
     public void setUpParametros() {
         super.setUpParametros();
-        getParametros().put("height", "500px");
-        getParametros().put("top", "50px");
+        getParametros().put("height", 500);
+        getParametros().put("position", "top");
+        getParametros().put("fitViewport", true);
+        getParametros().put("showEffect", "fade");
+
     }
 
     public SimpleFilterElement<Integer> getSfMaquinaria() {

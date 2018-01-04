@@ -7,7 +7,6 @@ package sv.edu.ues.fca.siammat.beans;
 
 import sv.edu.ues.fca.siammat.filtros.FilterElementGroup;
 import java.io.Serializable;
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +28,6 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.seguridad.modelo.util.ServiceLocator;
 import org.springframework.orm.hibernate3.HibernateJdbcException;
-import sv.edu.ues.fca.siammat.modelo.ActividadMaquinaria;
 import sv.edu.ues.fca.siammat.seguridad.modelo.Privilegio;
 import sv.edu.ues.fca.siammat.seguridad.modelo.Usuario;
 import sv.edu.ues.fca.siammat.util.Util;
