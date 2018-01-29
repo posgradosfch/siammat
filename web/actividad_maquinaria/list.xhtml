@@ -19,8 +19,11 @@
                         <p:calendar  value="#{bean.sfFecha.upperValue}" pattern="dd/mm/yyyy"/>
                     </p:column>
 
-                    <p:outputLabel value="Actividad (abreviatura)" />
-                    <p:inputText value="#{bean.sfActividad.value}" />
+                    <p:outputLabel value="Actividad" for="actividad"/>
+                    <p:selectOneMenu id="actividad" value="#{bean.sfActividad.value}">
+                        <f:selectItem itemLabel="Seleccione"/>
+                        <f:selectItems var="actividad" value="#{bean.actividades}" itemLabel="#{actividad.nombre}" itemValue="#{actividad.nombre}"/>
+                    </p:selectOneMenu>
                     <p:outputLabel value="Maquinaria" for="maquinaria" />
                     <p:selectOneMenu id="maquinaria" value="#{bean.sfMaquinaria.value}" >
                         <f:selectItem itemLabel="Seleccione" />
