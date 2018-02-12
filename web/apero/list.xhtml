@@ -1,14 +1,16 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="/WEB-INF/templates/layout.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
 
     <ui:define name="content">
         <ui:param name="bean" value="#{aperoListBean}" />
         <h:form>
-            <p:panel header="Gestión de Apero">
+            <p:panel header="Gestión de Aperos">
                 <p:panelGrid columnClasses="label,value" columns="2" styleClass="ui-panelgrid-blank" >
                     <p:outputLabel value="Marca"/>
                     <p:inputText value="#{bean.sfMarca.value}" />
@@ -21,7 +23,7 @@
                 <p:commandButton type="reset" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh" />
                 <!-- listado -->
                 <p:dataTable id="lst" var="apero" value="#{bean.items}" resizableColumns="true" style="padding-top: 5px"
-                            rows="4"
+                             rows="4"
                              paginator="true"
                              paginatorPosition="bottom"
                              paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
@@ -32,15 +34,16 @@
                     <p:column headerText="Modelo">
                         <p:outputLabel value="#{apero.modelo}" />
                     </p:column>
+                    <p:column headerText="Función">
+                        <p:outputLabel value="#{apero.funcion}" />
+                    </p:column>
                     <p:column headerText="Año">
                         <p:outputLabel value="#{apero.anio}" />
                     </p:column>
                     <p:column headerText="Color">
                         <p:outputLabel value="#{apero.color}" />
                     </p:column>
-                    <p:column headerText="Función">
-                        <p:outputLabel value="#{apero.funcion}" />
-                    </p:column>
+
                     <p:column headerText="Estado">
                         <p:outputLabel value="#{apero.estadoName}" />
                     </p:column>
