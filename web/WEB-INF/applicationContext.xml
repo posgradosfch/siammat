@@ -33,7 +33,7 @@
                 <value>sv.edu.ues.fca.siammat.seguridad.modelo.Cargo</value>
                 <value>sv.edu.ues.fca.siammat.modelo.Maquinaria</value>
                 <value>sv.edu.ues.fca.siammat.modelo.Actividad</value>
-                <value>sv.edu.ues.fca.siammar.modelo.Apero</value>
+                <value>sv.edu.ues.fca.siammat.modelo.Apero</value>
                 <value>sv.edu.ues.fca.siammat.modelo.ControlCombustible</value>
                 <value>sv.edu.ues.fca.siammat.modelo.UnidadTransporte</value>
                 <value>sv.edu.ues.fca.siammat.modelo.Lote</value>
