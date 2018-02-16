@@ -73,6 +73,8 @@ public class ActividadMaquinaria implements Serializable {
     @JoinColumn(name = "id_maquinaria", referencedColumnName = "id_maquinaria")
     @ManyToOne
     private Maquinaria idMaquinaria;
+    @JoinColumn(name = "id_apero", referencedColumnName = "id_apero")
+    private String idApero;
 
     public ActividadMaquinaria() {
     }
@@ -232,6 +234,14 @@ public class ActividadMaquinaria implements Serializable {
     @Override
     public String toString() {
         return "sv.edu.ues.fca.siammat.modelo.ActividadMaquinaria[ idActividadMaquinaria=" + idActividadMaquinaria + " ]";
+    }
+
+    public String getIdApero() {
+        return idApero;
+    }
+
+    public void setIdApero(String idApero) {
+        this.idApero = idApero;
     }
     
 }

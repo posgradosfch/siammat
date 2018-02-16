@@ -25,7 +25,7 @@
         <h:form >
 
             <p:messages autoUpdate="true" closable="true" />
-            <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
+            <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width:600px; height: 80px">
 
                 <p:outputLabel for="fecha" value="Fecha" />
                 <p:calendar id="fecha" value="#{bean.actividadMaquinaria.fecha}" pattern="dd-MM-yyyy" required="true" />
@@ -54,21 +54,27 @@
                     <f:selectItems var="lote" value="#{bean.lotes}" itemLabel="#{lote.nombre}" itemValue="#{lote}" />
                 </p:selectOneMenu>
 
+                <p:outputLabel value="Apero" for="apero" />
+                <p:selectOneMenu required="true" id="apero" value="#{bean.actividadMaquinaria.idApero}" converter="entityConverter">
+                    <f:selectItem itemLabel="Seleccione" />
+                    <f:selectItems var="apero" value="#{bean.aperos}" itemLabel="#{apero.marca} - #{apero.funcion} " itemValue="#{apero}" />
+                </p:selectOneMenu>
+
                 <p:outputLabel value="Extension de Trabajo (Hectareas)" for="ext" />
                 <p:inputNumber required="true" id="ext" value="#{bean.actividadMaquinaria.extensionTrabajo}"/>  
 
                 <p:outputLabel value="Combustible (GL) Inicial" for="comb-i" />
                 <p:column>
-                    <p:inputNumber required="true" id="comb-i" value="#{bean.actividadMaquinaria.combustibleInicial}"/> 
+                    <p:inputNumber required="true" id="comb-i" value="#{bean.actividadMaquinaria.combustibleInicial}"style="width: 25px;"/> 
                     <p:outputLabel value="Final" for="comb-f" />
-                    <p:inputNumber required="true" id="comb-f" value="#{bean.actividadMaquinaria.combustibleFinal}"/> 
+                    <p:inputNumber required="true" id="comb-f" value="#{bean.actividadMaquinaria.combustibleFinal}"style="width: 25px;"/> 
                 </p:column>
 
                 <p:outputLabel value="Horometro de Maquina Inicial " for="horo-i" />
                 <p:column>
-                    <p:inputNumber required="true" id="horo-i" value="#{bean.actividadMaquinaria.inicioHorometro}"/> 
+                    <p:inputNumber required="true" id="horo-i" value="#{bean.actividadMaquinaria.inicioHorometro}" style="width: 25px;"/> 
                     <p:outputLabel value=" Final " for="horo-f" />
-                    <p:inputNumber required="true" id="horo-f" value="#{bean.actividadMaquinaria.finHorometro}"/> 
+                    <p:inputNumber required="true" id="horo-f" value="#{bean.actividadMaquinaria.finHorometro}"style="width: 25px;"/> 
 
                 </p:column>
 
