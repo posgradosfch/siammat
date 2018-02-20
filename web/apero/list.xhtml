@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/templates/layout.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+
+    <ui:define name="content">
+        <ui:param name="bean" value="#{aperoListBean}" />
+        <h:form>
+            <p:panel header="Gestión de Aperos">
+                <p:panelGrid columnClasses="label,value" columns="2" styleClass="ui-panelgrid-blank" >
+                    <p:outputLabel value="Marca"/>
+                    <p:inputText value="#{bean.sfMarca.value}" />
+                    <p:outputLabel value="Modelo"/>
+                    <p:inputText value="#{bean.sfModelo.value}" />
+                </p:panelGrid>
+                <br />
+                <p:commandButton class="btn btn-info" value="Buscar" icon="fa fa-search" actionListener="#{bean.onSearch()}" update="lst"/>
+                <p:commandButton class="btn btn-primary" value="Nuevo" icon="fa fa-plus" actionListener="#{bean.onNew()}" rendered="#{bean.privilegio.insertar}"/>
+                <p:commandButton type="reset" class="btn btn-light" value="Limpiar"  icon="fa fa-refresh" />
+                <!-- listado -->
+                <p:dataTable id="lst" var="apero" value="#{bean.items}" resizableColumns="true" style="padding-top: 5px"
+                             rows="4"
+                             paginator="true"
+                             paginatorPosition="bottom"
+                             paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             >
+                    <p:column headerText="Marca">
+                        <p:outputLabel value="#{apero.marca}" />
+                    </p:column>
+                    <p:column headerText="Modelo">
+                        <p:outputLabel value="#{apero.modelo}" />
+                    </p:column>
+                    <p:column headerText="Función">
+                        <p:outputLabel value="#{apero.funcion}" />
+                    </p:column>
+                    <p:column headerText="Año">
+                        <p:outputLabel value="#{apero.anio}" />
+                    </p:column>
+                    <p:column headerText="Color">
+                        <p:outputLabel value="#{apero.color}" />
+                    </p:column>
+
+                    <p:column headerText="Estado">
+                        <p:outputLabel value="#{apero.estadoName}" />
+                    </p:column>
+                    <p:column headerText="Acciones" style="width: 100px"> 
+                        <p:commandButton class="#{bean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="#{bean.privilegio.editar==true?'fa fa-pencil':'fa fa-info'}" actionListener="#{bean.onEdit(apero)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">
+                            <p:ajax update="lst" event="dialogReturn" />
+                        </p:commandButton>
+                        <p:commandButton class="btn btn-danger" update="lst" icon="fa fa-trash" actionListener="#{bean.onRemove(apero)}" title="Eliminar" rendered="#{bean.privilegio.eliminar}">
+                            <p:confirm header="Confirmar" message="Desea eliminar registro" icon="ui-icon-alert" />
+                            <p:ajax update="lst" event="dialogReturn" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+            <!--Cuadro de dialogo de confirmacion de eliminacion -->
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
+
+

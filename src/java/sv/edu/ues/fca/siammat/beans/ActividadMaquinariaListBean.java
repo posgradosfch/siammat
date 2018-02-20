@@ -15,6 +15,7 @@ import sv.edu.ues.fca.siammat.filtros.SimpleFilterElement;
 import sv.edu.ues.fca.siammat.modelo.Actividad;
 import sv.edu.ues.fca.siammat.modelo.ActividadMaquinaria;
 import sv.edu.ues.fca.siammat.modelo.Maquinaria;
+import sv.edu.ues.fca.siammat.modelo.Apero;
 import sv.edu.ues.fca.siammat.util.Util;
 
 /**

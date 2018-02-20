@@ -26,6 +26,8 @@
                     </p:selectOneMenu>
                     <br/>
                    
+                        <f:selectItems var="actividad" value="#{bean.actividades}" itemLabel="#{actividad.nombre}" itemValue="#{actividad.nombre}"/>
+                    </p:selectOneMenu>
                     <p:outputLabel value="Maquinaria" for="maquinaria" />
                     <p:selectOneMenu id="maquinaria" value="#{bean.sfMaquinaria.value}" >
                         <f:selectItem itemLabel="Seleccione" />

@@ -22,53 +22,59 @@
                 display: inline;
             }
         </style>
-        <h:form >
+        <h:form  >
 
             <p:messages autoUpdate="true" closable="true" />
-            <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" style="width: 100%">
+            <p:panelGrid columns="2" columnClasses="label,value" styleClass="ui-panelgrid-blank" >
 
                 <p:outputLabel for="fecha" value="Fecha" />
-                <p:calendar id="fecha" value="#{bean.actividadMaquinaria.fecha}" pattern="dd-MM-yyyy" required="true" />
+                <p:calendar id="fecha" value="#{bean.actividadMaquinaria.fecha}" style="width:350px;" pattern="dd-MM-yyyy" required="true" />
 
                 <p:outputLabel value="Maquinaria" for="maquinaria" />
-                <p:selectOneMenu required="true" id="maquinaria" value="#{bean.actividadMaquinaria.idMaquinaria}" converter="entityConverter">
+                <p:selectOneMenu required="true" id="maquinaria" value="#{bean.actividadMaquinaria.idMaquinaria}" style="width:350px;" converter="entityConverter">
                     <f:selectItem itemLabel="Seleccione" />
-                    <f:selectItems var="maquinaria" value="#{bean.maquinarias}" itemLabel="#{maquinaria.marca} - #{maquinaria.modelo} " itemValue="#{maquinaria}" />
+                    <f:selectItems var="maquinaria" value="#{bean.maquinarias}"  itemLabel="#{maquinaria.marca} - #{maquinaria.modelo} " itemValue="#{maquinaria}" />
                 </p:selectOneMenu>
 
                 <p:outputLabel value="Actividad" for="actividad" />
-                <p:selectOneMenu filter="true" filterMatchMode="contains" required="true" id="actividad" value="#{bean.actividadMaquinaria.idActividad}" converter="entityConverter">
+                <p:selectOneMenu filter="true" filterMatchMode="contains" style="width:350px;" required="true" id="actividad" value="#{bean.actividadMaquinaria.idActividad}" converter="entityConverter">
                     <f:selectItem itemLabel="Seleccione" />
                     <f:selectItems var="actividad" value="#{bean.actividades}" itemLabel="#{actividad.nombre}" itemValue="#{actividad}" />
                 </p:selectOneMenu>
 
                 <p:outputLabel value="Empleado" for="empleado" />
-                <p:selectOneMenu required="true" id="empleado" value="#{bean.actividadMaquinaria.idEmpleado}" converter="entityConverter">
+                <p:selectOneMenu required="true" id="empleado" value="#{bean.actividadMaquinaria.idEmpleado}" style="width:350px;"  converter="entityConverter">
                     <f:selectItem itemLabel="Seleccione" />
                     <f:selectItems var="empleado" value="#{bean.empleados}" itemLabel="#{empleado.nombre} #{empleado.apellido}" itemValue="#{empleado}" />
                 </p:selectOneMenu>  
 
                 <p:outputLabel value="Lote" for="lote" />
-                <p:selectOneMenu filter="true" filterMatchMode="contains" required="true" id="lote" value="#{bean.actividadMaquinaria.idLote}" converter="entityConverter">
+                <p:selectOneMenu filter="true" filterMatchMode="contains" required="true" id="lote" style="width:350px;" value="#{bean.actividadMaquinaria.idLote}" converter="entityConverter">
                     <f:selectItem itemLabel="Seleccione" />
                     <f:selectItems var="lote" value="#{bean.lotes}" itemLabel="#{lote.nombre}" itemValue="#{lote}" />
                 </p:selectOneMenu>
 
+                <p:outputLabel value="Apero" for="apero" />
+                <p:selectOneMenu required="true" id="apero" value="#{bean.actividadMaquinaria.idApero}" style="width:350px;" converter="entityConverter">
+                    <f:selectItem itemLabel="Seleccione" />
+                    <f:selectItems var="apero" value="#{bean.aperos}" itemLabel="#{apero.marca} - #{apero.funcion} " itemValue="#{apero}" />
+                </p:selectOneMenu>
+
                 <p:outputLabel value="Extension de Trabajo (Hectareas)" for="ext" />
-                <p:inputNumber required="true" id="ext" value="#{bean.actividadMaquinaria.extensionTrabajo}"/>  
+                <p:inputNumber required="true" id="ext" size="16" value="#{bean.actividadMaquinaria.extensionTrabajo}"/>  
 
                 <p:outputLabel value="Combustible (GL) Inicial" for="comb-i" />
                 <p:column>
-                    <p:inputNumber required="true" id="comb-i" value="#{bean.actividadMaquinaria.combustibleInicial}"/> 
+                    <p:inputNumber required="true" id="comb-i" size="16" value="#{bean.actividadMaquinaria.combustibleInicial}"/> 
                     <p:outputLabel value="Final" for="comb-f" />
-                    <p:inputNumber required="true" id="comb-f" value="#{bean.actividadMaquinaria.combustibleFinal}"/> 
+                    <p:inputNumber required="true" id="comb-f" size="16" value="#{bean.actividadMaquinaria.combustibleFinal}"/> 
                 </p:column>
 
                 <p:outputLabel value="Horometro de Maquina Inicial " for="horo-i" />
                 <p:column>
-                    <p:inputNumber required="true" id="horo-i" value="#{bean.actividadMaquinaria.inicioHorometro}"/> 
+                    <p:inputNumber required="true" id="horo-i" size="16" value="#{bean.actividadMaquinaria.inicioHorometro}"/> 
                     <p:outputLabel value=" Final " for="horo-f" />
-                    <p:inputNumber required="true" id="horo-f" value="#{bean.actividadMaquinaria.finHorometro}"/> 
+                    <p:inputNumber required="true" id="horo-f" size="16" value="#{bean.actividadMaquinaria.finHorometro}"/> 
 
                 </p:column>
 
@@ -82,7 +88,7 @@
                 </p:column-->
 
                 <p:outputLabel value="Observacion" for="obser" />
-                <p:inputText id="obser" value="#{bean.actividadMaquinaria.observacion}" style="width: 100%" />
+                <p:inputText id="obser" value="#{bean.actividadMaquinaria.observacion}"/>
 
             </p:panelGrid>
             <p:separator style="width: 100%"  rendered="#{bean.canSave}" />
