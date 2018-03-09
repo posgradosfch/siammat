@@ -151,10 +151,7 @@ public abstract class ListBaseBean implements Serializable {
         this.filtros = filtros;
     }
 
-    /**
-     * Uri del formalario de edicíon
-     *
-     */
+ 
     public String getPathForm() {
         return pathForm;
     }

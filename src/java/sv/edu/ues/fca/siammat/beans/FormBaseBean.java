@@ -65,10 +65,7 @@ public abstract class FormBaseBean implements Serializable {
 
     public abstract boolean validate();
 
-    /**
-     * Entidad que se está gestionando
-     *
-     */
+
     public Serializable getMainObject() {
         return mainObject;
     }
