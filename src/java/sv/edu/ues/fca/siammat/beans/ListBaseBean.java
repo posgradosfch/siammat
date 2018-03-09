@@ -154,7 +154,6 @@ public abstract class ListBaseBean implements Serializable {
     /**
      * Uri del formalario de edicíon
      *
-     * @return
      */
     public String getPathForm() {
         return pathForm;

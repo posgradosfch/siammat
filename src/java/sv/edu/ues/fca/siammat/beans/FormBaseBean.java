@@ -68,7 +68,6 @@ public abstract class FormBaseBean implements Serializable {
     /**
      * Entidad que se está gestionando
      *
-     * @return
      */
     public Serializable getMainObject() {
         return mainObject;
