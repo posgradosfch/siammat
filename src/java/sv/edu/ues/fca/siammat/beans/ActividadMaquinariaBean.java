@@ -12,6 +12,7 @@ import sv.edu.ues.fca.siammat.modelo.Actividad;
 import sv.edu.ues.fca.siammat.modelo.ActividadMaquinaria;
 import sv.edu.ues.fca.siammat.modelo.Lote;
 import sv.edu.ues.fca.siammat.modelo.Maquinaria;
+import sv.edu.ues.fca.siammat.modelo.Apero;
 import sv.edu.ues.fca.siammat.seguridad.modelo.Empleado;
 
 /**
@@ -27,6 +28,7 @@ public class ActividadMaquinariaBean extends FormBaseBean {
     private List<Lote> lotes;
     private List<Actividad> actividades;
     private List<Maquinaria> maquinarias;
+    private List<Apero> aperos;
 
     /**
      * Creates a new instance of ActividadMaquinariaBean
@@ -56,6 +58,7 @@ public class ActividadMaquinariaBean extends FormBaseBean {
         return empleados;
     }
 
+    
     public List<Lote> getLotes() {
         if (lotes == null) {
             lotes = getServiceLocator().getGenericServicio().find("from Lote l");
@@ -77,7 +80,12 @@ public class ActividadMaquinariaBean extends FormBaseBean {
         return maquinarias;
     }
 
-
+ public List<Apero> getAperos() {
+     if (aperos == null) {
+            aperos = getServiceLocator().getGenericServicio().find("from Apero ap");
+        }
+        return aperos;
+    }
 
     @Override
     public void onSave() {   
