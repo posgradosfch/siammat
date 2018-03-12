@@ -53,6 +53,10 @@ public class ActividadMaquinaria implements Serializable {
     private Double inicioHorometro;
     @Column(name = "fin_horometro")
     private Double finHorometro;
+    @Column(name = "inicio_horometroap")
+    private Double inicioHorometroAP;
+    @Column(name = "fin_horometroap")
+    private Double finHorometroAP;
     @Column(name = "inicio_reloj")
     @Temporal(TemporalType.TIME)
     private Date inicioReloj;
@@ -210,6 +214,7 @@ public class ActividadMaquinaria implements Serializable {
     public void setIdMaquinaria(Maquinaria idMaquinaria) {
         this.idMaquinaria = idMaquinaria;
     }
+    
 
     @Override
     public int hashCode() {
@@ -242,6 +247,22 @@ public class ActividadMaquinaria implements Serializable {
 
     public void setIdApero(String idApero) {
         this.idApero = idApero;
+    }
+
+    public Double getInicioHorometroAP() {
+        return inicioHorometroAP;
+    }
+
+    public void setInicioHorometroAP(Double inicioHorometroAP) {
+        this.inicioHorometroAP = inicioHorometroAP;
+    }
+
+    public Double getFinHorometroAP() {
+        return finHorometroAP;
+    }
+
+    public void setFinHorometroAP(Double finHorometroAP) {
+        this.finHorometroAP = finHorometroAP;
     }
     
 }
