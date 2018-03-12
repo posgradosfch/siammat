@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/siammat">
-  <Resource auth="Container" driverClassName="org.postgresql.Driver" logAbandoned="true" maxActive="10" maxIdle="5" maxWait="-1" name="jdbc/dsSiammat" password="postgres" removeAbandoned="true" removeAbandonedTimeout="30" type="javax.sql.DataSource" url="jdbc:postgresql://localhost/siammat" username="postgres"/>
+<Context path="/siammat"  antiResourceLocking="true" >
+  <Resource auth="Container" driverClassName="org.postgresql.Driver" logAbandoned="true" maxActive="10" maxIdle="5" maxWait="-1" name="jdbc/dsSiammat" password="agrosiam" removeAbandoned="true" removeAbandonedTimeout="30" type="javax.sql.DataSource" url="jdbc:postgresql://localhost/siammat" username="postgres"/>
 </Context>

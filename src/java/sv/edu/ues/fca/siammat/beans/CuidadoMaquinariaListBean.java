@@ -71,24 +71,9 @@ public class CuidadoMaquinariaListBean extends ListBaseBean{
         return sfFecha;
     }
 
-    /**
-+     * @param sfFecha the sfFecha to set
-+     */
+
     public void setSfFecha(SimpleFilterElement<Date> sfFecha) {
         this.sfFecha = sfFecha;
     }
 
-    /**
-     * @return the sfMaquinaria
-     */
-    /*public SimpleFilterElement<String> getSfMaquinaria() {
-        return sfMaquinaria;
-    }
-
-    /**
-     * @param sfMaquinaria the sfMaquinaria to set
-     */
-    /*public void setSfMaquinaria(SimpleFilterElement<String> sfMaquinaria) {
-        this.sfMaquinaria = sfMaquinaria;
-    }*/
 }
