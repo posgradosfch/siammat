@@ -20,8 +20,8 @@ import sv.edu.ues.fca.siammat.modelo.Apero;
 @ViewScoped
 public class AperoListBean extends ListBaseBean {
 
-    private SimpleFilterElement<String> sfMarca = new SimpleFilterElement<String>("ap.marca", SimpleFilterElement.AND, "LIKE");
-    private SimpleFilterElement<String> sfModelo = new SimpleFilterElement<String>("ap.modelo", SimpleFilterElement.AND, "LIKE");
+    private SimpleFilterElement<String> sfMarca = new SimpleFilterElement<String>("marca", SimpleFilterElement.AND, "LIKE");
+    private SimpleFilterElement<String> sfModelo = new SimpleFilterElement<String>("modelo", SimpleFilterElement.AND, "LIKE");
 
     /**
      * Creates a new instance of AperoListBean
@@ -40,10 +40,10 @@ public class AperoListBean extends ListBaseBean {
 
     @Override
     public String setupQuery() {
-        String hql = "from Apero ap";
+        String hql = "from Apero ";
         String wc = getFiltros().generateWhereClause();
         if (wc != null && !wc.equals("")) {
-            hql += "where" + wc;
+            hql += " where " + wc;
         }
         return hql;
     }

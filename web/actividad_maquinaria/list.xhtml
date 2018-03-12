@@ -24,10 +24,7 @@
                         <f:selectItem itemLabel="Seleccione"/>
                         <f:selectItems var="actividad" value="#{bean.actividades}" itemLabel="#{actividad.nombre}" itemValue="#{actividad.idActividad}"/>
                     </p:selectOneMenu>
-                    <br/>
-                   
-                        <f:selectItems var="actividad" value="#{bean.actividades}" itemLabel="#{actividad.nombre}" itemValue="#{actividad.nombre}"/>
-                    </p:selectOneMenu>
+
                     <p:outputLabel value="Maquinaria" for="maquinaria" />
                     <p:selectOneMenu id="maquinaria" value="#{bean.sfMaquinaria.value}" >
                         <f:selectItem itemLabel="Seleccione" />
@@ -119,29 +116,30 @@
                         </h:outputText>
                     </p:column>
 
-                    <p:column headerText="Horometro Inicial">
+                    <p:column headerText="Horometro Inicial de Maquinaria">
                         <h:outputText value="#{actividadmaq.inicioHorometro}">
                             <f:convertNumber pattern="#0.00" />
                         </h:outputText>
                     </p:column>
 
-                    <p:column headerText="Horometro Final">
+                    <p:column headerText="Horometro Final de Maquinaria">
                         <h:outputText value="#{actividadmaq.finHorometro}">
                             <f:convertNumber pattern="#0.00" />
                         </h:outputText>
                     </p:column>
 
-                    <!--p:column headerText="Hora Inicial">
-                        <h:outputText value="{actividadmaq.inicioReloj}">
-                            <f:convertDateTime locale="es_SV" pattern="hh:mm a" timeZone="America/El_Salvador"/>
+
+                    <p:column headerText="Horometro Inicial de Apero">
+                        <h:outputText value="#{actividadmaq.inicioHorometroAP}">
+                            <f:convertNumber pattern="#0.00" />
                         </h:outputText>
                     </p:column>
 
-                    <p:column headerText="Hora Final">
-                        <h:outputText value="{actividadmaq.finReloj}">
-                            <f:convertDateTime locale="es_SV" pattern="hh:mm a" timeZone="America/El_Salvador" />
+                    <p:column headerText="Horometro Final de Apero">
+                        <h:outputText value="#{actividadmaq.finHorometroAP}">
+                            <f:convertNumber pattern="#0.00" />
                         </h:outputText>
-                    </p:column-->
+                    </p:column>
 
                     <p:column headerText="Acciones" style="width: 100px">
                         <p:commandButton class="#{bean.privilegio.editar==true?'btn btn-warning':'btn btn-info'}" update="lst" icon="#{bean.privilegio.editar==true?'fa fa-pencil':'fa fa-info'}" actionListener="#{bean.onEdit(actividadmaq)}" title="#{bean.privilegio.editar==true?'Editar':'Información'}">

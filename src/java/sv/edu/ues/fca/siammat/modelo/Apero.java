@@ -147,7 +147,7 @@ public class Apero implements Serializable {
 
     @Override
     public String toString() {
-        return "sv.edu.ues.fca.siammat.modelo.Apero[ idApero=" + idApero + ']';
+        return "sv.edu.ues.fca.siammat.modelo.Apero[ id_apero=" + idApero + ']';
     }
 
     public String getEstadoName() {
