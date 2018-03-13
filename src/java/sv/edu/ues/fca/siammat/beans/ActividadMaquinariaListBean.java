@@ -25,11 +25,11 @@ import sv.edu.ues.fca.siammat.util.Util;
 @ManagedBean
 @ViewScoped
 public class ActividadMaquinariaListBean extends ListBaseBean {
-    private List<Actividad> actividades;
+    private List<Actividad> actividadList;
     private List<Maquinaria> maquinariaList;
     private BetweenFilterElement<Date> sfFecha=new BetweenFilterElement<Date>("am.fecha", SimpleFilterElement.AND);
     //private SimpleFilterElement<Date> sfFecha = new SimpleFilterElement<Date>("am.fecha", SimpleFilterElement.AND, "=");
-    private SimpleFilterElement<String> sfActividad= new SimpleFilterElement<String>("am.idActividad.abreviatura", SimpleFilterElement.AND, "LIKE");
+    private SimpleFilterElement<Integer> sfActividad= new SimpleFilterElement<Integer>("am.idActividad.idActividad", SimpleFilterElement.AND, "=");
     private SimpleFilterElement<Integer> sfMaquinaria= new SimpleFilterElement<Integer>("am.idMaquinaria.idMaquinaria", SimpleFilterElement.AND, "=");
     /**
      * Creates a new instance of ActividadMaquinariaListBean
@@ -64,14 +64,14 @@ public class ActividadMaquinariaListBean extends ListBaseBean {
     /**
      * @return the sfActividad
      */
-    public SimpleFilterElement<String> getSfActividad() {
+    public SimpleFilterElement<Integer> getSfActividad() {
         return sfActividad;
     }
 
     /**
      * @param sfActividad the sfActividad to set
      */
-    public void setSfActividad(SimpleFilterElement<String> sfActividad) {
+    public void setSfActividad(SimpleFilterElement<Integer> sfActividad) {
         this.sfActividad = sfActividad;
     }
 
@@ -83,11 +83,11 @@ public class ActividadMaquinariaListBean extends ListBaseBean {
         this.sfFecha = sfFecha;
     }
 
-    public List<Actividad> getActividades() {
-        if (actividades == null) {
-            actividades = getServiceLocator().getGenericServicio().find("from Actividad a");
+    public List<Actividad> getActividadList() {
+        if (actividadList == null) {
+            actividadList = getServiceLocator().getGenericServicio().find("from Actividad");
         }
-        return actividades;
+        return actividadList;
     }
 
     @Override

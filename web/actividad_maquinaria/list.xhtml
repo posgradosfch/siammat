@@ -22,7 +22,7 @@
                     <p:outputLabel value="Actividad" for="actividad"/>
                     <p:selectOneMenu id="actividad" value="#{bean.sfActividad.value}">
                         <f:selectItem itemLabel="Seleccione"/>
-                        <f:selectItems var="actividad" value="#{bean.actividades}" itemLabel="#{actividad.nombre}" itemValue="#{actividad.idActividad}"/>
+                        <f:selectItems var="actividad" value="#{bean.actividadList}" itemLabel="#{actividad.nombre} - #{actividad.abreviatura}" itemValue="#{actividad.idActividad}"/>
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Maquinaria" for="maquinaria" />
@@ -81,7 +81,7 @@
                     </p:column>
 
                     <p:column headerText="Actividad">
-                        <p:outputLabel value="#{actividadmaq.idActividad.nombre} - #{actividadmaq.idActividad.abreviatura}" />
+                        <p:outputLabel value="#{actividadmaq.idActividad.nombre}" />
                     </p:column>
 
                     <p:column headerText="Encargado">
