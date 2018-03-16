@@ -47,17 +47,13 @@
                     <f:selectItem itemLabel="En reparacion" itemValue="2" />
                     <f:selectItem itemLabel="En desuso" itemValue="3" />
                 </p:selectOneMenu>
+                <p:outputLabel value="Función" for="funcion"/>
+                <p:inputText required="true" id="funcion" value="#{bean.apero.funcion}" style="width: 100% " maxlength="50"/>
                 
-                <p:outputLabel value="Función" for="noInventario"/>
-                <p:inputText required="true" id="noInventario" value="#{bean.apero.funcion}" style="width: 100% " maxlength="50"/>
-
-
             </p:panelGrid>
             <p:separator style="width: 100%"  rendered="#{bean.canSave}" />
-
-            <p:commandButton value="Guardar" class="btn btn-primary" actionListener="#{bean.onSave()}" rendered="#{bean.canSave}" />
-            <p:commandButton value="Cancelar" class="btn btn-danger" actionListener="#{bean.onCancel()}"  rendered="#{bean.canSave}" immediate="true"  />
-
+            <p:commandButton value="Guardar" class="btn btn-primary" actionListener="#{bean.onSave()}" rendered="#{bean.canSave}"/>
+            <p:commandButton value="Cancelar" class="btn btn-danger" actionListener="#{bean.onCancel()}"  rendered="#{bean.canSave}" immediate="true"/>
         </h:form>
     </h:body>
 </html>
